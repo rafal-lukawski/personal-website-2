@@ -20,18 +20,18 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.OWNER_PAT }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check out repo
         uses: actions/checkout@v2
 
-      # - name: Bump patch version
-      #   uses: phips28/gh-action-bump-version@v11.0.7
-      #   with:
-      #     default: patch
-      #     tag-prefix: "v"
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Bump patch version
+        uses: phips28/gh-action-bump-version@v11.0.7
+        with:
+          default: patch
+          tag-prefix: "v"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build web
         run: |
@@ -61,7 +61,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.OWNER_PAT }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Copy docker-compose file
         uses: appleboy/scp-action@v0.1.7
@@ -81,7 +81,7 @@ jobs:
           script: |
             set -e
             cd ./personal-website-2
-            echo "${{ secrets.OWNER_PAT }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
             docker stack deploy --compose-file=docker-compose.yml personal-website-2 --resolve-image always --with-registry-auth
             docker system prune -f
 
@@ -89,4 +89,3 @@ jobs:
         run: |
           echo "Waiting for services to stabilize..."
           npx -y wait-on --timeout 120000 https://lukawski.eu
-
