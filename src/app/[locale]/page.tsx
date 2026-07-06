@@ -33,13 +33,13 @@ export default function Page() {
         <AboutSection />
       </AnimatedSection>
       <AnimatedSection>
+        <ProjectsSection />
+      </AnimatedSection>
+      <AnimatedSection>
         <ProjectManagementSection />
       </AnimatedSection>
       <AnimatedSection>
         <StackSection />
-      </AnimatedSection>
-      <AnimatedSection>
-        <ProjectsSection />
       </AnimatedSection>
       <AnimatedSection>
         <CertificatesSection />
