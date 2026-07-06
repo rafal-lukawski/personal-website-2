@@ -19,6 +19,25 @@ import { useTranslations } from "next-intl";
 
 const projectsData: Project[] = [
   {
+    id: "mediaflip",
+    url: "https://mediaflip.io",
+    customer: "Rafał Łukawski",
+    screenshots: [
+      {
+        id: "screen1",
+        src: "/mediaflip-1.png",
+        alt: "mediaflip.io Screen 1",
+        sourceUrl: "mediaflip.io",
+      },
+      {
+        id: "screen2",
+        src: "/mediaflip-2.png",
+        alt: "mediaflip.io Screen 2",
+        sourceUrl: "mediaflip.io/pl/stos-technologiczny",
+      },
+    ],
+  },
+  {
     id: "egzoclinic",
     url: undefined,
     customer: { display: "EGZOTech.com", url: "https://egzotech.com" },

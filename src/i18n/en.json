@@ -42,6 +42,12 @@
     "title": "Latest Projects",
     "customer": "Customer",
     "source": "Source",
+    "mediaflip": {
+      "title": "mediaflip.io",
+      "dateRange": "January 2026 - present",
+      "customer": "Rafał Łukawski",
+      "description": "An advanced meme generator that allows users to quickly and easily create multimedia content using images, videos, and text without unnecessary steps. The platform is built with a strong focus on high performance, security, and scalability, leveraging a modern technology stack."
+    },
     "egzoclinic": {
       "title": "EGZOClinic",
       "dateRange": "January 2022 - present",
