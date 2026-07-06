@@ -47,7 +47,7 @@
       "title": "mediaflip.io",
       "dateRange": "Styczeń 2026 - obecnie",
       "customer": "Rafał Łukawski",
-      "description": "Zaawansowany generator memów, który pozwala użytkownikom na szybkie i proste tworzenie multimedialnych treści (zdjęcia, wideo i tekst) bez zbędnych kroków. Platforma została zbudowana z naciskiem na najwyższą wydajność, bezpieczeństwo oraz skalowalność, wykorzystując nowoczesny stos technologiczny."
+      "description": "Zaawansowany generator multimediów, który pozwala użytkownikom na szybkie i proste tworzenie treści (zdjęcia, wideo i tekst) bez zbędnych kroków. Platforma została zbudowana z naciskiem na najwyższą wydajność, bezpieczeństwo oraz skalowalność, wykorzystując nowoczesny stos technologiczny."
     },
     "egzoclinic": {
       "title": "EGZOClinic",
@@ -115,4 +115,3 @@
     "copyright": "© {year} Rafał Łukawski"
   }
 }
-
