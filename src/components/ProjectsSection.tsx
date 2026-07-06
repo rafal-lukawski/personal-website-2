@@ -35,6 +35,12 @@ const projectsData: Project[] = [
         alt: "mediaflip.io Screen 2",
         sourceUrl: "mediaflip.io/pl/stos-technologiczny",
       },
+      {
+        id: "screen5",
+        src: "/mediaflip-5.png",
+        alt: "mediaflip.io Generator",
+        sourceUrl: "mediaflip.io/pl/generator",
+      },
     ],
   },
   {
