@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write # 🔥 write access to a branch (bump version)
+      packages: write # 🔥 write access to ghcr.io
     steps:
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
