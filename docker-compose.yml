@@ -1,6 +1,6 @@
 services:
   web:
-    image: ghcr.io/rlukawski/personal-website-2:latest
+    image: ghcr.io/rafal-lukawski/personal-website-2:latest
     init: true
     restart: always
     build: .
@@ -9,38 +9,37 @@ services:
     deploy:
       replicas: 1
     labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.personal-website-2-secure.rule=Host(`lukawski.eu`)'
-      - 'traefik.http.routers.personal-website-2-secure.entrypoints=websecure'
-      - 'traefik.http.routers.personal-website-2-secure.tls.certresolver=myresolver'
-      - 'traefik.http.services.personal-website-2-secure.loadbalancer.server.port=3000'
+      - "traefik.enable=true"
+      - "traefik.http.routers.personal-website-2-secure.rule=Host(`lukawski.eu`)"
+      - "traefik.http.routers.personal-website-2-secure.entrypoints=websecure"
+      - "traefik.http.routers.personal-website-2-secure.tls.certresolver=myresolver"
+      - "traefik.http.services.personal-website-2-secure.loadbalancer.server.port=3000"
 
-      - 'traefik.http.routers.www-personal-website-2-secure.rule=Host(`www.lukawski.eu`)'
-      - 'traefik.http.routers.www-personal-website-2-secure.entrypoints=websecure'
-      - 'traefik.http.routers.www-personal-website-2-secure.tls.certresolver=myresolver'
-      - 'traefik.http.routers.www-personal-website-2-secure.middlewares=www-personal-website-2-redirect'
+      - "traefik.http.routers.www-personal-website-2-secure.rule=Host(`www.lukawski.eu`)"
+      - "traefik.http.routers.www-personal-website-2-secure.entrypoints=websecure"
+      - "traefik.http.routers.www-personal-website-2-secure.tls.certresolver=myresolver"
+      - "traefik.http.routers.www-personal-website-2-secure.middlewares=www-personal-website-2-redirect"
 
       - 'traefik.http.middlewares.www-personal-website-2-redirect.redirectregex.regex=^https://www\.lukawski\.eu/(.*)'
-      - 'traefik.http.middlewares.www-personal-website-2-redirect.redirectregex.replacement=https://lukawski.eu/$${1}'
-      - 'traefik.http.middlewares.www-personal-website-2-redirect.redirectregex.permanent=true'
+      - "traefik.http.middlewares.www-personal-website-2-redirect.redirectregex.replacement=https://lukawski.eu/$${1}"
+      - "traefik.http.middlewares.www-personal-website-2-redirect.redirectregex.permanent=true"
 
-      - 'traefik.http.routers.personal-website-2.rule=Host(`lukawski.eu`)'
-      - 'traefik.http.routers.personal-website-2.entrypoints=web'
-      - 'traefik.http.routers.personal-website-2.middlewares=personal-website-2-insecure-redirect'
+      - "traefik.http.routers.personal-website-2.rule=Host(`lukawski.eu`)"
+      - "traefik.http.routers.personal-website-2.entrypoints=web"
+      - "traefik.http.routers.personal-website-2.middlewares=personal-website-2-insecure-redirect"
 
-      - 'traefik.http.routers.www-personal-website-2.rule=Host(`www.lukawski.eu`)'
-      - 'traefik.http.routers.www-personal-website-2.entrypoints=web'
-      - 'traefik.http.routers.www-personal-website-2.middlewares=www-personal-website-2-insecure-redirect'
+      - "traefik.http.routers.www-personal-website-2.rule=Host(`www.lukawski.eu`)"
+      - "traefik.http.routers.www-personal-website-2.entrypoints=web"
+      - "traefik.http.routers.www-personal-website-2.middlewares=www-personal-website-2-insecure-redirect"
 
       - 'traefik.http.middlewares.www-personal-website-2-insecure-redirect.redirectregex.regex=^http://www\.lukawski\.eu/(.*)'
-      - 'traefik.http.middlewares.www-personal-website-2-insecure-redirect.redirectregex.replacement=https://lukawski.eu/$${1}'
-      - 'traefik.http.middlewares.www-personal-website-2-insecure-redirect.redirectregex.permanent=true'
+      - "traefik.http.middlewares.www-personal-website-2-insecure-redirect.redirectregex.replacement=https://lukawski.eu/$${1}"
+      - "traefik.http.middlewares.www-personal-website-2-insecure-redirect.redirectregex.permanent=true"
 
       - 'traefik.http.middlewares.personal-website-2-insecure-redirect.redirectregex.regex=^http://lukawski\.eu/(.*)'
-      - 'traefik.http.middlewares.personal-website-2-insecure-redirect.redirectregex.replacement=https://lukawski.eu/$${1}'
-      - 'traefik.http.middlewares.personal-website-2-insecure-redirect.redirectregex.permanent=true'
+      - "traefik.http.middlewares.personal-website-2-insecure-redirect.redirectregex.replacement=https://lukawski.eu/$${1}"
+      - "traefik.http.middlewares.personal-website-2-insecure-redirect.redirectregex.permanent=true"
 
 networks:
   proxy-network:
     external: true
-
