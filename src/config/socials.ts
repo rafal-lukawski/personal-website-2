@@ -23,10 +23,9 @@ export const socialLinks: SocialLink[] = [
     url: "mailto:rafal@lukawski.eu",
     icon: FaEnvelope,
   },
-  {
-    name: "+48 570 116 416",
-    url: "tel:+48570116416",
-    icon: FaPhone,
-  },
+  // {
+  //   name: "+48 570 116 416",
+  //   url: "tel:+48570116416",
+  //   icon: FaPhone,
+  // },
 ];
-
