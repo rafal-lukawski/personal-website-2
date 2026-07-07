@@ -46,31 +46,80 @@
       "title": "mediaflip.io",
       "dateRange": "January 2026 - present",
       "customer": "Rafał Łukawski",
-      "description": "An advanced multimedia generator that allows users to quickly and easily create content (images, videos, and text) without unnecessary steps. The platform is built with a strong focus on high performance, security, and scalability, leveraging a modern technology stack."
+      "description": "An advanced multimedia generator that allows users to quickly and easily create content (images, videos, and text) without unnecessary steps. The platform is built with a strong focus on high performance, security, and scalability, leveraging a modern technology stack.",
+      "screenshots": {
+        "screen1": {
+          "alt": "mediaflip.io Screen 1"
+        },
+        "screen2": {
+          "alt": "mediaflip.io Screen 2"
+        },
+        "screen5": {
+          "alt": "mediaflip.io Generator"
+        }
+      }
     },
     "egzoclinic": {
       "title": "EGZOClinic",
       "dateRange": "January 2022 - October 2025",
       "customer": "EGZOTech.com",
-      "description": "Comprehensive software platform for physiotherapy and neurorehabilitation. The application runs on robotic medical devices including Stella BIO, Sidra LEG, and Meissa OT, facilitating rehabilitation for conditions like strokes and spinal cord injuries. Features include progressive continuous passive motion (CPM) therapy, computer-assisted movement (CAM) exercises including CAM Isokinetic and CAM Torque, graphical interface for EMS parameter configuration, comprehensive reporting with EMG data analysis, spasticity protection, electrode placement guidance, rehabilitation games, and multilingual support."
+      "description": "Comprehensive software platform for physiotherapy and neurorehabilitation. The application runs on robotic medical devices including Stella BIO, Sidra LEG, and Meissa OT, facilitating rehabilitation for conditions like strokes and spinal cord injuries. Features include progressive continuous passive motion (CPM) therapy, computer-assisted movement (CAM) exercises including CAM Isokinetic and CAM Torque, graphical interface for EMS parameter configuration, comprehensive reporting with EMG data analysis, spasticity protection, electrode placement guidance, rehabilitation games, and multilingual support.",
+      "screenshots": {
+        "screen1": {
+          "alt": "The login screen now remembers recently signed-in users, allowing faster access and reducing the time needed to start using the device."
+        },
+        "screen2": {
+          "alt": "CPM Progressive is an advanced Continuous Passive Motion (CPM) therapy mode in which the device applies a predefined torque to move the patient through a specified range of motion at a controlled speed. The program supports both manual and automatic adjustment of the range of motion during therapy."
+        },
+        "screen3": {
+          "alt": "The EMG View exercise has been enhanced to divide EMG recordings into segments, each representing a single muscle contraction for detailed analysis in the report. Users can name and review segments during the exercise, while a pre-exercise relaxation measurement provides a baseline for subsequent report calculations."
+        },
+        "screen4": {
+          "alt": "The EMS User Program and EMS Pelvic User Program now feature a graphical interface that allows therapists to quickly and easily adjust the signal envelope for each exercise channel. Changes can be tested on the patient directly from the same settings screen before starting the actual exercise."
+        }
+      }
     },
     "generator": {
       "title": "Generator Pasków",
       "dateRange": "December 2024 - present",
       "customer": "Rafał Łukawski",
-      "description": "Full-stack meme generator platform for Polish TV programs. Built from scratch using modern Next.js stack with PostgreSQL database, Prisma ORM, and tRPC APIs. The platform enables users to create and share memes based on popular Polish television content. Features include image upload and manipulation, template management, user-generated content sharing, and responsive design. Deployed with Docker and CI/CD pipeline for production-ready reliability."
+      "description": "Full-stack meme generator platform for Polish TV programs. Built from scratch using modern Next.js stack with PostgreSQL database, Prisma ORM, and tRPC APIs. The platform enables users to create and share memes based on popular Polish television content. Features include image upload and manipulation, template management, user-generated content sharing, and responsive design. Deployed with Docker and CI/CD pipeline for production-ready reliability.",
+      "screenshots": {
+        "screen1": {
+          "alt": "Generator Pasków Screen 1"
+        },
+        "screen2": {
+          "alt": "Generator Pasków Screen 2"
+        }
+      }
     },
     "stella": {
       "title": "Stella BIO App",
       "dateRange": "March 2019 - April 2024",
       "customer": "EGZOTech.com",
-      "description": "Online web application for managing and configuring the Stella BIO portable medical device, which provides advanced electromyography (EMG) and functional electrical stimulation (FES) capabilities. The application enables healthcare professionals and patients to remotely configure therapy programs, monitor EMG measurements, and manage treatment protocols. Built with Angular frontend and NestJS backend, the platform supports both clinical and home-based rehabilitation for neurological, orthopedic, oncological, pain management, sports, and pelvic floor conditions. Features include user authentication, EMG program configuration, therapy session management, and comprehensive reporting."
+      "description": "Online web application for managing and configuring the Stella BIO portable medical device, which provides advanced electromyography (EMG) and functional electrical stimulation (FES) capabilities. The application enables healthcare professionals and patients to remotely configure therapy programs, monitor EMG measurements, and manage treatment protocols. Built with Angular frontend and NestJS backend, the platform supports both clinical and home-based rehabilitation for neurological, orthopedic, oncological, pain management, sports, and pelvic floor conditions. Features include user authentication, EMG program configuration, therapy session management, and comprehensive reporting.",
+      "screenshots": {
+        "screen1": {
+          "alt": "Stella BIO App Login Page"
+        },
+        "screen2": {
+          "alt": "Stella BIO App EMG Program"
+        }
+      }
     },
     "multibenefit": {
       "title": "Multibenefit",
       "dateRange": "June 2013 - February 2016",
       "customer": "Benefit Systems",
-      "description": "E-commerce platform designed to provide employees with access to a variety of non-wage benefits. The platform enabled employees to select from a range of perks including MultiSport cards, gift vouchers, and tickets to cultural events. Built from scratch with full-stack architecture, implementation, and project management. The platform aimed to enhance employee satisfaction and well-being by offering personalized benefits tailored to individual preferences, while providing employers with efficient tools to manage and distribute these benefits."
+      "description": "E-commerce platform designed to provide employees with access to a variety of non-wage benefits. The platform enabled employees to select from a range of perks including MultiSport cards, gift vouchers, and tickets to cultural events. Built from scratch with full-stack architecture, implementation, and project management. The platform aimed to enhance employee satisfaction and well-being by offering personalized benefits tailored to individual preferences, while providing employers with efficient tools to manage and distribute these benefits.",
+      "screenshots": {
+        "screen1": {
+          "alt": "Multibenefit.pl Screen 1"
+        },
+        "screen2": {
+          "alt": "Multibenefit.pl Screen 2"
+        }
+      }
     }
   },
   "certificates": {

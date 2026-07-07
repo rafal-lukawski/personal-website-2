@@ -26,19 +26,19 @@ const projectsData: Project[] = [
       {
         id: "screen1",
         src: "/mediaflip-1.png",
-        alt: "mediaflip.io Screen 1",
+        alt: "",
         sourceUrl: "mediaflip.io",
       },
       {
         id: "screen2",
         src: "/mediaflip-2.png",
-        alt: "mediaflip.io Screen 2",
+        alt: "",
         sourceUrl: "mediaflip.io/pl/stos-technologiczny",
       },
       {
         id: "screen5",
         src: "/mediaflip-5.png",
-        alt: "mediaflip.io Generator",
+        alt: "",
         sourceUrl: "mediaflip.io/pl/generator",
       },
     ],
@@ -51,32 +51,25 @@ const projectsData: Project[] = [
       {
         id: "screen1",
         src: "/egzoclinic-5.png",
-        alt: "The login screen now remembers recently signed-in users, allowing faster access and reducing the time needed to start using the device.",
+        alt: "",
         sourceUrl: "egzotech.com",
       },
       {
         id: "screen2",
         src: "/egzoclinic-2.png",
-        alt:
-          "CPM Progressive is an advanced Continuous Passive Motion (CPM) therapy mode in which the device applies a predefined torque to move the patient through a specified range of motion at a controlled speed. " +
-          "The program supports both manual and automatic adjustment of the range of motion during therapy.",
+        alt: "",
         sourceUrl: "egzotech.com",
       },
       {
         id: "screen3",
         src: "/egzoclinic-3.png",
-        alt:
-          "The EMG View exercise has been enhanced to divide EMG recordings into segments, each representing a single muscle contraction for detailed analysis in the report. " +
-          "Users can name and review segments during the exercise, while a pre-exercise relaxation measurement provides a baseline for subsequent report calculations.",
+        alt: "",
         sourceUrl: "egzotech.com",
       },
       {
         id: "screen4",
         src: "/egzoclinic-4.png",
-        alt:
-          "The EMS User Program and EMS Pelvic User Program now feature a graphical interface " +
-          "that allows therapists to quickly and easily adjust the signal envelope for each exercise channel. " +
-          "Changes can be tested on the patient directly from the same settings screen before starting the actual exercise.",
+        alt: "",
         sourceUrl: "egzotech.com",
       },
     ],
@@ -89,13 +82,13 @@ const projectsData: Project[] = [
       {
         id: "screen1",
         src: "/generator-1.png",
-        alt: "Generator Pasków Screen 1",
+        alt: "",
         sourceUrl: "generator-paskow.pl",
       },
       {
         id: "screen2",
         src: "/generator-2.png",
-        alt: "Generator Pasków Screen 2",
+        alt: "",
         sourceUrl: "generator-paskow.pl",
       },
     ],
@@ -108,13 +101,13 @@ const projectsData: Project[] = [
       {
         id: "screen1",
         src: "/stella-app_login-page.png",
-        alt: "Stella BIO App Login Page",
+        alt: "",
         sourceUrl: "egzotech.com",
       },
       {
         id: "screen2",
         src: "/stella-app_emg-program.png",
-        alt: "Stella BIO App EMG Program",
+        alt: "",
         sourceUrl: "egzotech.com",
       },
     ],
@@ -130,13 +123,13 @@ const projectsData: Project[] = [
       {
         id: "screen1",
         src: "/multi-1.png",
-        alt: "Multibenefit.pl Screen 1",
+        alt: "",
         sourceUrl: "web.archive.org",
       },
       {
         id: "screen2",
         src: "/multi-2.png",
-        alt: "Multibenefit.pl Screen 2",
+        alt: "",
         sourceUrl: "web.archive.org",
       },
     ],
@@ -162,6 +155,10 @@ export function ProjectsSection() {
       typeof project.customer === "object"
         ? { ...project.customer, display: t(`${project.id}.customer`) }
         : t(`${project.id}.customer`),
+    screenshots: project.screenshots.map((screen) => ({
+      ...screen,
+      alt: t(`${project.id}.screenshots.${screen.id}.alt`),
+    })),
   }));
 
   const handleScreenshotClick = (projectId: string, index: number) => {

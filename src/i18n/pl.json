@@ -47,31 +47,80 @@
       "title": "mediaflip.io",
       "dateRange": "Styczeń 2026 - obecnie",
       "customer": "Rafał Łukawski",
-      "description": "Zaawansowany generator multimediów, który pozwala użytkownikom na szybkie i proste tworzenie treści (zdjęcia, wideo i tekst) bez zbędnych kroków. Platforma została zbudowana z naciskiem na najwyższą wydajność, bezpieczeństwo oraz skalowalność, wykorzystując nowoczesny stos technologiczny."
+      "description": "Zaawansowany generator multimediów, który pozwala użytkownikom na szybkie i proste tworzenie treści (zdjęcia, wideo i tekst) bez zbędnych kroków. Platforma została zbudowana z naciskiem na najwyższą wydajność, bezpieczeństwo oraz skalowalność, wykorzystując nowoczesny stos technologiczny.",
+      "screenshots": {
+        "screen1": {
+          "alt": "mediaflip.io Ekran 1"
+        },
+        "screen2": {
+          "alt": "mediaflip.io Ekran 2"
+        },
+        "screen5": {
+          "alt": "mediaflip.io Generator"
+        }
+      }
     },
     "egzoclinic": {
       "title": "EGZOClinic",
       "dateRange": "Styczeń 2022 - Październik 2025",
       "customer": "EGZOTech.com",
-      "description": "Kompleksowa platforma programowa dla fizjoterapii i neurorehabilitacji. Aplikacja działa na robotycznych urządzeniach medycznych, w tym Stella BIO, Sidra LEG i Meissa OT, ułatwiając rehabilitację po udarach i urazach rdzenia kręgowego. Funkcje obejmują progresywną terapię CPM, ćwiczenia wspomagane komputerowo CAM, interfejs graficzny do konfiguracji parametrów EMS, kompleksowe raportowanie z analizą danych EMG, ochronę przed spastycznością, przewodnik rozmieszczenia elektrod, gry rehabilitacyjne i wsparcie wielojęzyczne."
+      "description": "Kompleksowa platforma programowa dla fizjoterapii i neurorehabilitacji. Aplikacja działa na robotycznych urządzeniach medycznych, w tym Stella BIO, Sidra LEG i Meissa OT, ułatwiając rehabilitację po udarach i urazach rdzenia kręgowego. Funkcje obejmują progresywną terapię CPM, ćwiczenia wspomagane komputerowo CAM, interfejs graficzny do konfiguracji parametrów EMS, kompleksowe raportowanie z analizą danych EMG, ochronę przed spastycznością, przewodnik rozmieszczenia elektrod, gry rehabilitacyjne i wsparcie wielojęzyczne.",
+      "screenshots": {
+        "screen1": {
+          "alt": "Ekran logowania zapamiętuje teraz ostatnio zalogowanych użytkowników, umożliwiając szybszy dostęp i skracając czas potrzebny do rozpoczęcia korzystania z urządzenia."
+        },
+        "screen2": {
+          "alt": "CPM Progressive to zaawansowany tryb terapii Ciągłym Ruchem Biernym (CPM), w którym urządzenie aplikuje zdefiniowany moment obrotowy, aby poruszać pacjenta w określonym zakresie ruchu z kontrolowaną prędkością. Program obsługuje zarówno ręczną, jak i automatyczną regulację zakresu ruchu podczas terapii."
+        },
+        "screen3": {
+          "alt": "Ćwiczenie EMG View zostało ulepszone poprzez podział pomiarów EMG na segmenty, z których każdy reprezentuje pojedynczy skurcz mięśnia, co pozwala na szczegółową analizę w raporcie. Użytkownicy mogą nazywać i przeglądać segmenty podczas ćwiczenia, podczas gdy pomiar relaksacji przed ćwiczeniem stanowi punkt odniesienia do obliczeń w raporcie."
+        },
+        "screen4": {
+          "alt": "Program EMS Użytkownika i EMS Pelvic Użytkownika zawierają teraz interfejs graficzny, który pozwala terapeutom na szybką i łatwą regulację obwiedni sygnału dla każdego kanału ćwiczenia. Zmiany mogą być testowane na pacjencie bezpośrednio z tego samego ekranu ustawień przed rozpoczęciem właściwego ćwiczenia."
+        }
+      }
     },
     "generator": {
       "title": "Generator Pasków",
       "dateRange": "Grudzień 2024 - obecnie",
       "customer": "Rafał Łukawski",
-      "description": "Full-stack platforma generatora memów dla polskich programów telewizyjnych. Zbudowana od podstaw przy użyciu nowoczesnego stosu Next.js z bazą danych PostgreSQL, Prisma ORM i tRPC APIs. Platforma umożliwia użytkownikom tworzenie i udostępnianie memów opartych na popularnych polskich treściach telewizyjnych. Funkcje obejmują przesyłanie i manipulację obrazami, zarządzanie szablonami, udostępnianie treści generowanych przez użytkowników oraz responsywny design. Wdrożona z Docker i pipeline CI/CD dla gotowości produkcyjnej."
+      "description": "Full-stack platforma generatora memów dla polskich programów telewizyjnych. Zbudowana od podstaw przy użyciu nowoczesnego stosu Next.js z bazą danych PostgreSQL, Prisma ORM i tRPC APIs. Platforma umożliwia użytkownikom tworzenie i udostępnianie memów opartych na popularnych polskich treściach telewizyjnych. Funkcje obejmują przesyłanie i manipulację obrazami, zarządzanie szablonami, udostępnianie treści generowanych przez użytkowników oraz responsywny design. Wdrożona z Docker i pipeline CI/CD dla gotowości produkcyjnej.",
+      "screenshots": {
+        "screen1": {
+          "alt": "Generator Pasków Ekran 1"
+        },
+        "screen2": {
+          "alt": "Generator Pasków Ekran 2"
+        }
+      }
     },
     "stella": {
       "title": "Stella BIO App",
       "dateRange": "Marzec 2019 - Kwiecień 2024",
       "customer": "EGZOTech.com",
-      "description": "Aplikacja internetowa do zarządzania i konfiguracji przenośnego urządzenia medycznego Stella BIO, które zapewnia zaawansowane możliwości elektromiografii (EMG) i funkcjonalnej stymulacji elektrycznej (FES). Aplikacja umożliwia specjalistom medycznym i pacjentom zdalne konfigurowanie programów terapeutycznych, monitorowanie pomiarów EMG i zarządzanie protokołami leczenia. Zbudowana z frontendem Angular i backendem NestJS, platforma wspiera zarówno rehabilitację kliniczną, jak i domową dla schorzeń neurologicznych, ortopedycznych, onkologicznych, bólowych, sportowych i dna miednicy. Funkcje obejmują uwierzytelnianie użytkowników, konfigurację programów EMG, zarządzanie sesjami terapeutycznymi i kompleksowe raportowanie."
+      "description": "Aplikacja internetowa do zarządzania i konfiguracji przenośnego urządzenia medycznego Stella BIO, które zapewnia zaawansowane możliwości elektromiografii (EMG) i funkcjonalnej stymulacji elektrycznej (FES). Aplikacja umożliwia specjalistom medycznym i pacjentom zdalne konfigurowanie programów terapeutycznych, monitorowanie pomiarów EMG i zarządzanie protokołami leczenia. Zbudowana z frontendem Angular i backendem NestJS, platforma wspiera zarówno rehabilitację kliniczną, jak i domową dla schorzeń neurologicznych, ortopedycznych, onkologicznych, bólowych, sportowych i dna miednicy. Funkcje obejmują uwierzytelnianie użytkowników, konfigurację programów EMG, zarządzanie sesjami terapeutycznymi i kompleksowe raportowanie.",
+      "screenshots": {
+        "screen1": {
+          "alt": "Stella BIO App Strona Logowania"
+        },
+        "screen2": {
+          "alt": "Stella BIO App Program EMG"
+        }
+      }
     },
     "multibenefit": {
       "title": "Multibenefit",
       "dateRange": "Czerwiec 2013 - Luty 2016",
       "customer": "Benefit Systems",
-      "description": "Platforma e-commerce zaprojektowana w celu zapewnienia pracownikom dostępu do różnych świadczeń pozapłacowych. Platforma umożliwiała pracownikom wybór z szeregu przywilejów, w tym kart MultiSport, voucherów upominkowych i biletów na wydarzenia kulturalne. Zbudowana od podstaw z pełną architekturą full-stack, implementacją i zarządzaniem projektem. Platforma miała na celu zwiększenie satysfakcji i dobrostanu pracowników poprzez oferowanie spersonalizowanych świadczeń dostosowanych do indywidualnych preferencji, zapewniając jednocześnie pracodawcom efektywne narzędzia do zarządzania i dystrybucji tych świadczeń."
+      "description": "Platforma e-commerce zaprojektowana w celu zapewnienia pracownikom dostępu do różnych świadczeń pozapłacowych. Platforma umożliwiała pracownikom wybór z szeregu przywilejów, w tym kart MultiSport, voucherów upominkowych i biletów na wydarzenia kulturalne. Zbudowana od podstaw z pełną architekturą full-stack, implementacją i zarządzaniem projektem. Platforma miała na celu zwiększenie satysfakcji i dobrostanu pracowników poprzez oferowanie spersonalizowanych świadczeń dostosowanych do indywidualnych preferencji, zapewniając jednocześnie pracodawcom efektywne narzędzia do zarządzania i dystrybucji tych świadczeń.",
+      "screenshots": {
+        "screen1": {
+          "alt": "Multibenefit.pl Ekran 1"
+        },
+        "screen2": {
+          "alt": "Multibenefit.pl Ekran 2"
+        }
+      }
     }
   },
   "certificates": {
