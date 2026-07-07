@@ -55,6 +55,9 @@
         "screen2": {
           "alt": "mediaflip.io Ekran 2"
         },
+        "screen4": {
+          "alt": "Widok tabelaryczny memów wygenerowanych przez użytkowników pozwala na zarządzanie z poziomu panelu admina. Z tego poziomu można szybko zablokować i odblokować poszczególne memy albo je po prostu bezpowrotnie usunąć."
+        },
         "screen5": {
           "alt": "mediaflip.io Generator"
         }

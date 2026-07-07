@@ -54,6 +54,9 @@
         "screen2": {
           "alt": "mediaflip.io Screen 2"
         },
+        "screen4": {
+          "alt": "The tabular view of user-generated memes allows for management from the admin panel. From this level, you can quickly block and unblock individual memes or simply delete them permanently."
+        },
         "screen5": {
           "alt": "mediaflip.io Generator"
         }
