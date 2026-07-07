@@ -26,19 +26,19 @@ const projectsData: Project[] = [
       {
         id: "screen1",
         src: "/mediaflip-1.png",
-        alt: "mediaflip.io Screen 1",
+        alt: "",
         sourceUrl: "mediaflip.io",
       },
       {
         id: "screen2",
         src: "/mediaflip-2.png",
-        alt: "mediaflip.io Screen 2",
+        alt: "",
         sourceUrl: "mediaflip.io/pl/stos-technologiczny",
       },
       {
         id: "screen5",
         src: "/mediaflip-5.png",
-        alt: "mediaflip.io Generator",
+        alt: "",
         sourceUrl: "mediaflip.io/pl/generator",
       },
     ],
@@ -50,14 +50,26 @@ const projectsData: Project[] = [
     screenshots: [
       {
         id: "screen1",
-        src: "/egzoclinic-1.png",
-        alt: "EGZOClinic Screen 1",
+        src: "/egzoclinic-5.png",
+        alt: "",
         sourceUrl: "egzotech.com",
       },
       {
         id: "screen2",
         src: "/egzoclinic-2.png",
-        alt: "EGZOClinic Screen 2",
+        alt: "",
+        sourceUrl: "egzotech.com",
+      },
+      {
+        id: "screen3",
+        src: "/egzoclinic-3.png",
+        alt: "",
+        sourceUrl: "egzotech.com",
+      },
+      {
+        id: "screen4",
+        src: "/egzoclinic-4.png",
+        alt: "",
         sourceUrl: "egzotech.com",
       },
     ],
@@ -70,13 +82,13 @@ const projectsData: Project[] = [
       {
         id: "screen1",
         src: "/generator-1.png",
-        alt: "Generator Pasków Screen 1",
+        alt: "",
         sourceUrl: "generator-paskow.pl",
       },
       {
         id: "screen2",
         src: "/generator-2.png",
-        alt: "Generator Pasków Screen 2",
+        alt: "",
         sourceUrl: "generator-paskow.pl",
       },
     ],
@@ -89,13 +101,13 @@ const projectsData: Project[] = [
       {
         id: "screen1",
         src: "/stella-app_login-page.png",
-        alt: "Stella BIO App Login Page",
+        alt: "",
         sourceUrl: "egzotech.com",
       },
       {
         id: "screen2",
         src: "/stella-app_emg-program.png",
-        alt: "Stella BIO App EMG Program",
+        alt: "",
         sourceUrl: "egzotech.com",
       },
     ],
@@ -103,18 +115,21 @@ const projectsData: Project[] = [
   {
     id: "multibenefit",
     url: undefined,
-    customer: { display: "Benefit Systems", url: "https://www.benefitsystems.pl/" },
+    customer: {
+      display: "Benefit Systems",
+      url: "https://www.benefitsystems.pl/",
+    },
     screenshots: [
       {
         id: "screen1",
         src: "/multi-1.png",
-        alt: "Multibenefit.pl Screen 1",
+        alt: "",
         sourceUrl: "web.archive.org",
       },
       {
         id: "screen2",
         src: "/multi-2.png",
-        alt: "Multibenefit.pl Screen 2",
+        alt: "",
         sourceUrl: "web.archive.org",
       },
     ],
@@ -123,18 +138,27 @@ const projectsData: Project[] = [
 
 export function ProjectsSection() {
   const t = useTranslations("projects");
-  const [selectedProjectId, setSelectedProjectId] = React.useState<string | null>(null);
-  const [selectedScreenshotIndex, setSelectedScreenshotIndex] = React.useState<number | null>(null);
-  
+  const [selectedProjectId, setSelectedProjectId] = React.useState<
+    string | null
+  >(null);
+  const [selectedScreenshotIndex, setSelectedScreenshotIndex] = React.useState<
+    number | null
+  >(null);
+
   // Merge translations with project data
   const projects = projectsData.map((project) => ({
     ...project,
     title: t(`${project.id}.title`),
     dateRange: t(`${project.id}.dateRange`),
     description: t(`${project.id}.description`),
-    customer: typeof project.customer === "object" 
-      ? { ...project.customer, display: t(`${project.id}.customer`) }
-      : t(`${project.id}.customer`),
+    customer:
+      typeof project.customer === "object"
+        ? { ...project.customer, display: t(`${project.id}.customer`) }
+        : t(`${project.id}.customer`),
+    screenshots: project.screenshots.map((screen) => ({
+      ...screen,
+      alt: t(`${project.id}.screenshots.${screen.id}.alt`),
+    })),
   }));
 
   const handleScreenshotClick = (projectId: string, index: number) => {
@@ -191,7 +215,13 @@ export function ProjectsSection() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedScreenshotIndex, selectedProjectId, handlePrevious, handleNext, handleCloseDialog]);
+  }, [
+    selectedScreenshotIndex,
+    selectedProjectId,
+    handlePrevious,
+    handleNext,
+    handleCloseDialog,
+  ]);
 
   const selectedProject =
     selectedProjectId !== null
@@ -205,280 +235,289 @@ export function ProjectsSection() {
   return (
     <SectionLayout title={t("title")} id="projects">
       <Box sx={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            {projects.map((project, index) => (
+        {projects.map((project, index) => (
+          <Box
+            key={project.id}
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", md: "1fr auto" },
+              gap: { xs: 3, md: 4 },
+              pb: index < projects.length - 1 ? 4 : 0,
+              borderBottom:
+                index < projects.length - 1 ? `1px solid ${grey[300]}` : "none",
+            }}
+          >
+            {/* Left side: Project info */}
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
               <Box
-                key={project.id}
                 sx={{
-                  display: "grid",
-                  gridTemplateColumns: { xs: "1fr", md: "1fr auto" },
-                  gap: { xs: 3, md: 4 },
-                  pb: index < projects.length - 1 ? 4 : 0,
-                  borderBottom: index < projects.length - 1 ? `1px solid ${grey[300]}` : "none",
+                  display: "flex",
+                  alignItems: "flex-start",
+                  gap: 1,
+                  mb: 0.5,
                 }}
               >
-                {/* Left side: Project info */}
-                <Box sx={{ display: "flex", flexDirection: "column" }}>
-                  <Box sx={{ display: "flex", alignItems: "flex-start", gap: 1, mb: 0.5 }}>
-                    <Typography
-                      variant="h5"
-                      component="h3"
-                      sx={{
-                        lineHeight: 1.2
-                      }}
-                    >
-                      {project.title}
-                    </Typography>
-                    {project.url && (
-                      <Link
-                        href={project.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        sx={{
-                          color: grey[600],
-                          "&:hover": {
-                            color: grey[800],
-                          },
-                          textDecoration: "none",
-                          fontSize: "0.9rem",
-                          mt: 0.5,
-                          display: "inline-flex",
-                          alignItems: "center",
-                        }}
-                      >
-                        <FaExternalLinkAlt />
-                      </Link>
-                    )}
-                  </Box>
-                  <Typography
-                    variant="body1"
+                <Typography
+                  variant="h5"
+                  component="h3"
+                  sx={{
+                    lineHeight: 1.2,
+                  }}
+                >
+                  {project.title}
+                </Typography>
+                {project.url && (
+                  <Link
+                    href={project.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     sx={{
-                      // mb: 0.5,
+                      color: grey[600],
+                      "&:hover": {
+                        color: grey[800],
+                      },
+                      textDecoration: "none",
+                      fontSize: "0.9rem",
+                      mt: 0.5,
+                      display: "inline-flex",
+                      alignItems: "center",
                     }}
                   >
-                    {project.dateRange}
-                  </Typography>
-                  {project.customer && (
-                    <Typography
-                      variant="body2"
+                    <FaExternalLinkAlt />
+                  </Link>
+                )}
+              </Box>
+              <Typography
+                variant="body1"
+                sx={
+                  {
+                    // mb: 0.5,
+                  }
+                }
+              >
+                {project.dateRange}
+              </Typography>
+              {project.customer && (
+                <Typography
+                  variant="body2"
+                  sx={{
+                    color: grey[700],
+                    mb: 2,
+                  }}
+                >
+                  <Box component="span" sx={{ fontWeight: 600 }}>
+                    {t("customer")}:{" "}
+                  </Box>
+                  {typeof project.customer === "object" ? (
+                    <Link
+                      href={project.customer.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       sx={{
                         color: grey[700],
-                        mb: 2,
-                      }}
-                    >
-                      <Box component="span" sx={{ fontWeight: 600 }}>
-                        {t("customer")}:{" "}
-                      </Box>
-                      {typeof project.customer === "object" ? (
-                        <Link
-                          href={project.customer.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          sx={{
-                            color: grey[700],
-                            textDecoration: "underline",
-                            "&:hover": {
-                              color: grey[900],
-                            },
-                          }}
-                        >
-                          {project.customer.display}
-                        </Link>
-                      ) : (
-                        <Box component="span">{project.customer}</Box>
-                      )}
-                    </Typography>
-                  )}
-                  <Typography
-                    variant="body2"
-                  >
-                    {project.description}
-                  </Typography>
-                </Box>
-
-                {/* Right side: Thumbnail */}
-                {project.screenshots.length > 0 && (
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Box
-                      component="button"
-                      onClick={() => handleScreenshotClick(project.id, 0)}
-                      sx={{
-                        position: "relative",
-                        width: { xs: 220, md: 300 },
-                        height: "auto",
-                        cursor: "pointer",
-                        border: `2px solid ${grey[300]}`,
-                        borderRadius: 2,
-                        overflow: "hidden",
-                        backgroundColor: grey[50],
-                        p: 0.5,
-                        // border: '1px solid red',
-                        transition: "all 0.2s ease",
+                        textDecoration: "underline",
                         "&:hover": {
-                          borderColor: grey[400],
-                          boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-                          transform: "scale(1.02)",
+                          color: grey[900],
                         },
                       }}
                     >
-                      <Image
-                        src={project.screenshots[0].src}
-                        alt={project.screenshots[0].alt}
-                        width={400}
-                        height={300}
-                        style={{
-                          width: "100%",
-                          height: "auto",
-                          display: "block",
-                          borderRadius: 4,
-                        }}
-                        unoptimized
-                      />
-                    </Box>
-                  </Box>
-                )}
-              </Box>
-            ))}
-          </Box>
+                      {project.customer.display}
+                    </Link>
+                  ) : (
+                    <Box component="span">{project.customer}</Box>
+                  )}
+                </Typography>
+              )}
+              <Typography variant="body2">{project.description}</Typography>
+            </Box>
 
-          {/* Gallery Dialog */}
-          <Dialog
-            open={selectedScreenshotIndex !== null && selectedProject !== null}
-            onClose={handleCloseDialog}
-            maxWidth="lg"
-            fullWidth
-            PaperProps={{
-              sx: {
-                backgroundColor: "white",
-                maxHeight: "90vh",
-                position: "relative",
-              },
-            }}
-          >
-            {selectedProject && selectedScreenshot && selectedScreenshotIndex !== null && (
-              <>
-                <IconButton
-                  onClick={handleCloseDialog}
+            {/* Right side: Thumbnail */}
+            {project.screenshots.length > 0 && (
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Box
+                  component="button"
+                  onClick={() => handleScreenshotClick(project.id, 0)}
                   sx={{
-                    position: "absolute",
-                    top: 8,
-                    right: 8,
-                    zIndex: 10,
-                    backgroundColor: "white",
-                    boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+                    position: "relative",
+                    width: { xs: 220, md: 300 },
+                    height: "auto",
+                    cursor: "pointer",
+                    border: `2px solid ${grey[300]}`,
+                    borderRadius: 2,
+                    overflow: "hidden",
+                    backgroundColor: grey[50],
+                    p: 0.5,
+                    // border: '1px solid red',
+                    transition: "all 0.2s ease",
                     "&:hover": {
-                      backgroundColor: grey[100],
-                      transform: "scale(1.1)",
+                      borderColor: grey[400],
+                      boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+                      transform: "scale(1.02)",
                     },
                   }}
                 >
-                  <CloseIcon />
-                </IconButton>
-
-                <DialogContent
-                  sx={{
-                    p: 4,
-                    position: "relative",
-                    minHeight: 200,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  {/* Left navigation arrow */}
-                  {selectedProject.screenshots.length > 1 && (
-                    <IconButton
-                      onClick={handlePrevious}
-                      sx={{
-                        position: "absolute",
-                        left: 16,
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                        zIndex: 10,
-                        backgroundColor: "white",
-                        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
-                        "&:hover": {
-                          backgroundColor: grey[100],
-                          transform: "translateY(-50%) scale(1.1)",
-                        },
-                      }}
-                    >
-                      <ChevronLeftIcon />
-                    </IconButton>
-                  )}
-
-                  {/* Image */}
-                  <Box
-                    sx={{
+                  <Image
+                    src={project.screenshots[0].src}
+                    alt={project.screenshots[0].alt}
+                    title={project.screenshots[0].alt}
+                    width={400}
+                    height={300}
+                    style={{
                       width: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
+                      height: "auto",
+                      display: "block",
+                      borderRadius: 4,
+                    }}
+                    unoptimized
+                  />
+                </Box>
+              </Box>
+            )}
+          </Box>
+        ))}
+      </Box>
+
+      {/* Gallery Dialog */}
+      <Dialog
+        open={selectedScreenshotIndex !== null && selectedProject !== null}
+        onClose={handleCloseDialog}
+        maxWidth="lg"
+        fullWidth
+        PaperProps={{
+          sx: {
+            backgroundColor: "white",
+            maxHeight: "90vh",
+            position: "relative",
+          },
+        }}
+      >
+        {selectedProject &&
+          selectedScreenshot &&
+          selectedScreenshotIndex !== null && (
+            <>
+              <IconButton
+                onClick={handleCloseDialog}
+                sx={{
+                  position: "absolute",
+                  top: 8,
+                  right: 8,
+                  zIndex: 10,
+                  backgroundColor: "white",
+                  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+                  "&:hover": {
+                    backgroundColor: grey[100],
+                    transform: "scale(1.1)",
+                  },
+                }}
+              >
+                <CloseIcon />
+              </IconButton>
+
+              <DialogContent
+                sx={{
+                  p: 4,
+                  position: "relative",
+                  minHeight: 200,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                {/* Left navigation arrow */}
+                {selectedProject.screenshots.length > 1 && (
+                  <IconButton
+                    onClick={handlePrevious}
+                    sx={{
+                      position: "absolute",
+                      left: 16,
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      zIndex: 10,
+                      backgroundColor: "white",
+                      boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+                      "&:hover": {
+                        backgroundColor: grey[100],
+                        transform: "translateY(-50%) scale(1.1)",
+                      },
                     }}
                   >
-                    <Box
-                      component="img"
-                      key={selectedScreenshotIndex}
-                      src={selectedScreenshot.src}
-                      alt={selectedScreenshot.alt}
-                      sx={{
-                        maxWidth: "100%",
-                        maxHeight: "70vh",
-                        width: "auto",
-                        height: "auto",
-                        borderRadius: 2,
-                        display: "block",
-                        objectFit: "contain",
-                      }}
-                    />
+                    <ChevronLeftIcon />
+                  </IconButton>
+                )}
 
-                    {/* Source */}
-                    {selectedScreenshot.sourceUrl && (
-                      <Typography
-                        variant="body2"
-                        sx={{
-                          mt: 2,
-                          textAlign: "right",
-                          width: "100%",
-                          fontSize: "0.85rem",
-                        }}
-                      >
-                        {t("source")}: {selectedScreenshot.sourceUrl}
-                      </Typography>
-                    )}
-                  </Box>
+                {/* Image */}
+                <Box
+                  sx={{
+                    width: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                  }}
+                >
+                  <Box
+                    component="img"
+                    key={selectedScreenshotIndex}
+                    src={selectedScreenshot.src}
+                    alt={selectedScreenshot.alt}
+                    title={selectedScreenshot.alt}
+                    sx={{
+                      maxWidth: "100%",
+                      maxHeight: "70vh",
+                      width: "auto",
+                      height: "auto",
+                      borderRadius: 2,
+                      display: "block",
+                      objectFit: "contain",
+                    }}
+                  />
 
-                  {/* Right navigation arrow */}
-                  {selectedProject.screenshots.length > 1 && (
-                    <IconButton
-                      onClick={handleNext}
+                  {/* Source */}
+                  {selectedScreenshot.sourceUrl && (
+                    <Typography
+                      variant="body2"
                       sx={{
-                        position: "absolute",
-                        right: 16,
-                        top: "50%",
-                        transform: "translateY(-50%)",
-                        zIndex: 10,
-                        backgroundColor: "white",
-                        boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
-                        "&:hover": {
-                          backgroundColor: grey[100],
-                          transform: "translateY(-50%) scale(1.1)",
-                        },
+                        mt: 2,
+                        textAlign: "right",
+                        width: "100%",
+                        fontSize: "0.85rem",
                       }}
                     >
-                      <ChevronRightIcon />
-                    </IconButton>
+                      {t("source")}: {selectedScreenshot.sourceUrl}
+                    </Typography>
                   )}
-                </DialogContent>
-              </>
-            )}
-          </Dialog>
+                </Box>
+
+                {/* Right navigation arrow */}
+                {selectedProject.screenshots.length > 1 && (
+                  <IconButton
+                    onClick={handleNext}
+                    sx={{
+                      position: "absolute",
+                      right: 16,
+                      top: "50%",
+                      transform: "translateY(-50%)",
+                      zIndex: 10,
+                      backgroundColor: "white",
+                      boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
+                      "&:hover": {
+                        backgroundColor: grey[100],
+                        transform: "translateY(-50%) scale(1.1)",
+                      },
+                    }}
+                  >
+                    <ChevronRightIcon />
+                  </IconButton>
+                )}
+              </DialogContent>
+            </>
+          )}
+      </Dialog>
     </SectionLayout>
   );
 }
-
