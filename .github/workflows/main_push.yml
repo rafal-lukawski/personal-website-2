@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"      
-          
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
         with:
@@ -55,6 +55,11 @@ jobs:
     needs: build
     runs-on: [self-hosted, Linux, X64]
     steps:
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"           
+          
       - name: Restore build files
         uses: actions/cache@v4
         with:
