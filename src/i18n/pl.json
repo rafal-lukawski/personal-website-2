@@ -21,8 +21,8 @@
   },
   "about": {
     "title": "O mnie",
-    "paragraph1": "Cześć, nazywam się Rafał Łukawski. Jestem Kierownikiem Projektów IT i Software Deweloperem z ponad 5-letnim doświadczeniem w nowoczesnym frontenddzie i backendzie oraz ponad 20-letnim stażem w IT. Łączę wiedzę techniczną z umiejętnościami zarządzania projektami, dostarczając skuteczne rozwiązania software'owe—od architektury systemu i koordynacji zespołu, przez implementację, aż po wdrożenie produkcyjne.",
-    "paragraph2": "Google Cloud Professional Architect (2024) | Professional Scrum Master | Budowałem systemy dla milionów użytkowników w Onet.pl | Prowadziłem projekty telekomunikacyjne w TP.SA | Obecnie zarządzam projektami IT, rozwijam zaawansowane aplikacje React/Next.js i mentoruję programistów."
+    "paragraph1": "Cześć, nazywam się Rafał Łukawski. Pomagam firmom sprawnie tworzyć i wdrażać nowoczesne oprogramowanie. Łączę rolę programisty i kierownika projektów, dzięki czemu spójnie przekładam pomysły biznesowe na kod. Oferuję pełne wsparcie – od projektowania architektury i koordynacji zespołu, po programowanie, integrację rozwiązań AI i wdrożenie gotowego produktu.",
+    "paragraph2": "Łączę ponad 20 lat doświadczenia w IT (w tym Onet.pl) z certyfikatami Google Cloud Architect i Scrum Master. Na co dzień buduję kompletne aplikacje webowe i mobilne z wykorzystaniem AI oraz mentoruję programistów."
   },
   "projectManagement": {
     "title": "Zarządzanie projektami",
@@ -67,7 +67,7 @@
       "title": "EGZOClinic",
       "dateRange": "Styczeń 2022 - Październik 2025",
       "customer": "EGZOTech.com",
-      "description": "Kompleksowa platforma programowa dla fizjoterapii i neurorehabilitacji. Aplikacja działa na robotycznych urządzeniach medycznych, w tym Stella BIO, Sidra LEG i Meissa OT, ułatwiając rehabilitację po udarach i urazach rdzenia kręgowego. Funkcje obejmują progresywną terapię CPM, ćwiczenia wspomagane komputerowo CAM, interfejs graficzny do konfiguracji parametrów EMS, kompleksowe raportowanie z analizą danych EMG, ochronę przed spastycznością, przewodnik rozmieszczenia elektrod, gry rehabilitacyjne i wsparcie wielojęzyczne.",
+      "description": "Kompleksowa platforma programowa dla fizjoterapii i neurorehabilitacji. Aplikacja działa na robotycznych urządzeniach medycznych, w tym Stella BIO, Sidra LEG i Meissa OT. Funkcje obejmują progresywną terapię CPM, ćwiczenia wspomagane komputerowo CAM, interfejs graficzny do konfiguracji parametrów EMS, kompleksowe raportowanie z analizą danych EMG, ochronę przed spastycznością, przewodnik rozmieszczenia elektrod, gry rehabilitacyjne i wsparcie wielojęzyczne.",
       "screenshots": {
         "screen1": {
           "alt": "Ekran logowania zapamiętuje teraz ostatnio zalogowanych użytkowników, umożliwiając szybszy dostęp i skracając czas potrzebny do rozpoczęcia korzystania z urządzenia."
@@ -87,7 +87,7 @@
       "title": "Generator Pasków",
       "dateRange": "Grudzień 2024 - obecnie",
       "customer": "Rafał Łukawski",
-      "description": "Full-stack platforma generatora memów dla polskich programów telewizyjnych. Zbudowana od podstaw przy użyciu nowoczesnego stosu Next.js z bazą danych PostgreSQL, Prisma ORM i tRPC APIs. Platforma umożliwia użytkownikom tworzenie i udostępnianie memów opartych na popularnych polskich treściach telewizyjnych. Funkcje obejmują przesyłanie i manipulację obrazami, zarządzanie szablonami, udostępnianie treści generowanych przez użytkowników oraz responsywny design. Wdrożona z Docker i pipeline CI/CD dla gotowości produkcyjnej.",
+      "description": "Platforma internetowa do szybkiego tworzenia i udostępniania memów nawiązujących do popularnych polskich programów telewizyjnych. Stworzona od podstaw jako kompletny projekt (full-stack) przy użyciu Next.js i bazy danych PostgreSQL. Użytkownicy mogą wygodnie edytować grafiki, korzystać z gotowych szablonów oraz przeglądać treści na dowolnym urządzeniu. Całość została przygotowana i wdrożona z myślą o stabilnym działaniu produkcyjnym.",
       "screenshots": {
         "screen1": {
           "alt": "Generator Pasków Ekran 1"
@@ -101,7 +101,7 @@
       "title": "Stella BIO App",
       "dateRange": "Marzec 2019 - Kwiecień 2024",
       "customer": "EGZOTech.com",
-      "description": "Aplikacja internetowa do zarządzania i konfiguracji przenośnego urządzenia medycznego Stella BIO, które zapewnia zaawansowane możliwości elektromiografii (EMG) i funkcjonalnej stymulacji elektrycznej (FES). Aplikacja umożliwia specjalistom medycznym i pacjentom zdalne konfigurowanie programów terapeutycznych, monitorowanie pomiarów EMG i zarządzanie protokołami leczenia. Zbudowana z frontendem Angular i backendem NestJS, platforma wspiera zarówno rehabilitację kliniczną, jak i domową dla schorzeń neurologicznych, ortopedycznych, onkologicznych, bólowych, sportowych i dna miednicy. Funkcje obejmują uwierzytelnianie użytkowników, konfigurację programów EMG, zarządzanie sesjami terapeutycznymi i kompleksowe raportowanie.",
+      "description": "Aplikacja internetowa do konfiguracji i zarządzania przenośnym urządzeniem medycznym Stella BIO (EMG i FES). Umożliwia specjalistom oraz pacjentom zdalne ustawianie programów terapeutycznych, monitorowanie pomiarów i zarządzanie leczeniem. Wspiera rehabilitację kliniczną i domową, oferując m.in. uwierzytelnianie, konfigurację sesji oraz kompleksowe raportowanie.",
       "screenshots": {
         "screen1": {
           "alt": "Stella BIO App Strona Logowania"
@@ -115,7 +115,7 @@
       "title": "Multibenefit",
       "dateRange": "Czerwiec 2013 - Luty 2016",
       "customer": "Benefit Systems",
-      "description": "Platforma e-commerce zaprojektowana w celu zapewnienia pracownikom dostępu do różnych świadczeń pozapłacowych. Platforma umożliwiała pracownikom wybór z szeregu przywilejów, w tym kart MultiSport, voucherów upominkowych i biletów na wydarzenia kulturalne. Zbudowana od podstaw z pełną architekturą full-stack, implementacją i zarządzaniem projektem. Platforma miała na celu zwiększenie satysfakcji i dobrostanu pracowników poprzez oferowanie spersonalizowanych świadczeń dostosowanych do indywidualnych preferencji, zapewniając jednocześnie pracodawcom efektywne narzędzia do zarządzania i dystrybucji tych świadczeń.",
+      "description": "Platforma e-commerce umożliwiająca pracownikom wybór świadczeń pozapłacowych (m.in. karty MultiSport, vouchery, bilety). Zbudowana od podstaw, wspiera dobrostan zatrudnionych oraz ułatwia pracodawcom dystrybucję benefitów.",
       "screenshots": {
         "screen1": {
           "alt": "Multibenefit.pl Ekran 1"
