@@ -5,7 +5,19 @@ import Typography from "@mui/material/Typography";
 import Chip from "@mui/material/Chip";
 import { SectionLayout } from "./SectionLayout";
 import { useTranslations } from "next-intl";
-import { grey } from "@mui/material/colors";
+import {
+  blue,
+  cyan,
+  deepOrange,
+  deepPurple,
+  green,
+  grey,
+  indigo,
+  lightBlue,
+  purple,
+  red,
+  teal,
+} from "@mui/material/colors";
 import {
   SiReact,
   SiTypescript,
@@ -23,7 +35,7 @@ import {
   SiGit,
   SiGooglecloud,
   SiDocker,
-  SiDotnet,
+  SiPhp,
 } from "react-icons/si";
 import { IoMdSettings } from "react-icons/io";
 import { MdLoop } from "react-icons/md";
@@ -35,6 +47,7 @@ interface TechItem {
   icon?: IconType;
   emoji?: string;
   color: string;
+  colorEmoji?: boolean;
 }
 
 interface TechCategory {
@@ -45,57 +58,56 @@ interface TechCategory {
 export function StackSection() {
   const t = useTranslations("technologies");
 
-  const iconColor = "#6b7280"; // Uniform gray color for all icons
-
+  // Brand-matched hues, kept at MUI 500-700 shades so they stay readable on the light chips
   const categories: TechCategory[] = [
     {
       title: t("frontend"),
       items: [
-        { name: "React", icon: SiReact, color: iconColor },
-        { name: "TypeScript", icon: SiTypescript, color: iconColor },
-        { name: "Next.js", icon: SiNextdotjs, color: iconColor },
-        { name: "Angular", icon: SiAngular, color: iconColor },
+        { name: "React", icon: SiReact, color: cyan[600] },
+        { name: "TypeScript", icon: SiTypescript, color: blue[700] },
+        { name: "Next.js", icon: SiNextdotjs, color: grey[900] },
+        { name: "Angular", icon: SiAngular, color: red[600] },
       ],
     },
     {
       title: t("stateManagement"),
       items: [
-        { name: "Redux Toolkit", icon: SiRedux, color: iconColor },
-        { name: "Zustand", emoji: "🐻", color: iconColor },
+        { name: "Redux Toolkit", icon: SiRedux, color: deepPurple[500] },
+        { name: "Zustand", emoji: "🐻", color: deepOrange[600], colorEmoji: true },
       ],
     },
     {
       title: t("uiLibraries"),
       items: [
-        { name: "Chakra-UI", icon: SiChakraui, color: iconColor },
-        { name: "Material-UI", icon: SiMui, color: iconColor },
-        { name: "Tailwind CSS", icon: SiTailwindcss, color: iconColor },
+        { name: "Chakra-UI", icon: SiChakraui, color: teal[500] },
+        { name: "Material-UI", icon: SiMui, color: blue[500] },
+        { name: "Tailwind CSS", icon: SiTailwindcss, color: cyan[500] },
       ],
     },
     {
       title: t("testing"),
       items: [
-        { name: "Cypress", icon: SiCypress, color: iconColor },
-        { name: "Jest", icon: SiJest, color: iconColor },
+        { name: "Cypress", icon: SiCypress, color: teal[600] },
+        { name: "Jest", icon: SiJest, color: red[700] },
       ],
     },
     {
       title: t("backend"),
       items: [
-        { name: "Node.js", icon: SiNodedotjs, color: iconColor },
-        { name: "Express", emoji: "E", color: iconColor },
-        { name: "PostgreSQL", icon: SiPostgresql, color: iconColor },
-        { name: "MySQL", icon: SiMysql, color: iconColor },
-        { name: ".NET", icon: SiDotnet, color: iconColor },
+        { name: "Node.js", icon: SiNodedotjs, color: green[700] },
+        { name: "Express", emoji: "E", color: grey[900] },
+        { name: "PostgreSQL", icon: SiPostgresql, color: indigo[600] },
+        { name: "MySQL", icon: SiMysql, color: blue[800] },
+        { name: "PHP", icon: SiPhp, color: deepPurple[400] },
       ],
     },
     {
       title: t("cloudDevops"),
       items: [
-        { name: "Git", icon: SiGit, color: iconColor },
-        { name: "GCP", icon: SiGooglecloud, color: iconColor },
-        { name: "Docker + Swarm", icon: SiDocker, color: iconColor },
-        { name: "CI/CD", icon: IoMdSettings, color: iconColor },
+        { name: "Git", icon: SiGit, color: deepOrange[600] },
+        { name: "GCP", icon: SiGooglecloud, color: blue[600] },
+        { name: "Docker + Swarm", icon: SiDocker, color: lightBlue[500] },
+        { name: "CI/CD", icon: IoMdSettings, color: purple[600] },
       ],
     },
   ];

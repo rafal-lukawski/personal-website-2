@@ -19,32 +19,45 @@ import { useTranslations } from "next-intl";
 
 const projectsData: Project[] = [
   {
+    id: "glam4less",
+    url: "https://glam4less.pl",
+    customer: "DRC Dawid Ryżak",
+    screenshots: [
+      {
+        id: "screen1",
+        src: "/projects/glam4less-1.webp",
+        alt: "",
+        sourceUrl: "glam4less.pl",
+      },
+    ],
+  },
+  {
     id: "mediaflip",
     url: "https://mediaflip.io",
     customer: "Rafał Łukawski",
     screenshots: [
       {
         id: "screen1",
-        src: "/mediaflip-1.png",
+        src: "/projects/mediaflip-1.webp",
         alt: "",
         sourceUrl: "mediaflip.io",
       },
       {
         id: "screen2",
-        src: "/mediaflip-2.png",
+        src: "/projects/mediaflip-2.webp",
         alt: "",
         sourceUrl: "mediaflip.io/pl/stos-technologiczny",
       },
       {
         id: "screen4",
-        src: "/mediaflip-4.png",
+        src: "/projects/mediaflip-4.webp",
         alt: "",
         sourceUrl: "mediaflip.io/pl/admin/memes",
       },
 
       {
         id: "screen5",
-        src: "/mediaflip-5.png",
+        src: "/projects/mediaflip-5.webp",
         alt: "",
         sourceUrl: "mediaflip.io/pl/generator",
       },
@@ -57,25 +70,25 @@ const projectsData: Project[] = [
     screenshots: [
       {
         id: "screen1",
-        src: "/egzoclinic-5.png",
+        src: "/projects/egzoclinic-5.webp",
         alt: "",
         sourceUrl: "egzotech.com",
       },
       {
         id: "screen2",
-        src: "/egzoclinic-2.png",
+        src: "/projects/egzoclinic-2.webp",
         alt: "",
         sourceUrl: "egzotech.com",
       },
       {
         id: "screen3",
-        src: "/egzoclinic-3.png",
+        src: "/projects/egzoclinic-3.webp",
         alt: "",
         sourceUrl: "egzotech.com",
       },
       {
         id: "screen4",
-        src: "/egzoclinic-4.png",
+        src: "/projects/egzoclinic-4.webp",
         alt: "",
         sourceUrl: "egzotech.com",
       },
@@ -88,13 +101,13 @@ const projectsData: Project[] = [
     screenshots: [
       {
         id: "screen1",
-        src: "/generator-1.png",
+        src: "/projects/generator-1.webp",
         alt: "",
         sourceUrl: "generator-paskow.pl",
       },
       {
         id: "screen2",
-        src: "/generator-2.png",
+        src: "/projects/generator-2.webp",
         alt: "",
         sourceUrl: "generator-paskow.pl",
       },
@@ -107,13 +120,13 @@ const projectsData: Project[] = [
     screenshots: [
       {
         id: "screen1",
-        src: "/stella-app_login-page.png",
+        src: "/projects/stella-app_login-page.webp",
         alt: "",
         sourceUrl: "egzotech.com",
       },
       {
         id: "screen2",
-        src: "/stella-app_emg-program.png",
+        src: "/projects/stella-app_emg-program.webp",
         alt: "",
         sourceUrl: "egzotech.com",
       },
@@ -129,13 +142,13 @@ const projectsData: Project[] = [
     screenshots: [
       {
         id: "screen1",
-        src: "/multi-1.png",
+        src: "/projects/multi-1.webp",
         alt: "",
         sourceUrl: "web.archive.org",
       },
       {
         id: "screen2",
-        src: "/multi-2.png",
+        src: "/projects/multi-2.webp",
         alt: "",
         sourceUrl: "web.archive.org",
       },

@@ -10,6 +10,7 @@ import {
 } from "react-icons/si";
 import { MdLoop } from "react-icons/md";
 import { IconType } from "react-icons";
+import { blue, green, grey, lightBlue, red } from "@mui/material/colors";
 import { Categories } from "@/components/Categories";
 
 interface TechItem {
@@ -17,6 +18,7 @@ interface TechItem {
   icon?: IconType;
   emoji?: string;
   color: string;
+  colorEmoji?: boolean;
 }
 
 interface TechCategory {
@@ -27,24 +29,23 @@ interface TechCategory {
 export function ProjectManagementSection() {
   const t = useTranslations("projectManagement");
 
-  const iconColor = "#6b7280"; // Uniform gray color for all icons
-
+  // Brand-matched hues, kept at MUI 500-700 shades so they stay readable on the light chips
   const categories: TechCategory[] = [
     {
       title: t("methodologies"),
       items: [
-        { name: "Scrum", icon: MdLoop, color: iconColor },
-        { name: "Kanban", emoji: "📌", color: iconColor },
-        { name: "Waterfall", emoji: "📋", color: iconColor },
+        { name: "Scrum", icon: MdLoop, color: green[600] },
+        { name: "Kanban", emoji: "📌", color: red[600], colorEmoji: true },
+        { name: "Waterfall", emoji: "📋", color: blue[700], colorEmoji: true },
       ],
     },
     {
       title: t("tools"),
       items: [
-        { name: "Jira", icon: SiJira, color: iconColor },
-        { name: "Confluence", icon: SiConfluence, color: iconColor },
-        { name: "GitHub", icon: SiGithub, color: iconColor },
-        { name: "Asana", icon: SiAsana, color: iconColor },
+        { name: "Jira", icon: SiJira, color: blue[800] },
+        { name: "Confluence", icon: SiConfluence, color: lightBlue[700] },
+        { name: "GitHub", icon: SiGithub, color: grey[900] },
+        { name: "Asana", icon: SiAsana, color: red[400] },
       ],
     },
   ];

@@ -14,14 +14,14 @@ const certificatesData = [
     date: "2024.07",
     name: "Professional Cloud Architect",
     issuer: "Google",
-    customIcon: "/google-cloud-architect.png",
+    customIcon: "/google-cloud-architect.webp",
     validationLink: "https://www.credly.com/badges/257b922c-e06d-493b-b9a8-4e3be00b87a3/linked_in_profile",
   },
   {
     date: "2012.01",
     name: "Professional Scrum Master",
     issuer: "Scrum.org",
-    customIcon: "/scrum-master-psm1.png",
+    customIcon: "/scrum-master-psm1.webp",
     validationLink: "https://www.credly.com/badges/44c1cea7-7e2a-4a44-88ee-03c189587963",
   },
 ];
