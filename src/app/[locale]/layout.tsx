@@ -65,7 +65,7 @@ export async function generateMetadata({
       type: 'website',
       images: [
         {
-          url: `${baseUrl}/preview_${locale}.png`,
+          url: `${baseUrl}/preview_${locale}.webp`,
           width: currentImageConfig.width,
           height: currentImageConfig.height,
           alt: 'Rafał Łukawski - IT Project Manager | Software Developer',
@@ -78,7 +78,7 @@ export async function generateMetadata({
       card: 'summary_large_image',
       title: "Rafał Łukawski - IT Project Manager | Software Developer",
       description: "Full-stack developer with 5+ years of modern frontend/backend experience. Google Cloud Professional Architect | Professional Scrum Master",
-      images: [`${baseUrl}/preview_${locale}.png`],
+      images: [`${baseUrl}/preview_${locale}.webp`],
     },
   };
 }

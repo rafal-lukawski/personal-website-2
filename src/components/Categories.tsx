@@ -7,6 +7,8 @@ interface TechItem {
   icon?: IconType;
   emoji?: string;
   color: string;
+  /** Render the emoji in its native colors instead of grayscale. */
+  colorEmoji?: boolean;
 }
 
 interface TechCategory {
@@ -73,7 +75,7 @@ export const Categories = (props: {
                           justifyContent: "center",
                           fontWeight: "bold",
                           color: item.color,
-                          filter: "grayscale(1)",
+                          filter: item.colorEmoji ? "none" : "grayscale(1)",
                           minWidth: "0.94rem",
                         }}
                       >
