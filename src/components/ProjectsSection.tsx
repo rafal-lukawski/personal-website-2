@@ -20,7 +20,7 @@ import { useTranslations } from "next-intl";
 const projectsData: Project[] = [
   {
     id: "glam4less",
-    url: undefined,
+    url: "https://glam4less.pl",
     customer: "DRC Dawid Ryżak",
     screenshots: [
       {
