@@ -43,6 +43,17 @@
     "title": "Najnowsze Projekty",
     "customer": "Klient",
     "source": "Źródło",
+    "glam4less": {
+      "title": "glam4less.pl",
+      "dateRange": "Czerwiec 2026 - obecnie",
+      "customer": "DRC Dawid Ryżak",
+      "description": "Serwis Glam4Less dedykowany dla kobiet, umożliwia wypożyczanie i sprzedaż nowych i używanych ubrań. Dzięki wykorzystaniu AI udostępnia wirtualną przymierzalnię, gdzie łącząc zdjęcie ubrania i sylwetki generuje podgląd kreacji nałożony na sylwetkę.",
+      "screenshots": {
+        "screen1": {
+          "alt": "glam4less.pl — strona główna z wyszukiwarką kreacji i wirtualną przymierzalnią AI"
+        }
+      }
+    },
     "mediaflip": {
       "title": "mediaflip.io",
       "dateRange": "Styczeń 2026 - obecnie",

@@ -19,6 +19,19 @@ import { useTranslations } from "next-intl";
 
 const projectsData: Project[] = [
   {
+    id: "glam4less",
+    url: undefined,
+    customer: "DRC Dawid Ryżak",
+    screenshots: [
+      {
+        id: "screen1",
+        src: "/glam4less-1.png",
+        alt: "",
+        sourceUrl: "glam4less.pl",
+      },
+    ],
+  },
+  {
     id: "mediaflip",
     url: "https://mediaflip.io",
     customer: "Rafał Łukawski",
