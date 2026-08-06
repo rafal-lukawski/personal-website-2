@@ -35,7 +35,7 @@ import {
   SiGit,
   SiGooglecloud,
   SiDocker,
-  SiDotnet,
+  SiPhp,
 } from "react-icons/si";
 import { IoMdSettings } from "react-icons/io";
 import { MdLoop } from "react-icons/md";
@@ -98,7 +98,7 @@ export function StackSection() {
         { name: "Express", emoji: "E", color: grey[900] },
         { name: "PostgreSQL", icon: SiPostgresql, color: indigo[600] },
         { name: "MySQL", icon: SiMysql, color: blue[800] },
-        { name: ".NET", icon: SiDotnet, color: deepPurple[600] },
+        { name: "PHP", icon: SiPhp, color: deepPurple[400] },
       ],
     },
     {
