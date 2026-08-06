@@ -352,7 +352,7 @@ export function ProjectsSection() {
                   onClick={() => handleScreenshotClick(project.id, 0)}
                   sx={{
                     position: "relative",
-                    width: { xs: 220, md: 300 },
+                    width: { xs: 'auto', md: 300 },
                     height: "auto",
                     cursor: "pointer",
                     border: `2px solid ${grey[300]}`,
