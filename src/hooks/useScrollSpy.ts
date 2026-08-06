@@ -1,18 +1,16 @@
 import { useState, useEffect } from "react";
 
 export const useScrollSpy = (navItems: string[]) => {
-  // Initialize state lazily to avoid setting it in useEffect
-  const [currentSection, setCurrentSection] = useState<string>(() => {
-    if (typeof window !== "undefined") {
-      const initialHash = window.location.hash.slice(1);
-      if (initialHash && navItems.includes(initialHash)) {
-        return initialHash;
-      }
-    }
-    return "";
-  });
+  // Always start empty on server and client to avoid hydration mismatch
+  // from reading window.location.hash during the initial render.
+  const [currentSection, setCurrentSection] = useState<string>("");
 
   useEffect(() => {
+    const initialHash = window.location.hash.slice(1);
+    if (initialHash && navItems.includes(initialHash)) {
+      setCurrentSection(initialHash);
+    }
+
     const sectionVisibility = new Map<string, number>();
 
     const updateHash = (section: string) => {
