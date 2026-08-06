@@ -2,7 +2,7 @@
 
 A modern, responsive personal portfolio website built with **Next.js 16**, **React 19**, and **Material UI 7**. Features internationalization (EN/PL), smooth animations, and a clean developer-focused design.
 
-![Preview](./public/preview_en.png)
+![Preview](./public/preview_en.webp)
 
 ## ✨ Features
 

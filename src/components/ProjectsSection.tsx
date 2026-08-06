@@ -25,7 +25,7 @@ const projectsData: Project[] = [
     screenshots: [
       {
         id: "screen1",
-        src: "/glam4less-1.png",
+        src: "/glam4less-1.webp",
         alt: "",
         sourceUrl: "glam4less.pl",
       },
@@ -38,26 +38,26 @@ const projectsData: Project[] = [
     screenshots: [
       {
         id: "screen1",
-        src: "/mediaflip-1.png",
+        src: "/mediaflip-1.webp",
         alt: "",
         sourceUrl: "mediaflip.io",
       },
       {
         id: "screen2",
-        src: "/mediaflip-2.png",
+        src: "/mediaflip-2.webp",
         alt: "",
         sourceUrl: "mediaflip.io/pl/stos-technologiczny",
       },
       {
         id: "screen4",
-        src: "/mediaflip-4.png",
+        src: "/mediaflip-4.webp",
         alt: "",
         sourceUrl: "mediaflip.io/pl/admin/memes",
       },
 
       {
         id: "screen5",
-        src: "/mediaflip-5.png",
+        src: "/mediaflip-5.webp",
         alt: "",
         sourceUrl: "mediaflip.io/pl/generator",
       },
@@ -70,25 +70,25 @@ const projectsData: Project[] = [
     screenshots: [
       {
         id: "screen1",
-        src: "/egzoclinic-5.png",
+        src: "/egzoclinic-5.webp",
         alt: "",
         sourceUrl: "egzotech.com",
       },
       {
         id: "screen2",
-        src: "/egzoclinic-2.png",
+        src: "/egzoclinic-2.webp",
         alt: "",
         sourceUrl: "egzotech.com",
       },
       {
         id: "screen3",
-        src: "/egzoclinic-3.png",
+        src: "/egzoclinic-3.webp",
         alt: "",
         sourceUrl: "egzotech.com",
       },
       {
         id: "screen4",
-        src: "/egzoclinic-4.png",
+        src: "/egzoclinic-4.webp",
         alt: "",
         sourceUrl: "egzotech.com",
       },
@@ -101,13 +101,13 @@ const projectsData: Project[] = [
     screenshots: [
       {
         id: "screen1",
-        src: "/generator-1.png",
+        src: "/generator-1.webp",
         alt: "",
         sourceUrl: "generator-paskow.pl",
       },
       {
         id: "screen2",
-        src: "/generator-2.png",
+        src: "/generator-2.webp",
         alt: "",
         sourceUrl: "generator-paskow.pl",
       },
@@ -120,13 +120,13 @@ const projectsData: Project[] = [
     screenshots: [
       {
         id: "screen1",
-        src: "/stella-app_login-page.png",
+        src: "/stella-app_login-page.webp",
         alt: "",
         sourceUrl: "egzotech.com",
       },
       {
         id: "screen2",
-        src: "/stella-app_emg-program.png",
+        src: "/stella-app_emg-program.webp",
         alt: "",
         sourceUrl: "egzotech.com",
       },
@@ -142,13 +142,13 @@ const projectsData: Project[] = [
     screenshots: [
       {
         id: "screen1",
-        src: "/multi-1.png",
+        src: "/multi-1.webp",
         alt: "",
         sourceUrl: "web.archive.org",
       },
       {
         id: "screen2",
-        src: "/multi-2.png",
+        src: "/multi-2.webp",
         alt: "",
         sourceUrl: "web.archive.org",
       },
