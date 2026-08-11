@@ -120,19 +120,15 @@ let theme = createTheme({
             fontSize: "1rem",
           },
         }),
-        // Custom variant — style via prop selector
-        root: ({ theme: t }) => ({
-          variants: [
-            {
-              props: { variant: "body3" },
-              style: {
+        // Custom variant — adjust responsive sizing based on ownerState
+        root: ({ ownerState, theme: t }) =>
+          ownerState.variant === "body3"
+            ? {
                 [t.breakpoints.up("md")]: {
                   fontSize: "0.8rem",
                 },
-              },
-            },
-          ],
-        }),
+              }
+            : {},
       },
     },
     MuiCssBaseline: {
