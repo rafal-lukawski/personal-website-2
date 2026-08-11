@@ -107,9 +107,15 @@ export default async function LocaleLayout({
   const messages = await getMessages();
   const cookieStore = await cookies();
   const colorMode = parseColorMode(cookieStore.get(COLOR_MODE_COOKIE)?.value);
+  const htmlColorClass =
+    colorMode === "light" || colorMode === "dark" ? colorMode : undefined;
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html
+      lang={locale}
+      className={htmlColorClass}
+      suppressHydrationWarning
+    >
       <body
         className={`${geistSans.variable} ${geistMono.variable}`}
         suppressHydrationWarning
