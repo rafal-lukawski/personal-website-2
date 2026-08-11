@@ -11,7 +11,6 @@ import {
   deepOrange,
   deepPurple,
   green,
-  grey,
   indigo,
   lightBlue,
   purple,
@@ -65,7 +64,7 @@ export function StackSection() {
       items: [
         { name: "React", icon: SiReact, color: cyan[600] },
         { name: "TypeScript", icon: SiTypescript, color: blue[700] },
-        { name: "Next.js", icon: SiNextdotjs, color: grey[900] },
+        { name: "Next.js", icon: SiNextdotjs, color: "currentColor" },
         { name: "Angular", icon: SiAngular, color: red[600] },
       ],
     },
@@ -95,7 +94,7 @@ export function StackSection() {
       title: t("backend"),
       items: [
         { name: "Node.js", icon: SiNodedotjs, color: green[700] },
-        { name: "Express", emoji: "E", color: grey[900] },
+        { name: "Express", emoji: "E", color: "currentColor" },
         { name: "PostgreSQL", icon: SiPostgresql, color: indigo[600] },
         { name: "MySQL", icon: SiMysql, color: blue[800] },
         { name: "PHP", icon: SiPhp, color: deepPurple[400] },

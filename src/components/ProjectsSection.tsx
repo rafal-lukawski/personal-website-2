@@ -7,7 +7,6 @@ import Link from "@mui/material/Link";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import IconButton from "@mui/material/IconButton";
-import { grey } from "@mui/material/colors";
 import Image from "next/image";
 import CloseIcon from "@mui/icons-material/Close";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -264,7 +263,8 @@ export function ProjectsSection() {
               gap: { xs: 3, md: 4 },
               pb: index < projects.length - 1 ? 4 : 0,
               borderBottom:
-                index < projects.length - 1 ? `1px solid ${grey[300]}` : "none",
+                index < projects.length - 1 ? "1px solid" : "none",
+              borderColor: index < projects.length - 1 ? "divider" : undefined,
             }}
           >
             {/* Left side: Project info */}
@@ -292,9 +292,9 @@ export function ProjectsSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     sx={{
-                      color: grey[600],
+                      color: "text.secondary",
                       "&:hover": {
-                        color: grey[800],
+                        color: "text.primary",
                       },
                       textDecoration: "none",
                       fontSize: "0.9rem",
@@ -321,7 +321,7 @@ export function ProjectsSection() {
                 <Typography
                   variant="body2"
                   sx={{
-                    color: grey[700],
+                    color: "text.secondary",
                     mb: 2,
                   }}
                 >
@@ -334,10 +334,10 @@ export function ProjectsSection() {
                       target="_blank"
                       rel="noopener noreferrer"
                       sx={{
-                        color: grey[700],
+                        color: "text.secondary",
                         textDecoration: "underline",
                         "&:hover": {
-                          color: grey[900],
+                          color: "text.primary",
                         },
                       }}
                     >
@@ -368,15 +368,16 @@ export function ProjectsSection() {
                     width: { xs: "100%", md: 300 },
                     height: "auto",
                     cursor: "pointer",
-                    border: `2px solid ${grey[300]}`,
+                    border: "2px solid",
+                    borderColor: "divider",
                     borderRadius: 2,
                     overflow: "hidden",
-                    backgroundColor: grey[50],
+                    backgroundColor: "action.hover",
                     p: 0.5,
                     // border: '1px solid red',
                     transition: "all 0.2s ease",
                     "&:hover": {
-                      borderColor: grey[400],
+                      borderColor: "text.disabled",
                       boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
                       transform: "scale(1.02)",
                     },
@@ -411,7 +412,7 @@ export function ProjectsSection() {
         fullWidth
         PaperProps={{
           sx: {
-            backgroundColor: "white",
+            backgroundColor: "background.paper",
             maxHeight: "90vh",
             position: "relative",
           },
@@ -428,10 +429,10 @@ export function ProjectsSection() {
                   top: 8,
                   right: 8,
                   zIndex: 10,
-                  backgroundColor: "white",
+                  backgroundColor: "background.paper",
                   boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
                   "&:hover": {
-                    backgroundColor: grey[100],
+                    backgroundColor: "action.hover",
                     transform: "scale(1.1)",
                   },
                 }}
@@ -459,10 +460,10 @@ export function ProjectsSection() {
                       top: "50%",
                       transform: "translateY(-50%)",
                       zIndex: 10,
-                      backgroundColor: "white",
+                      backgroundColor: "background.paper",
                       boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
                       "&:hover": {
-                        backgroundColor: grey[100],
+                        backgroundColor: "action.hover",
                         transform: "translateY(-50%) scale(1.1)",
                       },
                     }}
@@ -523,10 +524,10 @@ export function ProjectsSection() {
                       top: "50%",
                       transform: "translateY(-50%)",
                       zIndex: 10,
-                      backgroundColor: "white",
+                      backgroundColor: "background.paper",
                       boxShadow: "0 2px 8px rgba(0, 0, 0, 0.15)",
                       "&:hover": {
-                        backgroundColor: grey[100],
+                        backgroundColor: "action.hover",
                         transform: "translateY(-50%) scale(1.1)",
                       },
                     }}

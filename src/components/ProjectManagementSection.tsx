@@ -10,7 +10,7 @@ import {
 } from "react-icons/si";
 import { MdLoop } from "react-icons/md";
 import { IconType } from "react-icons";
-import { blue, green, grey, lightBlue, red } from "@mui/material/colors";
+import { blue, green, lightBlue, red } from "@mui/material/colors";
 import { Categories } from "@/components/Categories";
 
 interface TechItem {
@@ -44,7 +44,7 @@ export function ProjectManagementSection() {
       items: [
         { name: "Jira", icon: SiJira, color: blue[800] },
         { name: "Confluence", icon: SiConfluence, color: lightBlue[700] },
-        { name: "GitHub", icon: SiGithub, color: grey[900] },
+        { name: "GitHub", icon: SiGithub, color: "currentColor" },
         { name: "Asana", icon: SiAsana, color: red[400] },
       ],
     },

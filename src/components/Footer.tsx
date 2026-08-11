@@ -5,7 +5,6 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
-import { grey } from "@mui/material/colors";
 import { FaArrowUp } from "react-icons/fa";
 import { scrollToSection } from "@/hooks/useScrollSpy";
 import { sections } from "@/config/navigation";
@@ -27,7 +26,8 @@ export function Footer() {
       sx={{
         mt: 12,
         mb: 4,
-        borderTop: `1px solid ${grey[300]}`,
+        borderTop: 1,
+        borderColor: "divider",
         pt: 8,
         pb: 4,
       }}
@@ -45,21 +45,24 @@ export function Footer() {
           {/* Call to Action Section */}
           <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start", gap: 2 }}>
             <Typography variant="h4" component="h3">
-              {tFooter("cta.line1")} <Box component="span" sx={{ color: grey[500] }}>{tFooter("cta.line2")}</Box>
+              {tFooter("cta.line1")}{" "}
+              <Box component="span" sx={{ color: "text.disabled" }}>
+                {tFooter("cta.line2")}
+              </Box>
             </Typography>
             <Button
               variant="contained"
               onClick={scrollToTop}
               startIcon={<FaArrowUp />}
               sx={{
-                backgroundColor: grey[800],
-                color: "white",
+                backgroundColor: "text.primary",
+                color: "background.paper",
                 textTransform: "none",
                 mt: 3,
                 px: 3,
                 py: 1.5,
                 "&:hover": {
-                  backgroundColor: grey[700],
+                  backgroundColor: "text.secondary",
                 },
               }}
             >

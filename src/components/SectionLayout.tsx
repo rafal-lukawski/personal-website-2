@@ -1,7 +1,6 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { grey } from "@mui/material/colors";
 import { TRANSITION_TIMEOUT } from "./AnimatedHamburger";
 import { ReactNode } from "react";
 
@@ -26,16 +25,23 @@ export function SectionLayout({ title, children, subtitle, id }: SectionLayoutPr
     >
       <Container maxWidth="xl" sx={{ paddingX: 0 }}>
         <Box
-          sx={{
-            backgroundColor: 'white',
-            border: `1px solid rgba(255, 255, 255, 0.3)`,
+          sx={(theme) => ({
+            backgroundColor: "background.paper",
+            border: "1px solid rgba(255, 255, 255, 0.3)",
             p: { xs: 3, md: 4 },
             transition: `all ${TRANSITION_TIMEOUT}ms ease`,
             boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
             "&:hover": {
               boxShadow: "0 12px 40px 0 rgba(31, 38, 135, 0.2)",
             },
-          }}
+            ...theme.applyStyles("dark", {
+              border: "1px solid rgba(255, 255, 255, 0.08)",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
+              "&:hover": {
+                boxShadow: "0 12px 40px 0 rgba(0, 0, 0, 0.45)",
+              },
+            }),
+          })}
         >
           <Typography
             variant="h4"
