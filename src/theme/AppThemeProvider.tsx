@@ -18,7 +18,8 @@ function ColorModeCookieSync() {
 
   React.useEffect(() => {
     if (mode === "light" || mode === "dark" || mode === "system") {
-      document.cookie = `${COLOR_MODE_COOKIE}=${encodeURIComponent(mode)}; path=/; max-age=${ONE_YEAR}; SameSite=Lax`;
+      const secure = window.location.protocol === "https:" ? "; Secure" : "";
+      document.cookie = `${COLOR_MODE_COOKIE}=${encodeURIComponent(mode)}; path=/; max-age=${ONE_YEAR}; SameSite=Lax${secure}`;
     }
   }, [mode]);
 
