@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import { grey } from "@mui/material/colors";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
@@ -30,7 +29,7 @@ export function HeroSection() {
             sx={{
               fontStyle: "italic",
               fontWeight: 400,
-              color: grey[500],
+              color: "text.disabled",
               fontSize: { xs: "0.875rem", md: "0.95rem" },
               lineHeight: 1.2,
             }}
@@ -42,7 +41,7 @@ export function HeroSection() {
             sx={{
               fontStyle: "italic",
               fontWeight: 400,
-              color: grey[500],
+              color: "text.disabled",
               fontSize: { xs: "0.875rem", md: "0.95rem" },
               lineHeight: 1.2,
             }}
@@ -73,7 +72,7 @@ export function HeroSection() {
               variant="h5"
               component="h2"
               sx={{
-                color: grey[600],
+                color: "text.secondary",
                 fontWeight: 400,
                 mb: 2,
               }}
@@ -102,7 +101,7 @@ export function HeroSection() {
                 variant="h6"
                 component="p"
                 sx={{
-                  color: grey[800],
+                  color: "text.primary",
                   fontWeight: 600,
                 }}
               >

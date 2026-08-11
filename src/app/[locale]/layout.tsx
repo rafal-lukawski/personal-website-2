@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { cookies } from "next/headers";
 import "../globals.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
-import { ThemeProvider } from "@mui/material/styles";
-import CssBaseline from "@mui/material/CssBaseline";
-import { theme } from "@/theme";
+import InitColorSchemeScript from "@mui/material/InitColorSchemeScript";
+import { AppThemeProvider } from "@/theme";
+import {
+  COLOR_MODE_COOKIE,
+  COLOR_MODE_STORAGE_KEY,
+  parseColorMode,
+} from "@/theme/colorMode";
 import { Footer } from "@/components/Footer";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { NextIntlClientProvider } from 'next-intl';
@@ -100,18 +105,33 @@ export default async function LocaleLayout({
   // Providing all messages to the client
   // side is the easiest way to get started
   const messages = await getMessages();
+  const cookieStore = await cookies();
+  const colorMode = parseColorMode(cookieStore.get(COLOR_MODE_COOKIE)?.value);
+  const htmlColorClass =
+    colorMode === "light" || colorMode === "dark" ? colorMode : undefined;
 
   return (
-    <html lang={locale}>
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html
+      lang={locale}
+      className={htmlColorClass}
+      suppressHydrationWarning
+    >
+      <body
+        className={`${geistSans.variable} ${geistMono.variable}`}
+        suppressHydrationWarning
+      >
+        <InitColorSchemeScript
+          attribute="class"
+          defaultMode={colorMode}
+          modeStorageKey={COLOR_MODE_STORAGE_KEY}
+        />
         <GoogleAnalytics />
         <NextIntlClientProvider messages={messages}>
           <AppRouterCacheProvider>
-            <ThemeProvider theme={theme}>
-              <CssBaseline />
+            <AppThemeProvider defaultMode={colorMode}>
               {children}
               <Footer />
-            </ThemeProvider>
+            </AppThemeProvider>
           </AppRouterCacheProvider>
         </NextIntlClientProvider>
       </body>

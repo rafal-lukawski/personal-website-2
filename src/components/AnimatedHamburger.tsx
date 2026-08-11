@@ -1,6 +1,5 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
-import { grey } from "@mui/material/colors";
 
 const TRANSITION_TIMEOUT = 200;
 
@@ -15,7 +14,7 @@ export function AnimatedHamburger({ isOpen }: AnimatedHamburgerProps) {
         width: 24,
         height: 18,
         position: "relative",
-        color: grey[800],
+        color: "text.primary",
       }}
     >
       <Box

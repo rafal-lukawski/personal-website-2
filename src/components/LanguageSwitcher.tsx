@@ -4,8 +4,6 @@ import * as React from "react";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Typography from "@mui/material/Typography";
-import { grey } from "@mui/material/colors";
 import { useRouter, usePathname } from "@/i18n/routing";
 import { useParams } from "next/navigation";
 import LanguageIcon from "@mui/icons-material/Language";
@@ -20,7 +18,7 @@ export function LanguageSwitcher() {
   const pathname = usePathname();
   const params = useParams();
   const currentLocale = params.locale as string;
-  
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -37,22 +35,20 @@ export function LanguageSwitcher() {
     router.replace(pathname, { locale });
   };
 
-  const currentLanguage = languages.find((lang) => lang.code === currentLocale);
-
   return (
     <>
       <IconButton
         onClick={handleClick}
-        size="large"
+        size="small"
         aria-label="change language"
         aria-controls={open ? "language-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
         sx={{
-          color: grey[800],
+          color: "text.primary",
         }}
       >
-        <LanguageIcon />
+        <LanguageIcon fontSize="small" />
       </IconButton>
       <Menu
         id="language-menu"
@@ -68,15 +64,14 @@ export function LanguageSwitcher() {
             key={language.code}
             onClick={() => handleLanguageChange(language.code)}
             selected={language.code === currentLocale}
+            dense
+            sx={{ fontSize: "0.8125rem", minHeight: 32, gap: 1 }}
           >
-            <Typography sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-              <span>{language.flag}</span>
-              <span>{language.label}</span>
-            </Typography>
+            <span aria-hidden>{language.flag}</span>
+            {language.label}
           </MenuItem>
         ))}
       </Menu>
     </>
   );
 }
-

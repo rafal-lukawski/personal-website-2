@@ -3,7 +3,6 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import { grey } from "@mui/material/colors";
 import Image from "next/image";
 import { SectionLayout } from "./SectionLayout";
 import React from "react";
@@ -43,7 +42,7 @@ export function CertificatesSection() {
           <React.Fragment key={index}>
             {/* Date Column */}
             <Box sx={{ display: "flex", justifyContent: "flex-end", alignItems: "center", pt: 1, minWidth: 120 }}>
-              <Typography variant="body2" sx={{ color: grey[700] }}>
+              <Typography variant="body2" sx={{ color: "text.secondary" }}>
                 {formatDate(cert.date)}
               </Typography>
             </Box>
@@ -70,10 +69,10 @@ export function CertificatesSection() {
                 </Box>
               )}
               <Box sx={{ flex: 1 }}>
-                <Typography variant="body1" component="div" sx={{ fontWeight: "bold", color: grey[900], lineHeight: 1.2 }}>
+                <Typography variant="body1" component="div" sx={{ fontWeight: "bold", color: "text.primary", lineHeight: 1.2 }}>
                   {cert.name}
                 </Typography>
-                <Typography variant="body2" component="div" sx={{ color: grey[700], mt: 0.5, mb: 0.5 }}>
+                <Typography variant="body2" component="div" sx={{ color: "text.secondary", mt: 0.5, mb: 0.5 }}>
                   {cert.issuer}
                 </Typography>
                 {cert.validationLink && (
@@ -82,7 +81,7 @@ export function CertificatesSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     underline="hover"
-                    sx={{ color: "#1976d2", fontSize: "0.875rem" }}
+                    sx={{ color: "primary.main", fontSize: "0.875rem" }}
                   >
                     {t("showCredentials")}
                   </Link>

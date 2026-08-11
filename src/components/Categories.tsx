@@ -1,5 +1,4 @@
 import { Box, BoxProps, Chip, Typography } from "@mui/material";
-import { grey } from "@mui/material/colors";
 import { IconType } from "react-icons";
 
 interface TechItem {
@@ -95,7 +94,8 @@ export const Categories = (props: {
                   sx={{
                     justifyContent: "flex-start",
                     fontSize: "0.875rem",
-                    backgroundColor: grey[100],
+                    backgroundColor: "action.hover",
+                    color: "text.primary",
                     "& .MuiChip-icon": {
                       marginRight: "4px",
                     },

@@ -7,13 +7,14 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import Alert from "@mui/material/Alert";
-import { grey } from "@mui/material/colors";
 import { SectionLayout } from "./SectionLayout";
 import { socialLinks } from "@/config/socials";
 import { useTranslations } from "next-intl";
+import { useTheme } from "@mui/material/styles";
 
 export function ContactSection() {
   const t = useTranslations("contact");
+  const theme = useTheme();
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -57,13 +58,13 @@ export function ContactSection() {
               
               return (
                 <Box key={social.name} sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-                  <Icon size={24} color={grey[600]} />
+                  <Icon size={24} color={theme.palette.text.secondary} />
                   <Link
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     underline="hover"
-                    sx={{ color: "#1976d2", fontSize: "1rem" }}
+                    sx={{ color: "primary.main", fontSize: "1rem" }}
                   >
                     {social.name}
                   </Link>

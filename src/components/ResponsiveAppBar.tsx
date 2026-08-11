@@ -10,11 +10,11 @@ import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import { grey } from "@mui/material/colors";
 import { AnimatedHamburger, TRANSITION_TIMEOUT } from "./AnimatedHamburger";
 import { useScrollSpy, scrollToSection } from "@/hooks/useScrollSpy";
 import { sections } from "@/config/navigation";
 import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ColorModeButton } from "./ColorModeButton";
 import { ScrambleText } from "./ScrambleText";
 import { useTranslations } from "next-intl";
 import { useScrollAware } from "@/hooks/useScrollAware";
@@ -53,23 +53,36 @@ export function ResponsiveAppBar() {
   const transition = scaleElements
     .map((element) => `${element} ${time}s ease-in-out`)
     .join(", ");
-  const barStyles = scrolled
-    ? {
-        backdropFilter: "blur(10px)",
-        backgroundColor: "rgba(255, 255, 255, 0.5)",
-        boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
-        py: 0,
-        transition,
-      }
-    : {
-        backgroundColor: grey[100],
-        boxShadow: "none",
-        py: 1,
-        transition,
-      };
 
   return (
-    <AppBar position="fixed" sx={{ ...barStyles }}>
+    <AppBar
+      position="fixed"
+      color="transparent"
+      elevation={0}
+      sx={(theme) =>
+        scrolled
+          ? {
+              backdropFilter: "blur(10px)",
+              backgroundColor: "rgba(255, 255, 255, 0.5)",
+              backgroundImage: "none",
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.15)",
+              py: 0,
+              transition,
+              ...theme.applyStyles("dark", {
+                backgroundColor: "rgba(22, 22, 22, 0.65)",
+                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.4)",
+              }),
+            }
+          : {
+              backgroundColor: "background.default",
+              // MUI dark mode adds an elevation overlay that makes AppBar look lighter
+              backgroundImage: "none",
+              boxShadow: "none",
+              py: 1,
+              transition,
+            }
+      }
+    >
       <Container maxWidth="lg">
         <Toolbar
           disableGutters
@@ -109,17 +122,18 @@ export function ResponsiveAppBar() {
                   key={page.id}
                   onClick={() => handleNavClick(page.id)}
                   sx={{
-                    color: activeSection === page.id ? "black" : grey[800],
+                    color: activeSection === page.id ? "text.primary" : "text.secondary",
+                    fontWeight: activeSection === page.id ? 700 : 500,
                     display: "block",
                     textTransform: "uppercase",
-                    backgroundColor: page.isCta ? grey[200] : "transparent",
+                    backgroundColor: page.isCta ? "action.selected" : "transparent",
                     px: 1,
                     py: page.isCta ? 1 : "6px",
                     borderRadius: page.isCta ? 2 : 0,
                     ml: page.isCta ? 1 : 0,
                     transition: "all 0.2s ease-in-out",
                     "&:hover": {
-                      backgroundColor: page.isCta ? grey[300] : undefined,
+                      backgroundColor: page.isCta ? "action.hover" : undefined,
                     },
                     whiteSpace: "",
                   }}
@@ -166,8 +180,8 @@ export function ResponsiveAppBar() {
             </Box>
           </Box>
 
-          {/* Single Language Switcher - visible on both mobile and desktop */}
           <LanguageSwitcher />
+          <ColorModeButton />
 
           {/* Mobile menu hamburger */}
           <Box sx={{ display: { xs: "flex", md: "none" }, ml: 1 }}>
@@ -203,10 +217,10 @@ export function ResponsiveAppBar() {
                   key={page.id}
                   onClick={() => handleNavClick(page.id)}
                   sx={{
-                    backgroundColor: page.isCta ? grey[200] : "transparent",
+                    backgroundColor: page.isCta ? "action.selected" : "transparent",
                     color: "inherit",
                     "&:hover": {
-                      backgroundColor: page.isCta ? grey[300] : undefined,
+                      backgroundColor: page.isCta ? "action.hover" : undefined,
                     },
                     my: page.isCta ? 1 : 0,
                     borderRadius: page.isCta ? 1 : 0,
