@@ -82,7 +82,8 @@ export function ResponsiveAppBar() {
               transition,
             }
       }
-    >      <Container maxWidth="lg">
+    >
+      <Container maxWidth="lg">
         <Toolbar
           disableGutters
           sx={{ alignItems: "center", minHeight: 64, height: 64 }}
