@@ -12,12 +12,14 @@ import LinkMui from "@mui/material/Link";
 import { FaEnvelope, FaExternalLinkAlt, FaGithub, FaLinkedin } from "react-icons/fa";
 import { socialLinks } from "@/config/socials";
 import { certificatesData, projectsData, stackCategories } from "./content";
+import { emojiTints, techIcons, tintFilterId } from "./techIcons";
 import { hud } from "./theme";
 import {
   BarLink,
   CatalogThemeProvider,
   CornerTicks,
   Cursor,
+  EmojiTintFilters,
   GalleryChip,
   Glitch,
   HudButton,
@@ -182,11 +184,36 @@ function StackCard({ title, items }: { title: string; items: readonly string[] }
         {title}
       </Typography>
       <Box component="ul" sx={{ m: 0, p: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "4px" }}>
-        {items.map((item) => (
-          <Box component="li" key={item} sx={{ fontSize: "0.89rem" }}>
-            {item}
-          </Box>
-        ))}
+        {items.map((item) => {
+          const meta = techIcons[item];
+          const Icon = meta?.icon;
+          return (
+            <Box
+              component="li"
+              key={item}
+              sx={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.89rem" }}
+            >
+              <Box
+                aria-hidden
+                component="span"
+                sx={{
+                  flexShrink: 0,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  width: 16,
+                  fontSize: "0.94rem",
+                  fontWeight: 700,
+                  color: meta?.color ?? hud.dim,
+                  filter: meta?.desaturate ? `url(#${tintFilterId(meta.color)})` : "none",
+                }}
+              >
+                {Icon ? <Icon /> : meta?.emoji}
+              </Box>
+              {item}
+            </Box>
+          );
+        })}
       </Box>
     </HudCard>
   );
@@ -294,6 +321,7 @@ export function Catalog() {
   return (
     <CatalogThemeProvider>
       <Root>
+        <EmojiTintFilters colors={emojiTints} />
         <SkipLink href="#about">{ui.skip}</SkipLink>
 
         <TopBar>

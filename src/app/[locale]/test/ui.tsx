@@ -12,6 +12,7 @@ import GlobalStyles from "@mui/material/GlobalStyles";
 import { ThemeProvider, keyframes, styled } from "@mui/material/styles";
 import { Link as LocaleLink } from "@/i18n/routing";
 import { catalogTheme, hud } from "./theme";
+import { channels, tintFilterId } from "./techIcons";
 
 const cyan = hud.cyan;
 
@@ -583,6 +584,36 @@ export function PanelStamps({ left, right }: { left?: string; right?: string }) 
       {left && <Box component="span" sx={{ ...base, left: 26 }}>{left}</Box>}
       {right && <Box component="span" sx={{ ...base, right: 26 }}>{right}</Box>}
     </Box>
+  );
+}
+
+/**
+ * Emoji glyphs ignore `color`, so the pictographic ones are re-coloured with a
+ * luminance ramp instead: each pixel keeps its own shading but is mapped onto
+ * that row's tint, which keeps the icon's base hue while bringing it into the
+ * console's cyan family alongside the vector icons.
+ */
+export function EmojiTintFilters({ colors }: { colors: string[] }) {
+  // Emoji sit mid-luminance, so lift the ramp to reach the full tint.
+  const gain = 1.55;
+  const lum = [0.2126, 0.7152, 0.0722];
+  return (
+    <svg aria-hidden width={0} height={0} style={{ position: "absolute" }} focusable="false">
+      <defs>
+        {colors.map((color) => {
+          const row = (level: number) => lum.map((l) => l * gain * level).join(" ") + " 0 0";
+          const [r, g, b] = channels(color).map((v) => v / 255);
+          return (
+            <filter key={color} id={tintFilterId(color)} colorInterpolationFilters="sRGB">
+              <feColorMatrix
+                type="matrix"
+                values={`${row(r)} ${row(g)} ${row(b)} 0 0 0 1 0`}
+              />
+            </filter>
+          );
+        })}
+      </defs>
+    </svg>
   );
 }
 
