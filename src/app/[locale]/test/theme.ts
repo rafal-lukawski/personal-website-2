@@ -5,7 +5,7 @@ export const hud = {
   // Three levels: the page, a module lifted off it, and a sub-module recessed
   // back into that module. Depth reads from tone alone, without any borders.
   surface: "rgba(21, 38, 44, 0.26)",
-  sunken: "rgba(0, 0, 0, 0.22)",
+  sunken: "rgba(0, 0, 0, 0.15)",
   panel: "rgba(10, 10, 12, 0.8)",
   panelSolid: "#0a0a0c",
   cyan: "#00f2ff",
