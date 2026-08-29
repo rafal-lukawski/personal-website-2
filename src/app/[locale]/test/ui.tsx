@@ -31,10 +31,6 @@ function cornerFill(size = 18, c: string = frame, weight = 1) {
   return [
     `linear-gradient(${c}, ${c}) left top / ${size}px ${weight}px no-repeat`,
     `linear-gradient(${c}, ${c}) left top / ${weight}px ${size}px no-repeat`,
-    `linear-gradient(${c}, ${c}) right top / ${size}px ${weight}px no-repeat`,
-    `linear-gradient(${c}, ${c}) right top / ${weight}px ${size}px no-repeat`,
-    `linear-gradient(${c}, ${c}) left bottom / ${size}px ${weight}px no-repeat`,
-    `linear-gradient(${c}, ${c}) left bottom / ${weight}px ${size}px no-repeat`,
     `linear-gradient(${c}, ${c}) right bottom / ${size}px ${weight}px no-repeat`,
     `linear-gradient(${c}, ${c}) right bottom / ${weight}px ${size}px no-repeat`,
   ].join(", ");
@@ -537,6 +533,8 @@ export const NavFab = styled(IconButton)({
 /**
  * The single corner-bracket primitive. Panels, cards, buttons and fields all
  * render the exact same L-arms via `cornerFill`, so the geometry never drifts.
+ * Only the top-left / bottom-right pair is drawn, so a frame implies its box
+ * along one diagonal instead of closing it on all four corners.
  */
 export function CornerTicks({
   size = 18,
@@ -646,10 +644,6 @@ export function StatusBadge({ children }: { children: ReactNode }) {
           background: [
             `linear-gradient(${ok}, ${ok}) left top / 10px 1px no-repeat`,
             `linear-gradient(${ok}, ${ok}) left top / 1px 10px no-repeat`,
-            `linear-gradient(${ok}, ${ok}) right top / 10px 1px no-repeat`,
-            `linear-gradient(${ok}, ${ok}) right top / 1px 10px no-repeat`,
-            `linear-gradient(${ok}, ${ok}) left bottom / 10px 1px no-repeat`,
-            `linear-gradient(${ok}, ${ok}) left bottom / 1px 10px no-repeat`,
             `linear-gradient(${ok}, ${ok}) right bottom / 10px 1px no-repeat`,
             `linear-gradient(${ok}, ${ok}) right bottom / 1px 10px no-repeat`,
           ].join(", "),
