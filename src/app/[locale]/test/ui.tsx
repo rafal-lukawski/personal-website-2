@@ -635,6 +635,9 @@ export function StatusBadge({ children }: { children: ReactNode }) {
         letterSpacing: "0.1em",
         fontSize: 10,
         fontFamily: hud.mono,
+        // Trimming the label to cap height (below) also shrinks the box, so pin
+        // the height back to what the untrimmed line box gave: 14px + 4px x 2.
+        minHeight: 22,
         position: "relative",
         "&::after": {
           content: '""',
@@ -661,7 +664,15 @@ export function StatusBadge({ children }: { children: ReactNode }) {
           [reducedMotion]: { animation: "none" },
         }}
       />
-      {children}
+      {/*
+        Trimming the line box down to cap height makes the flex centring act on
+        the letters themselves rather than on the ascender/descender space the
+        uppercase label never fills, so the text sits optically centred and the
+        dot lines up with it without a magic offset.
+      */}
+      <Box component="span" sx={{ display: "block", textBox: "trim-both cap alphabetic" }}>
+        {children}
+      </Box>
     </Box>
   );
 }
