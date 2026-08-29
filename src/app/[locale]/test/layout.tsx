@@ -1,7 +1,5 @@
 import { JetBrains_Mono, Syne } from "next/font/google";
 import type { Metadata } from "next";
-// @ts-expect-error CSS import is handled by Next.js App Router bundler.
-import "./catalog.css";
 
 const syne = Syne({
   subsets: ["latin", "latin-ext"],

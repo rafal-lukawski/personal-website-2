@@ -1,12 +1,44 @@
 "use client";
 
 import Image from "next/image";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
 import { useLocale, useTranslations } from "next-intl";
-import { Link, usePathname } from "@/i18n/routing";
+import { usePathname } from "@/i18n/routing";
+import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import LinkMui from "@mui/material/Link";
 import { FaEnvelope, FaExternalLinkAlt, FaGithub, FaLinkedin } from "react-icons/fa";
 import { socialLinks } from "@/config/socials";
 import { certificatesData, projectsData, stackCategories } from "./content";
+import { hud } from "./theme";
+import {
+  BarLink,
+  CatalogThemeProvider,
+  CornerTicks,
+  Cursor,
+  GalleryChip,
+  Glitch,
+  HudButton,
+  HudCard,
+  HudField,
+  LangLink,
+  LightboxDialog,
+  NavFab,
+  Page,
+  Panel,
+  PanelBar,
+  PanelBody,
+  Particles,
+  ProcessDots,
+  Root,
+  ScanLine,
+  SectionLabel,
+  ShotButton,
+  SkipLink,
+  StatusBadge,
+  TopBar,
+} from "./ui";
 
 const copy = {
   pl: {
@@ -21,6 +53,10 @@ const copy = {
     terminalContact: "CONTACT.EXE",
     credentials: "poświadczenie",
     gallery: "galeria",
+    openProject: "otwórz projekt",
+    close: "zamknij",
+    previous: "poprzedni slajd",
+    next: "następny slajd",
   },
   en: {
     prototype: "prototype",
@@ -34,6 +70,10 @@ const copy = {
     terminalContact: "CONTACT.EXE",
     credentials: "credential",
     gallery: "gallery",
+    openProject: "open project",
+    close: "close",
+    previous: "previous slide",
+    next: "next slide",
   },
 } as const;
 
@@ -75,21 +115,12 @@ function usePrefersReducedMotion() {
   return reduced;
 }
 
-function Typewriter({
-  text,
-  enabled,
-  onDone,
-}: {
-  text: string;
-  enabled: boolean;
-  onDone?: () => void;
-}) {
+function Typewriter({ text, enabled }: { text: string; enabled: boolean }) {
   const [shown, setShown] = useState(enabled ? "" : text);
 
   useEffect(() => {
     if (!enabled) {
       setShown(text);
-      onDone?.();
       return;
     }
 
@@ -98,54 +129,57 @@ function Typewriter({
     const id = window.setInterval(() => {
       i += 1;
       setShown(text.slice(0, i));
-      if (i >= text.length) {
-        window.clearInterval(id);
-        onDone?.();
-      }
+      if (i >= text.length) window.clearInterval(id);
     }, 11);
 
     return () => window.clearInterval(id);
-  }, [text, enabled, onDone]);
+  }, [text, enabled]);
 
   return (
     <>
       {shown}
-      <span className="tc-cursor" aria-hidden />
+      <Cursor aria-hidden />
     </>
-  );
-}
-
-function CornerTicks() {
-  return (
-    <>
-      <span className="tc-corner tl" />
-      <span className="tc-corner tr" />
-      <span className="tc-corner bl" />
-      <span className="tc-corner br" />
-    </>
-  );
-}
-
-function ProcessDots() {
-  return (
-    <div className="tc-dots" aria-hidden>
-      <span />
-      <span />
-      <span />
-    </div>
   );
 }
 
 function HeroParticleNetwork() {
   return (
-    <svg className="tc-particles" viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden>
+    <Particles viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden>
       {particleLines.map(([x1, y1, x2, y2], idx) => (
         <line key={`${x1}-${idx}`} x1={x1} y1={y1} x2={x2} y2={y2} />
       ))}
       {particles.map((node, idx) => (
         <circle key={`${node.x}-${idx}`} cx={node.x} cy={node.y} r={node.size / 2} />
       ))}
-    </svg>
+    </Particles>
+  );
+}
+
+function StackCard({ title, items }: { title: string; items: readonly string[] }) {
+  return (
+    <HudCard>
+      <Typography
+        component="h3"
+        sx={{
+          m: 0,
+          mb: "9px",
+          font: `500 11px/1.2 ${hud.mono}`,
+          letterSpacing: "0.12em",
+          textTransform: "uppercase",
+          color: hud.cyan,
+        }}
+      >
+        {title}
+      </Typography>
+      <Box component="ul" sx={{ m: 0, p: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "4px" }}>
+        {items.map((item) => (
+          <Box component="li" key={item} sx={{ fontSize: "0.89rem" }}>
+            {item}
+          </Box>
+        ))}
+      </Box>
+    </HudCard>
   );
 }
 
@@ -188,30 +222,41 @@ export function Catalog() {
   const activeProject = lightbox ? projects.find((p) => p.id === lightbox.projectId) : null;
   const activeShot = activeProject && lightbox ? activeProject.screenshots[lightbox.index] : null;
 
+  const openLightbox = useCallback((projectId: string, index = 0) => {
+    setLightbox({ projectId, index });
+  }, []);
+
   const closeLightbox = useCallback(() => setLightbox(null), []);
   const stepLightbox = useCallback(
     (dir: -1 | 1) => {
-      if (!lightbox) return;
-      const project = projects.find((item) => item.id === lightbox.projectId);
-      if (!project) return;
-      const length = project.screenshots.length;
-      setLightbox({ projectId: lightbox.projectId, index: (lightbox.index + dir + length) % length });
+      setLightbox((current) => {
+        if (!current) return current;
+        const project = projects.find((item) => item.id === current.projectId);
+        if (!project) return current;
+        const length = project.screenshots.length;
+        return { projectId: current.projectId, index: (current.index + dir + length) % length };
+      });
     },
-    [lightbox, projects],
+    [projects],
   );
 
   useEffect(() => {
     if (!lightbox) return;
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") closeLightbox();
-      if (event.key === "ArrowLeft") stepLightbox(-1);
-      if (event.key === "ArrowRight") stepLightbox(1);
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        stepLightbox(-1);
+      }
+      if (event.key === "ArrowRight") {
+        event.preventDefault();
+        stepLightbox(1);
+      }
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [lightbox, closeLightbox, stepLightbox]);
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [lightbox, stepLightbox]);
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setStatus("submitting");
     const form = event.currentTarget;
@@ -235,303 +280,626 @@ export function Catalog() {
   };
 
   const year = new Date().getFullYear();
+  const submitState = status === "success" || status === "error" ? status : undefined;
 
   return (
-    <>
-      <a className="tc-skip" href="#about">
-        {ui.skip}
-      </a>
+    <CatalogThemeProvider>
+      <Root>
+        <SkipLink href="#about">{ui.skip}</SkipLink>
 
-      <header className="tc-bar">
-        <div className="tc-bar-left">
-          <span className="tc-bar-mark">RL</span>
-          <span>{ui.prototype}</span>
-        </div>
-        <div className="tc-bar-right">
-          <a href={`/${locale}`}>{ui.current}</a>
-          <div className="tc-lang">
-            {(["pl", "en"] as const).map((code) => (
-              <Link key={code} href={pathname} locale={code} aria-current={locale === code ? "true" : undefined}>
-                {code}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </header>
+        <TopBar>
+          <Stack direction="row" alignItems="center" spacing="14px">
+            <Box component="span" sx={{ color: hud.cyan }}>
+              RL
+            </Box>
+            <Box component="span" sx={{ display: { xs: "none", sm: "inline" } }}>
+              {ui.prototype}
+            </Box>
+          </Stack>
+          <Stack direction="row" alignItems="center" spacing="14px">
+            <BarLink href="/" locale={locale}>
+              {ui.current}
+            </BarLink>
+            <Stack direction="row" spacing="2px">
+              {(["pl", "en"] as const).map((code) => (
+                <LangLink
+                  key={code}
+                  href={pathname}
+                  locale={code}
+                  aria-current={locale === code ? "page" : undefined}
+                >
+                  {code}
+                </LangLink>
+              ))}
+            </Stack>
+          </Stack>
+        </TopBar>
 
-      <main className="tc-page" id="top">
-        <section className="tc-hero" id="hero">
-          <HeroParticleNetwork />
-          <div className="tc-identity">
-            <div className="tc-kicker">
-              <span className="tc-badge">
-                <i />
-                {ui.active}
-              </span>
-            </div>
-            <h1 className="tc-name tc-glitchable">{tHero("name")}</h1>
-            <p className="tc-role">{tHero("title")}</p>
-            <p className="tc-tagline">{tHero("tagline")}</p>
-            <p className="tc-motto">
-              {tHero("mottoLine1")} {tHero("mottoLine2")}
-            </p>
-            <div className="tc-cta">
-              <a className="tc-btn" href="#contact">
-                {tHero("contactMe")}
-              </a>
-            </div>
-          </div>
+        <Page id="top">
+          <Box
+            component="section"
+            id="hero"
+            sx={{
+              position: "relative",
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", sm: "minmax(0, 1fr) auto" },
+              gap: { xs: "22px", sm: "36px" },
+              mb: "24px",
+              px: "16px",
+              pt: "22px",
+              pb: "8px",
+              textAlign: { xs: "center", sm: "left" },
+            }}
+          >
+            <HeroParticleNetwork />
+            <Box sx={{ position: "relative", zIndex: 1 }}>
+              <Box sx={{ mb: "12px", display: "flex", justifyContent: { xs: "center", sm: "flex-start" } }}>
+                <StatusBadge>{ui.active}</StatusBadge>
+              </Box>
+              <Glitch>
+                {tHero("name")}
+              </Glitch>
+              <Typography sx={{ mt: "14px", mb: 0, color: hud.muted, fontSize: "1.04rem" }}>{tHero("title")}</Typography>
+              <Typography sx={{ mt: "10px", mb: 0, fontSize: "0.98rem" }}>{tHero("tagline")}</Typography>
+              <Typography
+                sx={{
+                  mt: 2,
+                  mb: 0,
+                  maxWidth: "36em",
+                  mx: { xs: "auto", sm: 0 },
+                  color: hud.dim,
+                  fontSize: "0.9rem",
+                  fontStyle: "italic",
+                  lineHeight: 1.45,
+                }}
+              >
+                {tHero("mottoLine1")} {tHero("mottoLine2")}
+              </Typography>
+              <Box sx={{ mt: "22px", display: "flex", justifyContent: { xs: "center", sm: "flex-start" } }}>
+                <HudButton href="#contact">{tHero("contactMe")}</HudButton>
+              </Box>
+            </Box>
 
-          <div className="tc-portrait">
-            <div className="tc-portrait-frame">
-              <CornerTicks />
-              <Image src="/author.jpg" alt="Rafał Łukawski" width={440} height={440} priority />
-              <span className="tc-scan" />
-            </div>
-            <div className="tc-portrait-base" />
-          </div>
-        </section>
+            <Box
+              sx={{
+                position: "relative",
+                width: { xs: 182, sm: 232 },
+                height: { xs: 182, sm: 232 },
+                zIndex: 1,
+                mx: { xs: "auto", sm: 0 },
+              }}
+            >
+              <Box
+                sx={{
+                  position: "relative",
+                  height: "100%",
+                  overflow: "hidden",
+                  bgcolor: "#080b10",
+                  "&::before": {
+                    content: '""',
+                    position: "absolute",
+                    inset: 0,
+                    pointerEvents: "none",
+                    zIndex: 1,
+                    background:
+                      "repeating-linear-gradient(to bottom, transparent 0, transparent 3px, rgba(8, 13, 18, 0.19) 3px, rgba(8, 13, 18, 0.19) 4px)",
+                  },
+                  "& img": { width: "100%", height: "100%", objectFit: "cover", filter: "contrast(1.07) saturate(0.88)" },
+                }}
+              >
+                <CornerTicks />
+                <Image src="/author.jpg" alt="Rafał Łukawski" width={440} height={440} priority />
+                <ScanLine />
+              </Box>
+              <Box
+                sx={{
+                  position: "absolute",
+                  left: "13%",
+                  right: "13%",
+                  bottom: -10,
+                  height: 10,
+                  border: `1px solid ${hud.line}`,
+                  borderTop: 0,
+                  "&::after": {
+                    content: '""',
+                    position: "absolute",
+                    left: "50%",
+                    bottom: -6,
+                    width: "46%",
+                    height: 6,
+                    transform: "translateX(-50%)",
+                    background: "linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.5), transparent)",
+                  },
+                }}
+              />
+            </Box>
+          </Box>
 
-        <div className="tc-shell">
-          <div className="tc-main">
-            <section className="tc-panel" id="about">
-              <div className="tc-panel-bar">
-                <span>{ui.terminalAbout}</span>
-                <ProcessDots />
-              </div>
-              <div className="tc-panel-body tc-about">
-                <h2 className="tc-section-label">[MODULE: PROFILE_DATA]</h2>
-                <p className="tc-about-text">
-                  <Typewriter text={aboutText} enabled={!reducedMotion} />
-                </p>
-              </div>
-            </section>
-
-            <section className="tc-panel" id="stack">
-              <div className="tc-panel-bar">
-                <span>{ui.moduleStack}</span>
-                <ProcessDots />
-              </div>
-              <div className="tc-panel-body">
-                <div className="tc-stack">
-                  {stackCategories.map((category) => (
-                    <article className="tc-card tc-glitchable" key={category.titleKey}>
-                      <h3>{tTech(category.titleKey)}</h3>
-                      <ul>
-                        {category.items.map((item) => (
-                          <li key={item}>{item}</li>
-                        ))}
-                      </ul>
-                    </article>
-                  ))}
-                </div>
-                <div className="tc-pm">
-                  <article className="tc-card tc-glitchable">
-                    <h3>{tPm("methodologies")}</h3>
-                    <ul>
-                      <li>Scrum</li>
-                      <li>Kanban</li>
-                      <li>Waterfall</li>
-                    </ul>
-                  </article>
-                  <article className="tc-card tc-glitchable">
-                    <h3>{tPm("tools")}</h3>
-                    <ul>
-                      <li>Jira</li>
-                      <li>Confluence</li>
-                      <li>GitHub</li>
-                      <li>Asana</li>
-                    </ul>
-                  </article>
-                </div>
-              </div>
-            </section>
-
-            <section className="tc-panel" id="certificates">
-              <div className="tc-panel-bar">
-                <span>{ui.moduleCerts}</span>
-                <ProcessDots />
-              </div>
-              <div className="tc-panel-body">
-                <div className="tc-certs">
-                  {certificatesData.map((cert) => (
-                    <a key={cert.nameKey} className="tc-cert" href={cert.validationLink} target="_blank" rel="noopener noreferrer">
-                      <div className="tc-cert-plate">
-                        <span className="tc-cert-ring" />
-                        <span className="tc-cert-glow" />
-                        <Image src={cert.customIcon} alt="" width={64} height={64} />
-                      </div>
-                      <strong>{tCerts(`items.${cert.nameKey}.name`)}</strong>
-                      <span>
-                        {tCerts(`items.${cert.nameKey}.issuer`)} · {ui.credentials}
-                      </span>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            </section>
-
-            <section className="tc-panel" id="contact">
-              <div className="tc-panel-bar">
-                <span>{ui.terminalContact}</span>
-                <ProcessDots />
-              </div>
-              <div className="tc-panel-body tc-contact">
-                <div>
-                  <h2 className="tc-section-label">[MODULE: CONTACT_NODE]</h2>
-                  <div className="tc-socials">
-                    {socialLinks.map((social) => {
-                      const Icon = socialIcons[social.name as keyof typeof socialIcons] ?? FaEnvelope;
-                      return (
-                        <a key={social.name} className="tc-social" href={social.url} target="_blank" rel="noopener noreferrer">
-                          <Icon />
-                          {social.name}
-                        </a>
-                      );
-                    })}
-                  </div>
-                </div>
-
-                <div>
-                  <h2 className="tc-section-label">{tContact("sendMessage")}</h2>
-                  <form className="tc-form" onSubmit={handleSubmit}>
-                    <div className="tc-field">
-                      <label htmlFor="tc-name">{tContact("form.name")}</label>
-                      <input id="tc-name" name="name" required />
-                    </div>
-                    <div className="tc-field">
-                      <label htmlFor="tc-email">{tContact("form.email")}</label>
-                      <input id="tc-email" name="email" type="email" required />
-                    </div>
-                    <div className="tc-field">
-                      <label htmlFor="tc-message">{tContact("form.message")}</label>
-                      <textarea id="tc-message" name="message" required />
-                    </div>
-                    <button
-                      className="tc-btn"
-                      type="submit"
-                      disabled={status === "submitting"}
-                      data-state={status === "success" || status === "error" ? status : undefined}
-                    >
-                      {status === "submitting"
-                        ? tContact("form.sending")
-                        : status === "success"
-                          ? tContact("form.sent")
-                          : status === "error"
-                            ? tContact("form.error")
-                            : tContact("form.send")}
-                    </button>
-                    {status === "success" && <p className="tc-form-msg ok">{tContact("form.successMessage")}</p>}
-                    {status === "error" && <p className="tc-form-msg err">{tContact("form.errorMessage")}</p>}
-                  </form>
-                </div>
-              </div>
-            </section>
-          </div>
-
-          <aside className="tc-aside" id="projects">
-            <div className="tc-panel tc-projects-panel">
-              <div className="tc-panel-bar">
-                <span>{ui.moduleProjects}</span>
-                <ProcessDots />
-              </div>
-              <div className="tc-panel-body">
-                <div className="tc-projects-head">
-                  <h2>{tProjects("title")}</h2>
-                  <span className="tc-count">0{projects.length}</span>
-                </div>
-                <div className="tc-projects-grid">
-                  {projects.map((project, idx) => (
-                    <article className="tc-project" key={project.id}>
-                      <button type="button" className="tc-project-shot tc-glitchable" aria-label={project.title} onClick={() => setLightbox({ projectId: project.id, index: 0 })}>
-                        <CornerTicks />
-                        <span className="tc-shot-meta tc-shot-meta-top">VERSION: 2.0</span>
-                        <span className="tc-shot-meta tc-shot-meta-bot">{project.buildStamp}</span>
-                        <span className="tc-shot-meta tc-shot-meta-side">{String(idx + 1).padStart(2, "0")}</span>
-                        <Image src={project.screenshots[0].src} alt={project.screenshots[0].alt} width={640} height={400} />
-                      </button>
-                      <div className="tc-project-meta">
-                        <h3>{project.title}</h3>
-                        <div className="tc-project-actions">
-                          <button
-                            type="button"
-                            className="tc-gallery-open"
-                            onClick={() => setLightbox({ projectId: project.id, index: 0 })}
-                            aria-label={`${ui.gallery} ${project.title}`}
-                          >
-                            {ui.gallery}
-                            <span>{project.screenshots.length}</span>
-                          </button>
-                          {project.url && (
-                            <a href={project.url} target="_blank" rel="noopener noreferrer" aria-label={project.title}>
-                              <FaExternalLinkAlt size={11} />
-                            </a>
-                          )}
-                        </div>
-                      </div>
-                      <p className="tc-project-date">{project.dateRange}</p>
-                    </article>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </aside>
-        </div>
-
-        <div className="tc-foot">
-          <span>{tFooter("copyright", { year })}</span>
-          <a href={`/${locale}`}>{ui.current}</a>
-        </div>
-      </main>
-
-      {activeProject && activeShot && lightbox && (
-        <div className="tc-lightbox" role="dialog" aria-modal="true" aria-label={activeShot.alt} onClick={closeLightbox}>
-          <figure onClick={(event) => event.stopPropagation()}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={activeShot.src} alt={activeShot.alt} />
-            {activeShot.sourceUrl && (
-              <figcaption>
-                {tProjects("source")}: {activeShot.sourceUrl}
-              </figcaption>
-            )}
-            {activeProject.screenshots.length > 1 && (
-              <div className="tc-lightbox-thumbs">
-                {activeProject.screenshots.map((shot, idx) => (
-                  <button
-                    key={shot.id}
-                    type="button"
-                    className={idx === lightbox.index ? "active" : undefined}
-                    aria-label={`${ui.gallery} ${idx + 1}`}
-                    onClick={() =>
-                      setLightbox({
-                        projectId: activeProject.id,
-                        index: idx,
-                      })
-                    }
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", lg: "minmax(0, 1fr) minmax(300px, 360px)" },
+              gap: "20px",
+            }}
+          >
+            <Stack spacing="18px">
+              <Panel id="about">
+                <PanelBar>
+                  <span>{ui.terminalAbout}</span>
+                  <ProcessDots />
+                </PanelBar>
+                <PanelBody>
+                  <SectionLabel>[MODULE: PROFILE_DATA]</SectionLabel>
+                  <Typography
+                    sx={{
+                      m: 0,
+                      color: hud.muted,
+                      fontFamily: hud.mono,
+                      letterSpacing: "0.01em",
+                      lineHeight: 1.54,
+                      fontSize: "0.95rem",
+                      whiteSpace: "pre-line",
+                    }}
                   >
-                    <Image src={shot.src} alt={shot.alt} width={120} height={75} />
-                  </button>
-                ))}
-              </div>
-            )}
-          </figure>
-          <div className="tc-lightbox-ui">
-            <button type="button" className="tc-lb-close" onClick={closeLightbox} aria-label="Close">
-              ×
-            </button>
-            {activeProject.screenshots.length > 1 && (
-              <>
-                <button type="button" className="tc-lb-prev" onClick={() => stepLightbox(-1)} aria-label="Previous">
-                  ‹
-                </button>
-                <button type="button" className="tc-lb-next" onClick={() => stepLightbox(1)} aria-label="Next">
-                  ›
-                </button>
-              </>
-            )}
-          </div>
-        </div>
-      )}
-    </>
+                    <Typewriter text={aboutText} enabled={!reducedMotion} />
+                  </Typography>
+                </PanelBody>
+              </Panel>
+
+              <Panel id="stack">
+                <PanelBar>
+                  <span>{ui.moduleStack}</span>
+                  <ProcessDots />
+                </PanelBar>
+                <PanelBody>
+                  <Box
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: { xs: "1fr", sm: "repeat(3, minmax(0, 1fr))" },
+                      gap: "10px",
+                    }}
+                  >
+                    {stackCategories.map((category) => (
+                      <StackCard key={category.titleKey} title={tTech(category.titleKey)} items={category.items} />
+                    ))}
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+                      gap: "10px",
+                      mt: "10px",
+                    }}
+                  >
+                    <StackCard title={tPm("methodologies")} items={["Scrum", "Kanban", "Waterfall"]} />
+                    <StackCard title={tPm("tools")} items={["Jira", "Confluence", "GitHub", "Asana"]} />
+                  </Box>
+                </PanelBody>
+              </Panel>
+
+              <Panel id="certificates">
+                <PanelBar>
+                  <span>{ui.moduleCerts}</span>
+                  <ProcessDots />
+                </PanelBar>
+                <PanelBody>
+                  <Box
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
+                      gap: "14px",
+                    }}
+                  >
+                    {certificatesData.map((cert) => (
+                      <LinkMui
+                        key={cert.nameKey}
+                        href={cert.validationLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        underline="none"
+                        color="inherit"
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          textAlign: "center",
+                          px: 1,
+                          pt: 2,
+                          pb: "10px",
+                          "&:focus-visible": { outline: `2px solid ${hud.cyan}`, outlineOffset: 2 },
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            position: "relative",
+                            width: 94,
+                            height: 94,
+                            mb: "10px",
+                            display: "grid",
+                            placeItems: "center",
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              position: "absolute",
+                              inset: 0,
+                              borderRadius: "50%",
+                              border: "1px solid rgba(0, 242, 255, 0.45)",
+                              "&::after": {
+                                content: '""',
+                                position: "absolute",
+                                inset: 8,
+                                borderRadius: "50%",
+                                border: "1px dashed rgba(0, 242, 255, 0.22)",
+                              },
+                            }}
+                          />
+                          <Box
+                            sx={{
+                              position: "absolute",
+                              left: "15%",
+                              right: "15%",
+                              bottom: -7,
+                              height: 10,
+                              borderRadius: "50%",
+                              background: "radial-gradient(ellipse at center, rgba(0, 242, 255, 0.35), transparent 72%)",
+                            }}
+                          />
+                          <Image src={cert.customIcon} alt="" width={64} height={64} />
+                        </Box>
+                        <Typography component="strong" sx={{ fontSize: "0.87rem", lineHeight: 1.24, fontWeight: 700 }}>
+                          {tCerts(`items.${cert.nameKey}.name`)}
+                        </Typography>
+                        <Typography
+                          component="span"
+                          sx={{
+                            mt: "4px",
+                            color: hud.muted,
+                            font: `500 10px/1.3 ${hud.mono}`,
+                            letterSpacing: "0.06em",
+                          }}
+                        >
+                          {tCerts(`items.${cert.nameKey}.issuer`)} · {ui.credentials}
+                        </Typography>
+                      </LinkMui>
+                    ))}
+                  </Box>
+                </PanelBody>
+              </Panel>
+
+              <Panel id="contact">
+                <PanelBar>
+                  <span>{ui.terminalContact}</span>
+                  <ProcessDots />
+                </PanelBar>
+                <PanelBody
+                  sx={{
+                    display: "grid",
+                    gridTemplateColumns: { xs: "1fr", sm: "1fr 1.1fr" },
+                    gap: "18px",
+                  }}
+                >
+                  <Box>
+                    <SectionLabel>[MODULE: CONTACT_NODE]</SectionLabel>
+                    <Stack>
+                      {socialLinks.map((social) => {
+                        const Icon = socialIcons[social.name as keyof typeof socialIcons] ?? FaEnvelope;
+                        return (
+                          <LinkMui
+                            key={social.name}
+                            href={social.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            underline="none"
+                            color="inherit"
+                            sx={{
+                              display: "flex",
+                              alignItems: "center",
+                              gap: "10px",
+                              py: "7px",
+                              borderBottom: "1px solid rgba(0, 242, 255, 0.1)",
+                              "& svg": { color: hud.cyan },
+                              "&:hover": { color: hud.cyan },
+                              "&:focus-visible": { outline: `2px solid ${hud.cyan}`, outlineOffset: 2 },
+                            }}
+                          >
+                            <Icon />
+                            {social.name}
+                          </LinkMui>
+                        );
+                      })}
+                    </Stack>
+                  </Box>
+
+                  <Box>
+                    <SectionLabel>{tContact("sendMessage")}</SectionLabel>
+                    <Box component="form" onSubmit={handleSubmit} sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                      <HudField id="tc-name" name="name" label={tContact("form.name")} required fullWidth InputLabelProps={{ shrink: true }} />
+                      <HudField
+                        id="tc-email"
+                        name="email"
+                        type="email"
+                        label={tContact("form.email")}
+                        required
+                        fullWidth
+                        InputLabelProps={{ shrink: true }}
+                      />
+                      <HudField
+                        id="tc-message"
+                        name="message"
+                        label={tContact("form.message")}
+                        required
+                        fullWidth
+                        multiline
+                        minRows={5}
+                        InputLabelProps={{ shrink: true }}
+                      />
+                      <Box>
+                        <HudButton type="submit" disabled={status === "submitting"} data-state={submitState}>
+                          {status === "submitting"
+                            ? tContact("form.sending")
+                            : status === "success"
+                              ? tContact("form.sent")
+                              : status === "error"
+                                ? tContact("form.error")
+                                : tContact("form.send")}
+                        </HudButton>
+                      </Box>
+                      <Box aria-live="polite" aria-atomic="true" sx={{ minHeight: "1.2em" }}>
+                        {status === "success" && (
+                          <Typography sx={{ m: 0, font: `500 0.81rem/1.3 ${hud.mono}`, color: hud.ok }}>
+                            {tContact("form.successMessage")}
+                          </Typography>
+                        )}
+                        {status === "error" && (
+                          <Typography sx={{ m: 0, font: `500 0.81rem/1.3 ${hud.mono}`, color: hud.danger }}>
+                            {tContact("form.errorMessage")}
+                          </Typography>
+                        )}
+                      </Box>
+                    </Box>
+                  </Box>
+                </PanelBody>
+              </Panel>
+            </Stack>
+
+            <Box
+              component="aside"
+              id="projects"
+              sx={{ position: { lg: "sticky" }, top: { lg: hud.headerH + 12 }, alignSelf: { lg: "start" } }}
+            >
+              <Panel scan>
+                <PanelBar>
+                  <span>{ui.moduleProjects}</span>
+                  <ProcessDots />
+                </PanelBar>
+                <PanelBody>
+                  <Stack direction="row" alignItems="baseline" justifyContent="space-between" sx={{ mb: "10px" }}>
+                    <Typography
+                      component="h2"
+                      sx={{
+                        m: 0,
+                        fontFamily: hud.display,
+                        fontSize: "0.96rem",
+                        letterSpacing: "0.08em",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {tProjects("title")}
+                    </Typography>
+                    <Typography sx={{ color: hud.dim, font: `500 11px/1 ${hud.mono}` }}>0{projects.length}</Typography>
+                  </Stack>
+                  <Box
+                    sx={{
+                      display: { xs: "grid", lg: "block" },
+                      gridTemplateColumns: { xs: "1fr", sm: "repeat(2, minmax(0, 1fr))", lg: "none" },
+                      gap: { xs: "12px", lg: 0 },
+                    }}
+                  >
+                    {projects.map((project, idx) => (
+                      <Box key={project.id} component="article" sx={{ mb: { xs: 0, lg: "14px" }, "&:last-child": { mb: 0 } }}>
+                        <ShotButton
+                          type="button"
+                          aria-label={`${ui.gallery} ${project.title}`}
+                          onClick={() => openLightbox(project.id)}
+                        >
+                          <CornerTicks />
+                          <Box
+                            component="span"
+                            sx={{
+                              position: "absolute",
+                              zIndex: 4,
+                              top: 8,
+                              left: 8,
+                              font: `600 9.5px/1 ${hud.mono}`,
+                              letterSpacing: "0.08em",
+                              color: hud.cyan,
+                              textShadow: "0 0 8px rgba(0, 242, 255, 0.25)",
+                            }}
+                          >
+                            VERSION: 2.0
+                          </Box>
+                          <Box
+                            component="span"
+                            sx={{
+                              position: "absolute",
+                              zIndex: 4,
+                              left: 8,
+                              bottom: 8,
+                              font: `600 9.5px/1 ${hud.mono}`,
+                              letterSpacing: "0.08em",
+                              color: hud.cyan,
+                              textShadow: "0 0 8px rgba(0, 242, 255, 0.25)",
+                            }}
+                          >
+                            {project.buildStamp}
+                          </Box>
+                          <Box
+                            component="span"
+                            sx={{
+                              position: "absolute",
+                              zIndex: 4,
+                              right: 8,
+                              bottom: 8,
+                              font: `600 9.5px/1 ${hud.mono}`,
+                              letterSpacing: "0.08em",
+                              color: hud.cyan,
+                              textShadow: "0 0 8px rgba(0, 242, 255, 0.25)",
+                            }}
+                          >
+                            {String(idx + 1).padStart(2, "0")}
+                          </Box>
+                          <Image src={project.screenshots[0].src} alt={project.screenshots[0].alt} width={640} height={400} />
+                        </ShotButton>
+                        <Stack direction="row" justifyContent="space-between" alignItems="baseline" spacing={1} sx={{ mt: "7px" }}>
+                          <Typography component="h3" sx={{ m: 0, fontSize: "0.92rem" }}>
+                            {project.title}
+                          </Typography>
+                          <Stack direction="row" alignItems="center" spacing={1}>
+                            <GalleryChip
+                              type="button"
+                              onClick={() => openLightbox(project.id)}
+                              aria-label={`${ui.gallery} ${project.title}`}
+                            >
+                              {ui.gallery}
+                              <span>{project.screenshots.length}</span>
+                            </GalleryChip>
+                            {project.url && (
+                              <LinkMui
+                                href={project.url}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={`${ui.openProject}: ${project.title}`}
+                                color="inherit"
+                                sx={{
+                                  color: hud.muted,
+                                  "&:hover": { color: hud.cyan },
+                                  "&:focus-visible": { outline: `2px solid ${hud.cyan}`, outlineOffset: 2 },
+                                }}
+                              >
+                                <FaExternalLinkAlt size={11} />
+                              </LinkMui>
+                            )}
+                          </Stack>
+                        </Stack>
+                        <Typography sx={{ mt: "2px", mb: 0, color: hud.dim, font: `500 10px/1.3 ${hud.mono}`, letterSpacing: "0.04em" }}>
+                          {project.dateRange}
+                        </Typography>
+                      </Box>
+                    ))}
+                  </Box>
+                </PanelBody>
+              </Panel>
+            </Box>
+          </Box>
+
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            spacing={1.5}
+            sx={{
+              mt: "34px",
+              pt: "14px",
+              borderTop: "1px solid rgba(0, 242, 255, 0.15)",
+              color: hud.dim,
+              font: `500 10.5px/1.4 ${hud.mono}`,
+              letterSpacing: "0.07em",
+              textTransform: "uppercase",
+            }}
+          >
+            <span>{tFooter("copyright", { year })}</span>
+            <BarLink href="/" locale={locale}>
+              {ui.current}
+            </BarLink>
+          </Stack>
+        </Page>
+
+        <LightboxDialog
+          open={Boolean(activeProject && activeShot && lightbox)}
+          onClose={closeLightbox}
+          aria-labelledby="tc-lightbox-title"
+          aria-describedby={activeShot?.sourceUrl ? "tc-lightbox-caption" : undefined}
+        >
+          {activeProject && activeShot && lightbox && (
+            <Box sx={{ position: "relative", px: { xs: 5, sm: 6 } }}>
+              <Typography id="tc-lightbox-title" sx={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)" }}>
+                {ui.gallery} {activeProject.title}
+              </Typography>
+              <Typography
+                sx={{
+                  m: 0,
+                  mb: "10px",
+                  textAlign: "right",
+                  color: hud.dim,
+                  font: `500 10px/1 ${hud.mono}`,
+                  letterSpacing: "0.08em",
+                }}
+                aria-live="polite"
+              >
+                {String(lightbox.index + 1).padStart(2, "0")} / {String(activeProject.screenshots.length).padStart(2, "0")}
+              </Typography>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <Box
+                component="img"
+                src={activeShot.src}
+                alt={activeShot.alt}
+                sx={{
+                  display: "block",
+                  maxWidth: "100%",
+                  maxHeight: "78vh",
+                  border: "1px solid rgba(0, 242, 255, 0.28)",
+                }}
+              />
+              {activeShot.sourceUrl && (
+                <Typography
+                  id="tc-lightbox-caption"
+                  component="figcaption"
+                  sx={{ mt: "10px", textAlign: "right", color: hud.muted, font: `500 10px/1.2 ${hud.mono}` }}
+                >
+                  {tProjects("source")}: {activeShot.sourceUrl}
+                </Typography>
+              )}
+              {activeProject.screenshots.length > 1 && (
+                <Stack direction="row" flexWrap="wrap" spacing={1} useFlexGap sx={{ mt: 1.5 }}>
+                  {activeProject.screenshots.map((shot, idx) => (
+                    <Box
+                      key={shot.id}
+                      component="button"
+                      type="button"
+                      aria-label={`${ui.gallery} ${idx + 1} / ${activeProject.screenshots.length}`}
+                      onClick={() => setLightbox({ projectId: activeProject.id, index: idx })}
+                      sx={{
+                        border: idx === lightbox.index ? `1px solid ${hud.cyan}` : "1px solid rgba(0, 242, 255, 0.2)",
+                        boxShadow: idx === lightbox.index ? "0 0 0 1px rgba(0, 242, 255, 0.2)" : "none",
+                        bgcolor: "#091017",
+                        p: 0,
+                        cursor: "pointer",
+                        "&:focus-visible": { outline: `2px solid ${hud.cyan}`, outlineOffset: 2 },
+                        "& img": { display: "block", width: 96, height: 60, objectFit: "cover" },
+                      }}
+                    >
+                      <Image src={shot.src} alt={shot.alt} width={120} height={75} />
+                    </Box>
+                  ))}
+                </Stack>
+              )}
+              <NavFab aria-label={ui.close} onClick={closeLightbox} sx={{ top: 0, right: 0 }}>
+                ×
+              </NavFab>
+              {activeProject.screenshots.length > 1 && (
+                <>
+                  <NavFab aria-label={ui.previous} onClick={() => stepLightbox(-1)} sx={{ left: 0, top: "50%", transform: "translateY(-50%)" }}>
+                    ‹
+                  </NavFab>
+                  <NavFab aria-label={ui.next} onClick={() => stepLightbox(1)} sx={{ right: 0, top: "50%", transform: "translateY(-50%)" }}>
+                    ›
+                  </NavFab>
+                </>
+              )}
+            </Box>
+          )}
+        </LightboxDialog>
+      </Root>
+    </CatalogThemeProvider>
   );
 }
