@@ -250,7 +250,7 @@ export const Panel = styled("section", {
   shouldForwardProp: (prop) => prop !== "scan",
 })<{ scan?: boolean }>(({ scan }) => ({
   position: "relative",
-  background: hud.panel,
+  background: hud.surface,
   backdropFilter: "blur(12px)",
   scrollMarginTop: hud.headerH + 20,
   overflow: scan ? "hidden" : undefined,
@@ -319,7 +319,7 @@ export const SectionLabel = styled("h2")({
 export const HudCard = styled("article")({
   position: "relative",
   padding: "16px 16px 16px",
-  background: hud.panel,
+  background: hud.sunken,
   backdropFilter: "blur(12px)",
   "&::before": {
     content: '""',

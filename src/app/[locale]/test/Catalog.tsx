@@ -331,7 +331,7 @@ export function Catalog() {
             sx={{
               position: "relative",
               mb: "20px",
-              background: hud.panel,
+              background: hud.surface,
               backdropFilter: "blur(12px)",
             }}
           >
@@ -613,7 +613,7 @@ export function Catalog() {
                           alignItems: "center",
                           textAlign: "center",
                           p: "20px",
-                          background: hud.panel,
+                          background: hud.sunken,
                           backdropFilter: "blur(12px)",
                           "&:hover": { boxShadow: glow(hud.cyan, 0.8) },
                           "&:focus-visible": { outline: `2px solid ${hud.cyan}`, outlineOffset: 2 },
