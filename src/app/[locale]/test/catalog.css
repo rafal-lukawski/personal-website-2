@@ -460,20 +460,26 @@ html:has([data-catalog="test"]) footer {
 .tc-about p {
   margin: 0 0 12px;
   color: var(--muted);
+  font-family: var(--font-mono);
+  letter-spacing: 0.01em;
   line-height: 1.54;
-  font-size: 0.98rem;
+  font-size: 0.95rem;
 }
 
 .tc-about p:last-child {
   margin-bottom: 0;
 }
 
+.tc-about-text {
+  white-space: pre-line;
+}
+
 .tc-cursor {
   display: inline-block;
   width: 8px;
-  height: 1em;
+  height: 0.92em;
   margin-left: 3px;
-  vertical-align: text-bottom;
+  vertical-align: -0.08em;
   background: var(--ok);
   animation: tc-blink 0.95s steps(1) infinite;
 }
@@ -791,6 +797,36 @@ html:has([data-catalog="test"]) footer {
   font-size: 0.92rem;
 }
 
+.tc-project-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tc-gallery-open {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(0, 242, 255, 0.26);
+  background: rgba(0, 242, 255, 0.08);
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font: 600 9.5px/1 var(--font-mono);
+  padding: 4px 6px;
+  cursor: pointer;
+}
+
+.tc-gallery-open span {
+  color: #041015;
+  background: rgba(0, 242, 255, 0.82);
+  padding: 2px 4px;
+}
+
+.tc-gallery-open:hover {
+  border-color: rgba(0, 242, 255, 0.58);
+}
+
 .tc-project-meta a {
   color: var(--muted);
 }
@@ -827,6 +863,32 @@ html:has([data-catalog="test"]) footer {
   text-align: right;
   color: var(--muted);
   font: 500 10px/1.2 var(--font-mono);
+}
+
+.tc-lightbox-thumbs {
+  margin-top: 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.tc-lightbox-thumbs button {
+  border: 1px solid rgba(0, 242, 255, 0.2);
+  background: #091017;
+  padding: 0;
+  cursor: pointer;
+}
+
+.tc-lightbox-thumbs button.active {
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 1px rgba(0, 242, 255, 0.2);
+}
+
+.tc-lightbox-thumbs img {
+  display: block;
+  width: 96px;
+  height: 60px;
+  object-fit: cover;
 }
 
 .tc-lightbox-ui {

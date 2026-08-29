@@ -20,6 +20,7 @@ const copy = {
     terminalAbout: "ABOUT.EXE",
     terminalContact: "CONTACT.EXE",
     credentials: "poświadczenie",
+    gallery: "galeria",
   },
   en: {
     prototype: "prototype",
@@ -32,6 +33,7 @@ const copy = {
     terminalAbout: "ABOUT.EXE",
     terminalContact: "CONTACT.EXE",
     credentials: "credential",
+    gallery: "gallery",
   },
 } as const;
 
@@ -160,12 +162,10 @@ export function Catalog() {
   const tFooter = useTranslations("footer");
   const pathname = usePathname();
   const reducedMotion = usePrefersReducedMotion();
-  const [aboutDone, setAboutDone] = useState(reducedMotion);
-  const markAboutDone = useCallback(() => setAboutDone(true), []);
-
-  useEffect(() => {
-    setAboutDone(reducedMotion);
-  }, [locale, reducedMotion]);
+  const aboutText = useMemo(
+    () => `${tAbout("paragraph1")}\n\n${tAbout("paragraph2")}`,
+    [tAbout, locale],
+  );
 
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [lightbox, setLightbox] = useState<{ projectId: string; index: number } | null>(null);
@@ -301,10 +301,9 @@ export function Catalog() {
               </div>
               <div className="tc-panel-body tc-about">
                 <h2 className="tc-section-label">[MODULE: PROFILE_DATA]</h2>
-                <p>
-                  <Typewriter text={tAbout("paragraph1")} enabled={!reducedMotion} onDone={markAboutDone} />
+                <p className="tc-about-text">
+                  <Typewriter text={aboutText} enabled={!reducedMotion} />
                 </p>
-                {aboutDone && <p>{tAbout("paragraph2")}</p>}
               </div>
             </section>
 
@@ -453,11 +452,22 @@ export function Catalog() {
                       </button>
                       <div className="tc-project-meta">
                         <h3>{project.title}</h3>
-                        {project.url && (
-                          <a href={project.url} target="_blank" rel="noopener noreferrer" aria-label={project.title}>
-                            <FaExternalLinkAlt size={11} />
-                          </a>
-                        )}
+                        <div className="tc-project-actions">
+                          <button
+                            type="button"
+                            className="tc-gallery-open"
+                            onClick={() => setLightbox({ projectId: project.id, index: 0 })}
+                            aria-label={`${ui.gallery} ${project.title}`}
+                          >
+                            {ui.gallery}
+                            <span>{project.screenshots.length}</span>
+                          </button>
+                          {project.url && (
+                            <a href={project.url} target="_blank" rel="noopener noreferrer" aria-label={project.title}>
+                              <FaExternalLinkAlt size={11} />
+                            </a>
+                          )}
+                        </div>
                       </div>
                       <p className="tc-project-date">{project.dateRange}</p>
                     </article>
@@ -483,6 +493,26 @@ export function Catalog() {
               <figcaption>
                 {tProjects("source")}: {activeShot.sourceUrl}
               </figcaption>
+            )}
+            {activeProject.screenshots.length > 1 && (
+              <div className="tc-lightbox-thumbs">
+                {activeProject.screenshots.map((shot, idx) => (
+                  <button
+                    key={shot.id}
+                    type="button"
+                    className={idx === lightbox.index ? "active" : undefined}
+                    aria-label={`${ui.gallery} ${idx + 1}`}
+                    onClick={() =>
+                      setLightbox({
+                        projectId: activeProject.id,
+                        index: idx,
+                      })
+                    }
+                  >
+                    <Image src={shot.src} alt={shot.alt} width={120} height={75} />
+                  </button>
+                ))}
+              </div>
             )}
           </figure>
           <div className="tc-lightbox-ui">
