@@ -28,9 +28,11 @@ import {
   LightboxDialog,
   NavFab,
   Page,
+  BarMeta,
   Panel,
   PanelBar,
   PanelBody,
+  PanelStamps,
   Particles,
   ProcessDots,
   Root,
@@ -39,6 +41,8 @@ import {
   ShotMeta,
   ShotThumb,
   SkipLink,
+  glow,
+  scanlines,
   StatusBadge,
   TopBar,
 } from "./ui";
@@ -49,6 +53,7 @@ const copy = {
     current: "obecna wersja",
     active: "aktywny",
     skip: "Przejdź do treści",
+    moduleIdentity: "[MODULE: IDENTITY_CORE]",
     moduleProjects: "[MODULE: PROJECT_FEED]",
     moduleStack: "[MODULE: TECH_STACK]",
     moduleCerts: "[MODULE: CERTIFICATE_DB]",
@@ -66,6 +71,7 @@ const copy = {
     current: "live site",
     active: "active",
     skip: "Skip to content",
+    moduleIdentity: "[MODULE: IDENTITY_CORE]",
     moduleProjects: "[MODULE: PROJECT_FEED]",
     moduleStack: "[MODULE: TECH_STACK]",
     moduleCerts: "[MODULE: CERTIFICATE_DB]",
@@ -324,18 +330,31 @@ export function Catalog() {
             id="hero"
             sx={{
               position: "relative",
-              display: "grid",
-              gridTemplateColumns: { xs: "1fr", sm: "minmax(0, 1fr) auto" },
-              gap: { xs: "20px", sm: "40px" },
               mb: "20px",
-              p: "20px",
-              textAlign: { xs: "center", sm: "left" },
               background: hud.panel,
               backdropFilter: "blur(12px)",
             }}
           >
-            <HeroParticleNetwork />
             <CornerTicks />
+            <PanelBar>
+              <span>{ui.moduleIdentity}</span>
+              <Stack direction="row" alignItems="center" spacing="10px">
+                <BarMeta>LOC: 52.2297 / 21.0122</BarMeta>
+                <ProcessDots />
+              </Stack>
+            </PanelBar>
+            <PanelStamps left="SYS_LOAD: 24%" right="UPLINK: STABLE" />
+            <Box
+              sx={{
+                position: "relative",
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr", sm: "minmax(0, 1fr) auto" },
+                gap: { xs: "20px", sm: "40px" },
+                p: "20px 20px 26px",
+                textAlign: { xs: "center", sm: "left" },
+              }}
+            >
+            <HeroParticleNetwork />
             <Box sx={{ position: "relative", zIndex: 1 }}>
               <Box sx={{ mb: "12px", display: "flex", justifyContent: { xs: "center", sm: "flex-start" } }}>
                 <StatusBadge>{ui.active}</StatusBadge>
@@ -439,7 +458,17 @@ export function Catalog() {
                   "& img": { width: "100%", height: "100%", objectFit: "cover", filter: "contrast(1.07) saturate(0.88)" },
                 }}
               >
-                <CornerTicks />
+                <CornerTicks animated />
+                <Box
+                  aria-hidden
+                  sx={{
+                    position: "absolute",
+                    inset: 0,
+                    zIndex: 2,
+                    pointerEvents: "none",
+                    backgroundImage: scanlines(0.13),
+                  }}
+                />
                 <Box
                   aria-hidden
                   sx={{
@@ -456,7 +485,7 @@ export function Catalog() {
                     "&::after": { top: "50%", left: -6, right: -6, height: 1, transform: "translateY(-50%)", opacity: 0.55 },
                   }}
                 >
-                  <CornerTicks size={12} />
+                  <CornerTicks size={12} animated />
                 </Box>
                 <Image src="/author.jpg" alt="Rafał Łukawski" width={440} height={440} priority />
                 {!reducedMotion && (
@@ -479,6 +508,7 @@ export function Catalog() {
                 )}
               </Box>
             </Box>
+            </Box>
           </Box>
 
           <Box
@@ -492,8 +522,12 @@ export function Catalog() {
               <Panel id="about">
                 <PanelBar>
                   <span>{ui.terminalAbout}</span>
-                  <ProcessDots />
+                  <Stack direction="row" alignItems="center" spacing="10px">
+                    <BarMeta>PID: 0x41</BarMeta>
+                    <ProcessDots />
+                  </Stack>
                 </PanelBar>
+                <PanelStamps left="ENC: UTF-8" right="BUF: OK" />
                 <PanelBody>
                   <SectionLabel>[MODULE: PROFILE_DATA]</SectionLabel>
                   <Typography
@@ -515,8 +549,12 @@ export function Catalog() {
               <Panel id="stack">
                 <PanelBar>
                   <span>{ui.moduleStack}</span>
-                  <ProcessDots />
+                  <Stack direction="row" alignItems="center" spacing="10px">
+                    <BarMeta>NODES: 8</BarMeta>
+                    <ProcessDots />
+                  </Stack>
                 </PanelBar>
+                <PanelStamps left="SYS_LOAD: 24%" right="SYNC: OK" />
                 <PanelBody>
                   <Box
                     sx={{
@@ -546,8 +584,12 @@ export function Catalog() {
               <Panel id="certificates">
                 <PanelBar>
                   <span>{ui.moduleCerts}</span>
-                  <ProcessDots />
+                  <Stack direction="row" alignItems="center" spacing="10px">
+                    <BarMeta>REC: 02</BarMeta>
+                    <ProcessDots />
+                  </Stack>
                 </PanelBar>
+                <PanelStamps left="VERIFY: PASS" right="CHK: 0xA7" />
                 <PanelBody>
                   <Box
                     sx={{
@@ -565,14 +607,19 @@ export function Catalog() {
                         underline="none"
                         color="inherit"
                         sx={{
+                          position: "relative",
                           display: "flex",
                           flexDirection: "column",
                           alignItems: "center",
                           textAlign: "center",
                           p: "20px",
+                          background: hud.panel,
+                          backdropFilter: "blur(12px)",
+                          "&:hover": { boxShadow: glow(hud.cyan, 0.8) },
                           "&:focus-visible": { outline: `2px solid ${hud.cyan}`, outlineOffset: 2 },
                         }}
                       >
+                        <CornerTicks size={12} />
                         <Box
                           sx={{
                             position: "relative",
@@ -609,8 +656,12 @@ export function Catalog() {
               <Panel id="contact">
                 <PanelBar>
                   <span>{ui.terminalContact}</span>
-                  <ProcessDots />
+                  <Stack direction="row" alignItems="center" spacing="10px">
+                    <BarMeta>CH: SECURE</BarMeta>
+                    <ProcessDots />
+                  </Stack>
                 </PanelBar>
+                <PanelStamps left="LOC: 52.2297 / 21.0122" right="TX: READY" />
                 <PanelBody
                   sx={{
                     display: "grid",
@@ -698,18 +749,24 @@ export function Catalog() {
               <Panel scan>
                 <PanelBar>
                   <span>{ui.moduleProjects}</span>
-                  <ProcessDots />
+                  <Stack direction="row" alignItems="center" spacing="10px">
+                    <BarMeta>FEED: LIVE</BarMeta>
+                    <ProcessDots />
+                  </Stack>
                 </PanelBar>
+                <PanelStamps left="IDX: 06" right="RX: 100%" />
                 <PanelBody>
                   <Stack direction="row" alignItems="baseline" justifyContent="space-between" sx={{ mb: "10px" }}>
                     <Typography
                       component="h2"
                       sx={{
                         m: 0,
-                        fontFamily: hud.display,
-                        fontSize: "0.96rem",
-                        letterSpacing: "0.1em",
+                        fontFamily: hud.mono,
+                        fontSize: "0.86rem",
+                        letterSpacing: "0.15em",
                         textTransform: "uppercase",
+                        color: hud.cyan,
+                        textShadow: `0 0 8px ${hud.cyan}40`,
                       }}
                     >
                       {tProjects("title")}

@@ -15,8 +15,14 @@ import { catalogTheme, hud } from "./theme";
 
 const cyan = hud.cyan;
 
-function cornerFill(size = 20) {
-  const c = cyan;
+export const scanlines = (alpha = 0.05, gap = 3) =>
+  `repeating-linear-gradient(to bottom, rgba(255,255,255,${alpha}) 0, rgba(255,255,255,${alpha}) 1px, transparent 1px, transparent ${gap}px)`;
+
+// Neon glow replaces every box-shadow in the system.
+export const glow = (c: string = cyan, strength = 1) =>
+  `0 0 ${10 * strength}px ${c}59, 0 0 ${28 * strength}px ${c}26`;
+
+function cornerFill(size = 18, c: string = cyan) {
   return [
     `linear-gradient(${c}, ${c}) left top / ${size}px 2px no-repeat`,
     `linear-gradient(${c}, ${c}) left top / 2px ${size}px no-repeat`,
@@ -65,12 +71,27 @@ const drift = keyframes`
   50% { transform: translateY(7px); opacity: 0.8; }
 `;
 
+// RGB split: a red ghost to one side, a cyan ghost to the other.
 const glitch = keyframes`
   0%, 100% { transform: none; filter: none; }
-  20% { transform: translate(1px, -1px); filter: hue-rotate(-8deg); }
-  40% { transform: translate(-1px, 1px); filter: hue-rotate(8deg); }
-  60% { transform: translate(1px, 1px); }
-  80% { transform: translate(-1px, -1px); }
+  20% {
+    transform: translate(1px, -1px);
+    filter: drop-shadow(-2px 0 rgba(255, 0, 72, 0.7)) drop-shadow(2px 0 rgba(0, 242, 255, 0.7));
+  }
+  45% {
+    transform: translate(-1px, 1px);
+    filter: drop-shadow(2px 0 rgba(255, 0, 72, 0.7)) drop-shadow(-2px 0 rgba(0, 242, 255, 0.7));
+  }
+  70% {
+    transform: translate(1px, 1px);
+    filter: drop-shadow(-1px 0 rgba(255, 0, 72, 0.5)) drop-shadow(1px 0 rgba(0, 242, 255, 0.5));
+  }
+`;
+
+// Reticle arms breathe so the targeting frame never reads as a static border.
+const reticle = keyframes`
+  0%, 100% { opacity: 0.5; transform: scale(0.97); }
+  50% { opacity: 1; transform: scale(1); }
 `;
 
 const reducedMotion = "@media (prefers-reduced-motion: reduce)";
@@ -93,7 +114,7 @@ export const Root = styled(Box)({
     zIndex: 0,
     pointerEvents: "none",
     backgroundImage:
-      "linear-gradient(#ffffff05 1px, transparent 1px), linear-gradient(90deg, #ffffff05 1px, transparent 1px)",
+      "linear-gradient(#ffffff08 1px, transparent 1px), linear-gradient(90deg, #ffffff08 1px, transparent 1px)",
     backgroundSize: "20px 20px",
   },
   "&::after": {
@@ -102,7 +123,7 @@ export const Root = styled(Box)({
     inset: 0,
     zIndex: 30,
     pointerEvents: "none",
-    backgroundImage: "repeating-linear-gradient(to bottom, rgba(255,255,255,0.05) 0, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 3px)",
+    backgroundImage: scanlines(0.04),
   },
   "& *": { boxSizing: "border-box" },
   "& ::selection": { background: "rgba(0, 242, 255, 0.28)", color: "#edffff" },
@@ -202,7 +223,10 @@ export const HudButton = styled(Button)({
     background: "rgba(0, 242, 255, 0.08)",
     color: cyan,
     textShadow: `0 0 8px ${cyan}`,
+    boxShadow: glow(cyan),
+    animation: `${glitch} 0.22s linear`,
   },
+  [reducedMotion]: { "&:hover": { animation: "none" } },
   "&.Mui-disabled": { opacity: 0.55, color: cyan },
   '&[data-state="success"]': { color: hud.ok },
   '&[data-state="error"]': { color: hud.danger },
@@ -233,7 +257,7 @@ export const Panel = styled("section", {
     position: "absolute",
     inset: 0,
     pointerEvents: "none",
-    background: cornerFill(20),
+    background: cornerFill(18),
     zIndex: 1,
   },
   ...(scan
@@ -260,23 +284,34 @@ export const PanelBar = styled(Stack)({
   gap: 12,
   padding: "10px 20px",
   font: `500 11px/1 ${hud.mono}`,
-  letterSpacing: "0.1em",
+  letterSpacing: "0.15em",
   textTransform: "uppercase",
-  color: hud.muted,
+  color: cyan,
   background: "linear-gradient(90deg, rgba(0, 242, 255, 0.08), transparent 55%)",
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    left: 20,
+    right: 20,
+    bottom: 0,
+    height: 1,
+    background: `linear-gradient(90deg, ${cyan}59, transparent)`,
+  },
+  position: "relative",
 });
 
 export const PanelBody = styled(Box)({
-  padding: "20px",
+  padding: "20px 20px 26px",
 });
 
 export const SectionLabel = styled("h2")({
   margin: "0 0 20px",
   fontFamily: hud.mono,
   fontSize: "0.76rem",
-  letterSpacing: "0.1em",
+  letterSpacing: "0.15em",
   textTransform: "uppercase",
   color: cyan,
+  textShadow: `0 0 8px ${cyan}40`,
 });
 
 export const HudCard = styled("article")({
@@ -291,7 +326,7 @@ export const HudCard = styled("article")({
     pointerEvents: "none",
     background: cornerFill(12),
   },
-  "&:hover": { animation: `${glitch} 0.2s linear` },
+  "&:hover": { animation: `${glitch} 0.2s linear`, boxShadow: glow(cyan, 0.8) },
   [reducedMotion]: { "&:hover": { animation: "none" } },
 });
 
@@ -367,8 +402,7 @@ export const ShotButton = styled("button")({
     inset: 0,
     zIndex: 2,
     pointerEvents: "none",
-    backgroundImage:
-      "repeating-linear-gradient(to bottom, rgba(255,255,255,0.05) 0, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 3px)",
+    backgroundImage: scanlines(0.12),
   },
   "&::after": {
     content: '""',
@@ -376,7 +410,7 @@ export const ShotButton = styled("button")({
     inset: 0,
     zIndex: 3,
     pointerEvents: "none",
-    background: cornerFill(16),
+    background: cornerFill(18),
   },
   "& img": {
     width: "100%",
@@ -386,7 +420,7 @@ export const ShotButton = styled("button")({
     objectPosition: "top",
     filter: "saturate(0.86) contrast(1.04)",
   },
-  "&:hover": { animation: `${glitch} 0.22s linear` },
+  "&:hover": { animation: `${glitch} 0.22s linear`, boxShadow: glow(cyan, 0.9) },
   "&:hover img": { filter: "saturate(1.05) contrast(1.12)" },
   [reducedMotion]: { "&:hover": { animation: "none" } },
 });
@@ -487,31 +521,86 @@ export const NavFab = styled(IconButton)({
   "&:hover": { color: cyan, background: hud.panel },
 });
 
-export function CornerTicks({ size = 18 }: { size?: number }) {
-  const arm = {
-    position: "absolute" as const,
-    width: size,
-    height: size,
-    borderStyle: "solid",
-    borderColor: cyan,
-    zIndex: 4,
-    pointerEvents: "none" as const,
-  };
+/**
+ * The single corner-bracket primitive. Panels, cards, buttons and fields all
+ * render the exact same L-arms via `cornerFill`, so the geometry never drifts.
+ */
+export function CornerTicks({
+  size = 18,
+  color = cyan,
+  animated = false,
+}: {
+  size?: number;
+  color?: string;
+  animated?: boolean;
+}) {
   return (
-    <>
-      <Box sx={{ ...arm, top: 0, left: 0, borderWidth: "2px 0 0 2px" }} />
-      <Box sx={{ ...arm, top: 0, right: 0, borderWidth: "2px 2px 0 0" }} />
-      <Box sx={{ ...arm, bottom: 0, left: 0, borderWidth: "0 0 2px 2px" }} />
-      <Box sx={{ ...arm, bottom: 0, right: 0, borderWidth: "0 2px 2px 0" }} />
-    </>
+    <Box
+      aria-hidden
+      sx={{
+        position: "absolute",
+        inset: 0,
+        zIndex: 4,
+        pointerEvents: "none",
+        background: cornerFill(size, color),
+        ...(animated
+          ? { animation: `${reticle} 2.6s ease-in-out infinite`, [reducedMotion]: { animation: "none" } }
+          : {}),
+      }}
+    />
   );
 }
 
+/**
+ * Micro-telemetry pinned to a module's bottom corners. It lives in the gutter
+ * `PanelBody` reserves, so it reads as frame chrome and never overlaps content.
+ */
+export function PanelStamps({ left, right }: { left?: string; right?: string }) {
+  const base = {
+    position: "absolute" as const,
+    bottom: 6,
+    zIndex: 4,
+    font: `500 8px/1 ${hud.mono}`,
+    letterSpacing: "0.15em",
+    textTransform: "uppercase" as const,
+    color: hud.dim,
+    pointerEvents: "none" as const,
+    whiteSpace: "nowrap" as const,
+  };
+  return (
+    <Box aria-hidden>
+      {left && <Box component="span" sx={{ ...base, left: 26 }}>{left}</Box>}
+      {right && <Box component="span" sx={{ ...base, right: 26 }}>{right}</Box>}
+    </Box>
+  );
+}
+
+/** Process/telemetry code shown inside a module header bar, beside the dots. */
+export const BarMeta = styled("span")({
+  font: `500 9px/1 ${hud.mono}`,
+  letterSpacing: "0.15em",
+  textTransform: "uppercase",
+  color: hud.dim,
+  whiteSpace: "nowrap",
+  "@media (max-width: 640px)": { display: "none" },
+});
+
 export function ProcessDots() {
+  const dots = [hud.danger, "#ffd24d", hud.ok];
   return (
     <Stack direction="row" spacing="6px" aria-hidden>
-      {["#ff6666", "#ffd24d", "#63e58d"].map((color) => (
-        <Box key={color} sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: color }} />
+      {dots.map((color, idx) => (
+        <Box
+          key={color}
+          sx={{
+            width: 8,
+            height: 8,
+            borderRadius: "50%",
+            bgcolor: color,
+            // only the live "online" light glows
+            boxShadow: idx === dots.length - 1 ? glow(hud.ok, 0.5) : "none",
+          }}
+        />
       ))}
     </Stack>
   );
