@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
+import { motion } from "framer-motion";
 import { useLocale, useTranslations } from "next-intl";
 import { usePathname } from "@/i18n/routing";
 import Box from "@mui/material/Box";
@@ -22,6 +23,7 @@ import {
   HudButton,
   HudCard,
   HudField,
+  HudLink,
   LangLink,
   LightboxDialog,
   NavFab,
@@ -32,9 +34,10 @@ import {
   Particles,
   ProcessDots,
   Root,
-  ScanLine,
   SectionLabel,
   ShotButton,
+  ShotMeta,
+  ShotThumb,
   SkipLink,
   StatusBadge,
   TopBar,
@@ -165,7 +168,7 @@ function StackCard({ title, items }: { title: string; items: readonly string[] }
           m: 0,
           mb: "9px",
           font: `500 11px/1.2 ${hud.mono}`,
-          letterSpacing: "0.12em",
+          letterSpacing: "0.1em",
           textTransform: "uppercase",
           color: hud.cyan,
         }}
@@ -323,15 +326,16 @@ export function Catalog() {
               position: "relative",
               display: "grid",
               gridTemplateColumns: { xs: "1fr", sm: "minmax(0, 1fr) auto" },
-              gap: { xs: "22px", sm: "36px" },
-              mb: "24px",
-              px: "16px",
-              pt: "22px",
-              pb: "8px",
+              gap: { xs: "20px", sm: "40px" },
+              mb: "20px",
+              p: "20px",
               textAlign: { xs: "center", sm: "left" },
+              background: hud.panel,
+              backdropFilter: "blur(12px)",
             }}
           >
             <HeroParticleNetwork />
+            <CornerTicks />
             <Box sx={{ position: "relative", zIndex: 1 }}>
               <Box sx={{ mb: "12px", display: "flex", justifyContent: { xs: "center", sm: "flex-start" } }}>
                 <StatusBadge>{ui.active}</StatusBadge>
@@ -355,7 +359,7 @@ export function Catalog() {
               >
                 {tHero("mottoLine1")} {tHero("mottoLine2")}
               </Typography>
-              <Box sx={{ mt: "22px", display: "flex", justifyContent: { xs: "center", sm: "flex-start" } }}>
+              <Box sx={{ mt: "20px", display: "flex", justifyContent: { xs: "center", sm: "flex-start" } }}>
                 <HudButton href="#contact">{tHero("contactMe")}</HudButton>
               </Box>
             </Box>
@@ -363,55 +367,117 @@ export function Catalog() {
             <Box
               sx={{
                 position: "relative",
-                width: { xs: 182, sm: 232 },
-                height: { xs: 182, sm: 232 },
+                width: { xs: 180, sm: 220 },
+                height: { xs: 180, sm: 220 },
                 zIndex: 1,
                 mx: { xs: "auto", sm: 0 },
+                p: "20px",
               }}
             >
+              <Typography
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  left: 0,
+                  m: 0,
+                  font: `500 8px/1 ${hud.mono}`,
+                  letterSpacing: "0.1em",
+                  color: hud.cyan,
+                  textTransform: "uppercase",
+                }}
+              >
+                X:014.20
+              </Typography>
+              <Typography
+                sx={{
+                  position: "absolute",
+                  top: 0,
+                  right: 0,
+                  m: 0,
+                  font: `500 8px/1 ${hud.mono}`,
+                  letterSpacing: "0.1em",
+                  color: hud.cyan,
+                  textTransform: "uppercase",
+                }}
+              >
+                Y:008.80
+              </Typography>
+              <Typography
+                sx={{
+                  position: "absolute",
+                  bottom: 0,
+                  left: 0,
+                  m: 0,
+                  font: `500 8px/1 ${hud.mono}`,
+                  letterSpacing: "0.1em",
+                  color: hud.cyan,
+                  textTransform: "uppercase",
+                }}
+              >
+                RNG:2.40
+              </Typography>
+              <Typography
+                sx={{
+                  position: "absolute",
+                  bottom: 0,
+                  right: 0,
+                  m: 0,
+                  font: `500 8px/1 ${hud.mono}`,
+                  letterSpacing: "0.1em",
+                  color: hud.cyan,
+                  textTransform: "uppercase",
+                }}
+              >
+                LOCK:OK
+              </Typography>
               <Box
                 sx={{
                   position: "relative",
                   height: "100%",
                   overflow: "hidden",
-                  bgcolor: "#080b10",
-                  "&::before": {
-                    content: '""',
-                    position: "absolute",
-                    inset: 0,
-                    pointerEvents: "none",
-                    zIndex: 1,
-                    background:
-                      "repeating-linear-gradient(to bottom, transparent 0, transparent 3px, rgba(8, 13, 18, 0.19) 3px, rgba(8, 13, 18, 0.19) 4px)",
-                  },
+                  bgcolor: hud.bg,
                   "& img": { width: "100%", height: "100%", objectFit: "cover", filter: "contrast(1.07) saturate(0.88)" },
                 }}
               >
                 <CornerTicks />
-                <Image src="/author.jpg" alt="Rafał Łukawski" width={440} height={440} priority />
-                <ScanLine />
-              </Box>
-              <Box
-                sx={{
-                  position: "absolute",
-                  left: "13%",
-                  right: "13%",
-                  bottom: -10,
-                  height: 10,
-                  border: `1px solid ${hud.line}`,
-                  borderTop: 0,
-                  "&::after": {
-                    content: '""',
+                <Box
+                  aria-hidden
+                  sx={{
                     position: "absolute",
-                    left: "50%",
-                    bottom: -6,
-                    width: "46%",
-                    height: 6,
-                    transform: "translateX(-50%)",
-                    background: "linear-gradient(90deg, transparent, rgba(0, 242, 255, 0.5), transparent)",
-                  },
-                }}
-              />
+                    inset: "18%",
+                    zIndex: 3,
+                    pointerEvents: "none",
+                    "&::before, &::after": {
+                      content: '""',
+                      position: "absolute",
+                      background: hud.cyan,
+                    },
+                    "&::before": { left: "50%", top: -6, bottom: -6, width: 1, transform: "translateX(-50%)", opacity: 0.55 },
+                    "&::after": { top: "50%", left: -6, right: -6, height: 1, transform: "translateY(-50%)", opacity: 0.55 },
+                  }}
+                >
+                  <CornerTicks size={12} />
+                </Box>
+                <Image src="/author.jpg" alt="Rafał Łukawski" width={440} height={440} priority />
+                {!reducedMotion && (
+                  <Box
+                    component={motion.span}
+                    aria-hidden
+                    sx={{
+                      position: "absolute",
+                      left: 0,
+                      right: 0,
+                      height: "28%",
+                      zIndex: 2,
+                      pointerEvents: "none",
+                      background: "linear-gradient(to bottom, transparent, rgba(0, 242, 255, 0.28), transparent)",
+                    }}
+                    initial={{ top: "-20%" }}
+                    animate={{ top: ["-20%", "85%"] }}
+                    transition={{ duration: 5.6, repeat: Infinity, ease: "easeInOut" }}
+                  />
+                )}
+              </Box>
             </Box>
           </Box>
 
@@ -422,7 +488,7 @@ export function Catalog() {
               gap: "20px",
             }}
           >
-            <Stack spacing="18px">
+            <Stack spacing="20px">
               <Panel id="about">
                 <PanelBar>
                   <span>{ui.terminalAbout}</span>
@@ -456,7 +522,7 @@ export function Catalog() {
                     sx={{
                       display: "grid",
                       gridTemplateColumns: { xs: "1fr", sm: "repeat(3, minmax(0, 1fr))" },
-                      gap: "10px",
+                      gap: "20px",
                     }}
                   >
                     {stackCategories.map((category) => (
@@ -467,8 +533,8 @@ export function Catalog() {
                     sx={{
                       display: "grid",
                       gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
-                      gap: "10px",
-                      mt: "10px",
+                      gap: "20px",
+                      mt: "20px",
                     }}
                   >
                     <StackCard title={tPm("methodologies")} items={["Scrum", "Kanban", "Waterfall"]} />
@@ -487,7 +553,7 @@ export function Catalog() {
                     sx={{
                       display: "grid",
                       gridTemplateColumns: { xs: "1fr", sm: "1fr 1fr" },
-                      gap: "14px",
+                      gap: "20px",
                     }}
                   >
                     {certificatesData.map((cert) => (
@@ -503,9 +569,7 @@ export function Catalog() {
                           flexDirection: "column",
                           alignItems: "center",
                           textAlign: "center",
-                          px: 1,
-                          pt: 2,
-                          pb: "10px",
+                          p: "20px",
                           "&:focus-visible": { outline: `2px solid ${hud.cyan}`, outlineOffset: 2 },
                         }}
                       >
@@ -514,37 +578,12 @@ export function Catalog() {
                             position: "relative",
                             width: 94,
                             height: 94,
-                            mb: "10px",
+                            mb: "20px",
                             display: "grid",
                             placeItems: "center",
                           }}
                         >
-                          <Box
-                            sx={{
-                              position: "absolute",
-                              inset: 0,
-                              borderRadius: "50%",
-                              border: "1px solid rgba(0, 242, 255, 0.45)",
-                              "&::after": {
-                                content: '""',
-                                position: "absolute",
-                                inset: 8,
-                                borderRadius: "50%",
-                                border: "1px dashed rgba(0, 242, 255, 0.22)",
-                              },
-                            }}
-                          />
-                          <Box
-                            sx={{
-                              position: "absolute",
-                              left: "15%",
-                              right: "15%",
-                              bottom: -7,
-                              height: 10,
-                              borderRadius: "50%",
-                              background: "radial-gradient(ellipse at center, rgba(0, 242, 255, 0.35), transparent 72%)",
-                            }}
-                          />
+                          <CornerTicks size={12} />
                           <Image src={cert.customIcon} alt="" width={64} height={64} />
                         </Box>
                         <Typography component="strong" sx={{ fontSize: "0.87rem", lineHeight: 1.24, fontWeight: 700 }}>
@@ -576,36 +615,24 @@ export function Catalog() {
                   sx={{
                     display: "grid",
                     gridTemplateColumns: { xs: "1fr", sm: "1fr 1.1fr" },
-                    gap: "18px",
+                    gap: "20px",
                   }}
                 >
                   <Box>
                     <SectionLabel>[MODULE: CONTACT_NODE]</SectionLabel>
-                    <Stack>
+                    <Stack spacing="20px">
                       {socialLinks.map((social) => {
                         const Icon = socialIcons[social.name as keyof typeof socialIcons] ?? FaEnvelope;
                         return (
-                          <LinkMui
+                          <HudLink
                             key={social.name}
                             href={social.url}
                             target="_blank"
                             rel="noopener noreferrer"
-                            underline="none"
-                            color="inherit"
-                            sx={{
-                              display: "flex",
-                              alignItems: "center",
-                              gap: "10px",
-                              py: "7px",
-                              borderBottom: "1px solid rgba(0, 242, 255, 0.1)",
-                              "& svg": { color: hud.cyan },
-                              "&:hover": { color: hud.cyan },
-                              "&:focus-visible": { outline: `2px solid ${hud.cyan}`, outlineOffset: 2 },
-                            }}
                           >
                             <Icon />
                             {social.name}
-                          </LinkMui>
+                          </HudLink>
                         );
                       })}
                     </Stack>
@@ -613,7 +640,7 @@ export function Catalog() {
 
                   <Box>
                     <SectionLabel>{tContact("sendMessage")}</SectionLabel>
-                    <Box component="form" onSubmit={handleSubmit} sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                    <Box component="form" onSubmit={handleSubmit} sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
                       <HudField id="tc-name" name="name" label={tContact("form.name")} required fullWidth InputLabelProps={{ shrink: true }} />
                       <HudField
                         id="tc-email"
@@ -681,7 +708,7 @@ export function Catalog() {
                         m: 0,
                         fontFamily: hud.display,
                         fontSize: "0.96rem",
-                        letterSpacing: "0.08em",
+                        letterSpacing: "0.1em",
                         textTransform: "uppercase",
                       }}
                     >
@@ -693,62 +720,17 @@ export function Catalog() {
                     sx={{
                       display: { xs: "grid", lg: "block" },
                       gridTemplateColumns: { xs: "1fr", sm: "repeat(2, minmax(0, 1fr))", lg: "none" },
-                      gap: { xs: "12px", lg: 0 },
+                      gap: { xs: "20px", lg: 0 },
                     }}
                   >
                     {projects.map((project, idx) => (
-                      <Box key={project.id} component="article" sx={{ mb: { xs: 0, lg: "14px" }, "&:last-child": { mb: 0 } }}>
+                      <Box key={project.id} component="article" sx={{ mb: { xs: 0, lg: "20px" }, "&:last-child": { mb: 0 } }}>
                         <ShotButton
                           type="button"
                           aria-label={`${ui.gallery} ${project.title}`}
                           onClick={() => openLightbox(project.id)}
                         >
-                          <CornerTicks />
-                          <Box
-                            component="span"
-                            sx={{
-                              position: "absolute",
-                              zIndex: 4,
-                              top: 8,
-                              left: 8,
-                              font: `600 9.5px/1 ${hud.mono}`,
-                              letterSpacing: "0.08em",
-                              color: hud.cyan,
-                              textShadow: "0 0 8px rgba(0, 242, 255, 0.25)",
-                            }}
-                          >
-                            VERSION: 2.0
-                          </Box>
-                          <Box
-                            component="span"
-                            sx={{
-                              position: "absolute",
-                              zIndex: 4,
-                              left: 8,
-                              bottom: 8,
-                              font: `600 9.5px/1 ${hud.mono}`,
-                              letterSpacing: "0.08em",
-                              color: hud.cyan,
-                              textShadow: "0 0 8px rgba(0, 242, 255, 0.25)",
-                            }}
-                          >
-                            {project.buildStamp}
-                          </Box>
-                          <Box
-                            component="span"
-                            sx={{
-                              position: "absolute",
-                              zIndex: 4,
-                              right: 8,
-                              bottom: 8,
-                              font: `600 9.5px/1 ${hud.mono}`,
-                              letterSpacing: "0.08em",
-                              color: hud.cyan,
-                              textShadow: "0 0 8px rgba(0, 242, 255, 0.25)",
-                            }}
-                          >
-                            {String(idx + 1).padStart(2, "0")}
-                          </Box>
+                          <ShotMeta stamp={project.buildStamp} index={String(idx + 1).padStart(2, "0")} />
                           <Image src={project.screenshots[0].src} alt={project.screenshots[0].alt} width={640} height={400} />
                         </ShotButton>
                         <Stack direction="row" justifyContent="space-between" alignItems="baseline" spacing={1} sx={{ mt: "7px" }}>
@@ -798,13 +780,22 @@ export function Catalog() {
             justifyContent="space-between"
             spacing={1.5}
             sx={{
-              mt: "34px",
-              pt: "14px",
-              borderTop: "1px solid rgba(0, 242, 255, 0.15)",
+              position: "relative",
+              mt: "40px",
+              pt: "20px",
               color: hud.dim,
               font: `500 10.5px/1.4 ${hud.mono}`,
-              letterSpacing: "0.07em",
+              letterSpacing: "0.1em",
               textTransform: "uppercase",
+              "&::before": {
+                content: '""',
+                position: "absolute",
+                left: 0,
+                right: 0,
+                top: 0,
+                height: 1,
+                background: `linear-gradient(90deg, transparent, ${hud.cyan}, transparent)`,
+              },
             }}
           >
             <span>{tFooter("copyright", { year })}</span>
@@ -829,27 +820,30 @@ export function Catalog() {
                 sx={{
                   m: 0,
                   mb: "10px",
+                  mr: "48px",
                   textAlign: "right",
                   color: hud.dim,
                   font: `500 10px/1 ${hud.mono}`,
-                  letterSpacing: "0.08em",
+                  letterSpacing: "0.1em",
                 }}
                 aria-live="polite"
               >
                 {String(lightbox.index + 1).padStart(2, "0")} / {String(activeProject.screenshots.length).padStart(2, "0")}
               </Typography>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <Box
-                component="img"
-                src={activeShot.src}
-                alt={activeShot.alt}
-                sx={{
-                  display: "block",
-                  maxWidth: "100%",
-                  maxHeight: "78vh",
-                  border: "1px solid rgba(0, 242, 255, 0.28)",
-                }}
-              />
+              <Box sx={{ position: "relative" }}>
+                <CornerTicks />
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <Box
+                  component="img"
+                  src={activeShot.src}
+                  alt={activeShot.alt}
+                  sx={{
+                    display: "block",
+                    maxWidth: "100%",
+                    maxHeight: "78vh",
+                  }}
+                />
+              </Box>
               {activeShot.sourceUrl && (
                 <Typography
                   id="tc-lightbox-caption"
@@ -860,26 +854,17 @@ export function Catalog() {
                 </Typography>
               )}
               {activeProject.screenshots.length > 1 && (
-                <Stack direction="row" flexWrap="wrap" spacing={1} useFlexGap sx={{ mt: 1.5 }}>
+                <Stack direction="row" flexWrap="wrap" spacing={1} useFlexGap sx={{ mt: "20px" }}>
                   {activeProject.screenshots.map((shot, idx) => (
-                    <Box
+                    <ShotThumb
                       key={shot.id}
-                      component="button"
                       type="button"
+                      data-active={idx === lightbox.index}
                       aria-label={`${ui.gallery} ${idx + 1} / ${activeProject.screenshots.length}`}
                       onClick={() => setLightbox({ projectId: activeProject.id, index: idx })}
-                      sx={{
-                        border: idx === lightbox.index ? `1px solid ${hud.cyan}` : "1px solid rgba(0, 242, 255, 0.2)",
-                        boxShadow: idx === lightbox.index ? "0 0 0 1px rgba(0, 242, 255, 0.2)" : "none",
-                        bgcolor: "#091017",
-                        p: 0,
-                        cursor: "pointer",
-                        "&:focus-visible": { outline: `2px solid ${hud.cyan}`, outlineOffset: 2 },
-                        "& img": { display: "block", width: 96, height: 60, objectFit: "cover" },
-                      }}
                     >
                       <Image src={shot.src} alt={shot.alt} width={120} height={75} />
-                    </Box>
+                    </ShotThumb>
                   ))}
                 </Stack>
               )}
