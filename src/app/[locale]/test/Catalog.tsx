@@ -53,12 +53,12 @@ const copy = {
     current: "obecna wersja",
     active: "aktywny",
     skip: "Przejdź do treści",
-    moduleIdentity: "[MODULE: IDENTITY_CORE]",
-    moduleProjects: "[MODULE: PROJECT_FEED]",
-    moduleStack: "[MODULE: TECH_STACK]",
-    moduleCerts: "[MODULE: CERTIFICATE_DB]",
-    terminalAbout: "ABOUT.EXE",
-    terminalContact: "CONTACT.EXE",
+    moduleIdentity: "IDENTITY_CORE",
+    moduleProjects: "PROJECT_FEED",
+    moduleStack: "TECH_STACK",
+    moduleCerts: "CERTIFICATE_DB",
+    terminalAbout: "ABOUT_ME",
+    terminalContact: "CONTACT_ME",
     credentials: "poświadczenie",
     gallery: "galeria",
     openProject: "otwórz projekt",
@@ -71,12 +71,12 @@ const copy = {
     current: "live site",
     active: "active",
     skip: "Skip to content",
-    moduleIdentity: "[MODULE: IDENTITY_CORE]",
-    moduleProjects: "[MODULE: PROJECT_FEED]",
-    moduleStack: "[MODULE: TECH_STACK]",
-    moduleCerts: "[MODULE: CERTIFICATE_DB]",
-    terminalAbout: "ABOUT.EXE",
-    terminalContact: "CONTACT.EXE",
+    moduleIdentity: "IDENTITY_CORE",
+    moduleProjects: "PROJECT_FEED",
+    moduleStack: "TECH_STACK",
+    moduleCerts: "CERTIFICATE_DB",
+    terminalAbout: "ABOUT_ME",
+    terminalContact: "CONTACT_ME",
     credentials: "credential",
     gallery: "gallery",
     openProject: "open project",
@@ -401,7 +401,7 @@ export function Catalog() {
                   m: 0,
                   font: `500 8px/1 ${hud.mono}`,
                   letterSpacing: "0.1em",
-                  color: hud.cyan,
+                  color: hud.dim,
                   textTransform: "uppercase",
                 }}
               >
@@ -415,7 +415,7 @@ export function Catalog() {
                   m: 0,
                   font: `500 8px/1 ${hud.mono}`,
                   letterSpacing: "0.1em",
-                  color: hud.cyan,
+                  color: hud.dim,
                   textTransform: "uppercase",
                 }}
               >
@@ -429,7 +429,7 @@ export function Catalog() {
                   m: 0,
                   font: `500 8px/1 ${hud.mono}`,
                   letterSpacing: "0.1em",
-                  color: hud.cyan,
+                  color: hud.dim,
                   textTransform: "uppercase",
                 }}
               >
@@ -443,7 +443,7 @@ export function Catalog() {
                   m: 0,
                   font: `500 8px/1 ${hud.mono}`,
                   letterSpacing: "0.1em",
-                  color: hud.cyan,
+                  color: hud.dim,
                   textTransform: "uppercase",
                 }}
               >
@@ -481,8 +481,8 @@ export function Catalog() {
                       position: "absolute",
                       background: hud.cyan,
                     },
-                    "&::before": { left: "50%", top: -6, bottom: -6, width: 1, transform: "translateX(-50%)", opacity: 0.55 },
-                    "&::after": { top: "50%", left: -6, right: -6, height: 1, transform: "translateY(-50%)", opacity: 0.55 },
+                    "&::before": { left: "50%", top: -6, bottom: -6, width: 1, transform: "translateX(-50%)", opacity: 0.3 },
+                    "&::after": { top: "50%", left: -6, right: -6, height: 1, transform: "translateY(-50%)", opacity: 0.3 },
                   }}
                 >
                   <CornerTicks size={12} animated />
@@ -851,7 +851,7 @@ export function Catalog() {
                 right: 0,
                 top: 0,
                 height: 1,
-                background: `linear-gradient(90deg, transparent, ${hud.cyan}, transparent)`,
+                background: `linear-gradient(90deg, transparent, ${hud.cyan}80, transparent)`,
               },
             }}
           >

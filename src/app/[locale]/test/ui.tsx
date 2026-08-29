@@ -15,6 +15,11 @@ import { catalogTheme, hud } from "./theme";
 
 const cyan = hud.cyan;
 
+// Frame arms are chrome, not content: a hairline at ~50% cyan at rest, brought
+// up to full only where an element is hovered or focused.
+const frame = `${cyan}80`;
+const frameBright = cyan;
+
 export const scanlines = (alpha = 0.05, gap = 3) =>
   `repeating-linear-gradient(to bottom, rgba(255,255,255,${alpha}) 0, rgba(255,255,255,${alpha}) 1px, transparent 1px, transparent ${gap}px)`;
 
@@ -22,16 +27,16 @@ export const scanlines = (alpha = 0.05, gap = 3) =>
 export const glow = (c: string = cyan, strength = 1) =>
   `0 0 ${10 * strength}px ${c}59, 0 0 ${28 * strength}px ${c}26`;
 
-function cornerFill(size = 18, c: string = cyan) {
+function cornerFill(size = 18, c: string = frame, weight = 1) {
   return [
-    `linear-gradient(${c}, ${c}) left top / ${size}px 2px no-repeat`,
-    `linear-gradient(${c}, ${c}) left top / 2px ${size}px no-repeat`,
-    `linear-gradient(${c}, ${c}) right top / ${size}px 2px no-repeat`,
-    `linear-gradient(${c}, ${c}) right top / 2px ${size}px no-repeat`,
-    `linear-gradient(${c}, ${c}) left bottom / ${size}px 2px no-repeat`,
-    `linear-gradient(${c}, ${c}) left bottom / 2px ${size}px no-repeat`,
-    `linear-gradient(${c}, ${c}) right bottom / ${size}px 2px no-repeat`,
-    `linear-gradient(${c}, ${c}) right bottom / 2px ${size}px no-repeat`,
+    `linear-gradient(${c}, ${c}) left top / ${size}px ${weight}px no-repeat`,
+    `linear-gradient(${c}, ${c}) left top / ${weight}px ${size}px no-repeat`,
+    `linear-gradient(${c}, ${c}) right top / ${size}px ${weight}px no-repeat`,
+    `linear-gradient(${c}, ${c}) right top / ${weight}px ${size}px no-repeat`,
+    `linear-gradient(${c}, ${c}) left bottom / ${size}px ${weight}px no-repeat`,
+    `linear-gradient(${c}, ${c}) left bottom / ${weight}px ${size}px no-repeat`,
+    `linear-gradient(${c}, ${c}) right bottom / ${size}px ${weight}px no-repeat`,
+    `linear-gradient(${c}, ${c}) right bottom / ${weight}px ${size}px no-repeat`,
   ].join(", ");
 }
 
@@ -90,7 +95,7 @@ const glitch = keyframes`
 
 // Reticle arms breathe so the targeting frame never reads as a static border.
 const reticle = keyframes`
-  0%, 100% { opacity: 0.5; transform: scale(0.97); }
+  0%, 100% { opacity: 0.62; transform: scale(0.98); }
   50% { opacity: 1; transform: scale(1); }
 `;
 
@@ -171,7 +176,7 @@ export const TopBar = styled("header")({
     right: 0,
     bottom: 0,
     height: 1,
-    background: `linear-gradient(90deg, transparent, ${cyan}, transparent)`,
+    background: `linear-gradient(90deg, transparent, ${frame}, transparent)`,
     pointerEvents: "none",
   },
   "@media (max-width: 760px)": { padding: "0 20px" },
@@ -219,6 +224,7 @@ export const HudButton = styled(Button)({
     pointerEvents: "none",
     background: cornerFill(12),
   },
+  "&:hover::after": { background: cornerFill(12, frameBright) },
   "&:hover": {
     background: "rgba(0, 242, 255, 0.08)",
     color: cyan,
@@ -326,6 +332,7 @@ export const HudCard = styled("article")({
     pointerEvents: "none",
     background: cornerFill(12),
   },
+  "&:hover::before": { background: cornerFill(12, frameBright) },
   "&:hover": { animation: `${glitch} 0.2s linear`, boxShadow: glow(cyan, 0.8) },
   [reducedMotion]: { "&:hover": { animation: "none" } },
 });
@@ -356,6 +363,7 @@ export const HudField = styled(TextField)({
       pointerEvents: "none",
       background: cornerFill(10),
     },
+    "&.Mui-focused::after": { background: cornerFill(10, frameBright) },
   },
   "& .MuiOutlinedInput-input": { padding: "10px 12px" },
   "& .MuiInputBase-multiline": { padding: 0 },
@@ -420,6 +428,7 @@ export const ShotButton = styled("button")({
     objectPosition: "top",
     filter: "saturate(0.86) contrast(1.04)",
   },
+  "&:hover::after": { background: cornerFill(18, frameBright) },
   "&:hover": { animation: `${glitch} 0.22s linear`, boxShadow: glow(cyan, 0.9) },
   "&:hover img": { filter: "saturate(1.05) contrast(1.12)" },
   [reducedMotion]: { "&:hover": { animation: "none" } },
@@ -443,6 +452,7 @@ export const HudLink = styled(Link)({
     pointerEvents: "none",
     background: cornerFill(10),
   },
+  "&:hover::after": { background: cornerFill(10, frameBright) },
 });
 
 export const ShotThumb = styled("button")({
@@ -461,6 +471,7 @@ export const ShotThumb = styled("button")({
     background: cornerFill(8),
   },
   '&[data-active="true"]': { opacity: 1 },
+  '&[data-active="true"]::after': { background: cornerFill(8, frameBright) },
   "& img": { display: "block", width: 96, height: 60, objectFit: "cover" },
 });
 
@@ -486,6 +497,7 @@ export const GalleryChip = styled("button")({
     pointerEvents: "none",
     background: cornerFill(8),
   },
+  "&:hover::after": { background: cornerFill(8, frameBright) },
   "& span": { color: cyan, padding: "0 0 0 4px" },
 });
 
@@ -518,6 +530,7 @@ export const NavFab = styled(IconButton)({
     pointerEvents: "none",
     background: cornerFill(10),
   },
+  "&:hover::after": { background: cornerFill(10, frameBright) },
   "&:hover": { color: cyan, background: hud.panel },
 });
 
@@ -527,7 +540,7 @@ export const NavFab = styled(IconButton)({
  */
 export function CornerTicks({
   size = 18,
-  color = cyan,
+  color = frame,
   animated = false,
 }: {
   size?: number;
@@ -607,6 +620,7 @@ export function ProcessDots() {
 }
 
 export function StatusBadge({ children }: { children: ReactNode }) {
+  const ok = `${hud.ok}80`;
   return (
     <Box
       component="span"
@@ -630,14 +644,14 @@ export function StatusBadge({ children }: { children: ReactNode }) {
           inset: 0,
           pointerEvents: "none",
           background: [
-            `linear-gradient(${hud.ok}, ${hud.ok}) left top / 10px 1px no-repeat`,
-            `linear-gradient(${hud.ok}, ${hud.ok}) left top / 1px 10px no-repeat`,
-            `linear-gradient(${hud.ok}, ${hud.ok}) right top / 10px 1px no-repeat`,
-            `linear-gradient(${hud.ok}, ${hud.ok}) right top / 1px 10px no-repeat`,
-            `linear-gradient(${hud.ok}, ${hud.ok}) left bottom / 10px 1px no-repeat`,
-            `linear-gradient(${hud.ok}, ${hud.ok}) left bottom / 1px 10px no-repeat`,
-            `linear-gradient(${hud.ok}, ${hud.ok}) right bottom / 10px 1px no-repeat`,
-            `linear-gradient(${hud.ok}, ${hud.ok}) right bottom / 1px 10px no-repeat`,
+            `linear-gradient(${ok}, ${ok}) left top / 10px 1px no-repeat`,
+            `linear-gradient(${ok}, ${ok}) left top / 1px 10px no-repeat`,
+            `linear-gradient(${ok}, ${ok}) right top / 10px 1px no-repeat`,
+            `linear-gradient(${ok}, ${ok}) right top / 1px 10px no-repeat`,
+            `linear-gradient(${ok}, ${ok}) left bottom / 10px 1px no-repeat`,
+            `linear-gradient(${ok}, ${ok}) left bottom / 1px 10px no-repeat`,
+            `linear-gradient(${ok}, ${ok}) right bottom / 10px 1px no-repeat`,
+            `linear-gradient(${ok}, ${ok}) right bottom / 1px 10px no-repeat`,
           ].join(", "),
         },
       }}
