@@ -53,12 +53,12 @@ const copy = {
     current: "obecna wersja",
     active: "aktywny",
     skip: "Przejdź do treści",
-    moduleIdentity: "IDENTITY_CORE",
+    moduleIdentity: "[MODULE: IDENTITY_CORE]",
     moduleProjects: "PROJECT_FEED",
-    moduleStack: "TECH_STACK",
-    moduleCerts: "CERTIFICATE_DB",
-    terminalAbout: "ABOUT_ME",
-    terminalContact: "CONTACT_ME",
+    moduleStack: "[MODULE: TECH_STACK]",
+    moduleCerts: "[MODULE: CERTIFICATE_DB]",
+    terminalAbout: "[MODULE: PROFILE_DATA]",
+    terminalContact: "[MODULE: CONTACT_NODE]",
     credentials: "poświadczenie",
     gallery: "galeria",
     openProject: "otwórz projekt",
@@ -529,7 +529,6 @@ export function Catalog() {
                 </PanelBar>
                 <PanelStamps left="ENC: UTF-8" right="BUF: OK" />
                 <PanelBody>
-                  <SectionLabel>[MODULE: PROFILE_DATA]</SectionLabel>
                   <Typography
                     sx={{
                       m: 0,
@@ -670,7 +669,6 @@ export function Catalog() {
                   }}
                 >
                   <Box>
-                    <SectionLabel>[MODULE: CONTACT_NODE]</SectionLabel>
                     <Stack spacing="20px">
                       {socialLinks.map((social) => {
                         const Icon = socialIcons[social.name as keyof typeof socialIcons] ?? FaEnvelope;
