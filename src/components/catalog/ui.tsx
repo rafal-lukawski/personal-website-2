@@ -435,7 +435,6 @@ export const ShotButton = styled("button")({
   width: "100%",
   padding: 0,
   border: 0,
-  background: "transparent",
   overflow: "hidden",
   cursor: "pointer",
   color: "inherit",
@@ -463,7 +462,7 @@ export const ShotButton = styled("button")({
 
 export const ShotBg = styled("span")({
   position: "absolute",
-  inset: 2,
+  inset: 0,
   zIndex: 0,
   overflow: "hidden",
   pointerEvents: "none",
