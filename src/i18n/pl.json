@@ -27,6 +27,22 @@
     "paragraph4": "Integracja aplikacji z generatywnymi modelami AI: **TAK**",
     "contactCommand": "ZAINICJUJ_KONTAKT"
   },
+  "stats": {
+    "title": "W liczbach",
+    "yearsInIt": "lat w IT",
+    "yearsInItDetail": "od {year}",
+    "projects": "projekty w portfolio",
+    "projectsDetail": "od {year} do dziś",
+    "technologies": "technologii w stacku",
+    "technologiesDetail": "w {categories} kategoriach",
+    "industries": "branże",
+    "industryLabels": {
+      "medtech": "medtech",
+      "ecommerce": "e‑commerce",
+      "aiMedia": "AI/media",
+      "fashionTech": "fashion‑tech"
+    }
+  },
   "projectManagement": {
     "title": "Zarządzanie projektami",
     "methodologies": "Metodyki",
@@ -186,7 +202,7 @@
     "moduleProjects": "[MODUŁ: LISTA_PROJEKTÓW]",
     "moduleStack": "[MODUŁ: STOS_TECHNOLOGICZNY]",
     "moduleCerts": "[MODUŁ: CERTYFIKATY]",
-    "terminalAbout": "[MODUŁ: O_MNIE]",
+    "terminalIntro": "[MODUŁ: WSTĘP]",
     "terminalContact": "[MODUŁ: KONTAKT]",
     "credentials": "poświadczenie",
     "gallery": "galeria",
@@ -202,6 +218,7 @@
     "colorMode": "Tryb koloru",
     "colorModeToSystem": "Zgodnie z ustawieniem systemu",
     "colorModeToLight": "Przełącz na tryb jasny",
-    "colorModeToDark": "Przełącz na tryb ciemny"
+    "colorModeToDark": "Przełącz na tryb ciemny",
+    "moduleStats": "[MODUŁ: STATYSTYKI]"
   }
 }

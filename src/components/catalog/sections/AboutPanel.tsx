@@ -28,7 +28,7 @@ export function AboutPanel({ order }: SectionProps) {
   return (
     <Panel id="about" sx={{ order }}>
       <PanelHeader
-        title={t("hud.terminalAbout")}
+        title={t("hud.terminalIntro")}
         meta="PID: 0x41"
         stampLeft="ENC: UTF-8"
         stampRight="BUF: OK"

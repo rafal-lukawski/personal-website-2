@@ -26,6 +26,22 @@
     "paragraph4": "Application integration with generative AI models: **YES**",
     "contactCommand": "INITIATE_CONTACT"
   },
+  "stats": {
+    "title": "By the numbers",
+    "yearsInIt": "years in IT",
+    "yearsInItDetail": "since {year}",
+    "projects": "projects in the feed",
+    "projectsDetail": "{year} to date",
+    "technologies": "technologies in the stack",
+    "technologiesDetail": "across {categories} categories",
+    "industries": "industries",
+    "industryLabels": {
+      "medtech": "medtech",
+      "ecommerce": "e‑commerce",
+      "aiMedia": "AI/media",
+      "fashionTech": "fashion‑tech"
+    }
+  },
   "projectManagement": {
     "title": "Project Management",
     "methodologies": "Methodologies",
@@ -185,7 +201,7 @@
     "moduleProjects": "[MODULE: PROJECT_FEED]",
     "moduleStack": "[MODULE: TECH_STACK]",
     "moduleCerts": "[MODULE: CERTIFICATE_DB]",
-    "terminalAbout": "[MODULE: PROFILE_DATA]",
+    "terminalIntro": "[MODULE: INTRODUCTION]",
     "terminalContact": "[MODULE: CONTACT_NODE]",
     "credentials": "credential",
     "gallery": "gallery",
@@ -201,6 +217,7 @@
     "colorMode": "Color mode",
     "colorModeToSystem": "Follow system mode",
     "colorModeToLight": "Switch to light mode",
-    "colorModeToDark": "Switch to dark mode"
+    "colorModeToDark": "Switch to dark mode",
+    "moduleStats": "[MODULE: TRACK_RECORD]"
   }
 }

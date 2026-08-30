@@ -210,6 +210,20 @@ export const certificatesData = [
   },
 ] as const;
 
+/**
+ * Career facts behind the stat tiles. Kept as two numbers rather than one
+ * "years of experience" so the break stays visible instead of being baked in.
+ */
+export const career = {
+  /** First professional IT role. */
+  startYear: 2000,
+  /** Years spent out of the industry, subtracted from the experience tile. */
+  breakYears: 3,
+} as const;
+
+/** Industries the portfolio covers; the labels themselves live in the messages. */
+export const industries = ["medtech", "ecommerce", "aiMedia", "fashionTech"] as const;
+
 export const stackCategories = [
   {
     titleKey: "frontend",
