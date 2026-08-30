@@ -101,6 +101,9 @@ function usePrefersReducedMotion() {
 
 type Glyph = { ch: string; bold: boolean };
 
+const ABOUT_LINE_HEIGHT = 1.54;
+const PARAGRAPH_GAP = `${ABOUT_LINE_HEIGHT * 0.7}em`;
+
 function parseBold(raw: string): Glyph[] {
   const glyphs: Glyph[] = [];
   let bold = false;
@@ -160,6 +163,9 @@ function Typewriter({
   const renderChars = (from: number, to: number) =>
     glyphs.slice(from, to).map((glyph, offset) => {
       const i = from + offset;
+      if (glyph.ch === "\n" && glyphs[i - 1]?.ch === "\n") {
+        return <Box key={i} component="span" sx={{ display: "block", height: PARAGRAPH_GAP }} />;
+      }
       const prompt = isPromptGlyph(glyphs, i);
       const sx = {
         ...(prompt
@@ -674,7 +680,7 @@ export function Catalog() {
                       color: hud.muted,
                       fontFamily: hud.mono,
                       letterSpacing: "0.01em",
-                      lineHeight: 1.54,
+                      lineHeight: ABOUT_LINE_HEIGHT,
                       fontSize: "0.95rem",
                       whiteSpace: "pre-line",
                     }}
