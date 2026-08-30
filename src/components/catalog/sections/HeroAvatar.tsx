@@ -44,7 +44,7 @@ export function HeroAvatar() {
           data-shot
           sx={{
             position: "absolute",
-            inset: "2px",
+            inset: "4px",
             overflow: "hidden",
             background: "none",
             "& img": {

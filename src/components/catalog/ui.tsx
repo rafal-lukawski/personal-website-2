@@ -510,7 +510,7 @@ export const PhosphorChar = styled("span")({
 /** Holds the corner ticks; its padding is the transparent gap around the shot. */
 export const ShotFrame = styled("div")({
   position: "relative",
-  padding: 2,
+  padding: 4,
   "&::after": {
     content: '""',
     position: "absolute",
