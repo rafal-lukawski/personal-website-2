@@ -430,24 +430,10 @@ export const PhosphorChar = styled("span")({
   [reducedMotion]: { animation: "none" },
 });
 
-export const ShotButton = styled("button")({
+/** Holds the corner ticks; its padding is the transparent gap around the shot. */
+export const ShotFrame = styled("div")({
   position: "relative",
-  width: "100%",
-  padding: 0,
-  border: 0,
-  overflow: "hidden",
-  background: "transparent",
-  cursor: "pointer",
-  color: "inherit",
-  ...focusRing,
-  "&::before": {
-    content: '""',
-    position: "absolute",
-    inset: 2,
-    zIndex: 2,
-    pointerEvents: "none",
-    backgroundImage: scanlines(0.035),
-  },
+  padding: 2,
   "&::after": {
     content: '""',
     position: "absolute",
@@ -457,13 +443,36 @@ export const ShotButton = styled("button")({
     background: cornerFill(18),
   },
   "&:hover::after": { background: cornerFill(18, frameBright) },
-  "&:hover": { animation: `${glitch} 0.22s linear`, boxShadow: glow(cyan, 0.9) },
+  "&:hover": { animation: `${glitch} 0.22s linear` },
   [reducedMotion]: { "&:hover": { animation: "none" } },
+});
+
+export const ShotButton = styled("button")({
+  position: "relative",
+  display: "block",
+  width: "100%",
+  padding: 0,
+  border: 0,
+  overflow: "hidden",
+  appearance: "none",
+  background: "none",
+  cursor: "pointer",
+  color: "inherit",
+  ...focusRing,
+  "&::before": {
+    content: '""',
+    position: "absolute",
+    inset: 0,
+    zIndex: 2,
+    pointerEvents: "none",
+    backgroundImage: scanlines(0.035),
+  },
+  "&:hover": { boxShadow: glow(cyan, 0.9) },
 });
 
 export const ShotBg = styled("span")({
   position: "absolute",
-  inset: 2,
+  inset: 0,
   zIndex: 0,
   overflow: "hidden",
   pointerEvents: "none",
@@ -483,7 +492,6 @@ export const ShotFg = styled("span")({
   zIndex: 1,
   boxSizing: "border-box",
   padding: 32,
-  margin: 2,
   "& img": {
     display: "block",
     width: "100%",

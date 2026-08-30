@@ -41,6 +41,7 @@ import {
   Root,
   SectionLabel,
   ShotButton,
+  ShotFrame,
   ShotBg,
   ShotFg,
   ShotMeta,
@@ -613,6 +614,7 @@ export function Catalog() {
                     position: "absolute",
                     inset: "2px",
                     overflow: "hidden",
+                    background: "none",
                     "& img": {
                       width: "100%",
                       height: "100%",
@@ -1000,23 +1002,25 @@ export function Catalog() {
                       const shot = project.screenshots[0];
                       return (
                       <Box key={project.id} component="article" sx={{ mb: { xs: 0, lg: "20px" }, "&:last-child": { mb: 0 } }}>
-                        <ShotButton
-                          type="button"
-                          aria-label={`${tHud("gallery")} ${project.title}`}
-                          onClick={() => openLightbox(project.id)}
-                        >
-                          <ShotMeta
-                            status={project.statusLabel}
-                            stamp={project.buildStamp}
-                            index={String(idx + 1).padStart(2, "0")}
-                          />
-                          <ShotBg aria-hidden>
-                            <Image src={shot.src} alt="" width={shot.width} height={shot.height} />
-                          </ShotBg>
-                          <ShotFg>
-                            <Image src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} />
-                          </ShotFg>
-                        </ShotButton>
+                        <ShotFrame>
+                          <ShotButton
+                            type="button"
+                            aria-label={`${tHud("gallery")} ${project.title}`}
+                            onClick={() => openLightbox(project.id)}
+                          >
+                            <ShotMeta
+                              status={project.statusLabel}
+                              stamp={project.buildStamp}
+                              index={String(idx + 1).padStart(2, "0")}
+                            />
+                            <ShotBg aria-hidden>
+                              <Image src={shot.src} alt="" width={shot.width} height={shot.height} />
+                            </ShotBg>
+                            <ShotFg>
+                              <Image src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} />
+                            </ShotFg>
+                          </ShotButton>
+                        </ShotFrame>
                         <Stack direction="row" justifyContent="space-between" alignItems="baseline" spacing={1} sx={{ mt: "7px" }}>
                           <Stack direction="row" alignItems="center" spacing="8px" sx={{ minWidth: 0 }}>
                             <Typography component="h3" sx={{ m: 0, fontSize: "0.92rem" }}>
