@@ -656,15 +656,25 @@ export const LightboxDialog = styled(Dialog)({
   "& .MuiDialog-container": { alignItems: "center" },
   "& .MuiPaper-root": {
     position: "relative",
-    // The lightbox wears the same chrome as every other surface on the site.
-    // Without a panel under them the shot, its readouts and the thumbnails read
-    // as loose cut-outs floating on the backdrop.
-    background: hud.surface,
-    backdropFilter: hud.blurSurface,
+    // The lightbox wears the same chrome as every other surface on the site;
+    // without a panel under them the shot, its readouts and the thumbnails read
+    // as loose cut-outs floating on the backdrop. `panel` rather than `surface`
+    // because a modal has to read as solid.
+    background: hud.panel,
+    backdropFilter: hud.blurChrome,
     boxShadow: "none",
     overflow: "visible",
-    maxWidth: "min(1080px, calc(100% - 40px))",
-    margin: 20,
+    // Width is what makes a screenshot readable, so the panel claims all of it
+    // the viewport allows and lets the body scroll when a shot runs tall. The
+    // shot itself is never scaled down to fit the height.
+    display: "flex",
+    flexDirection: "column",
+    width: "100%",
+    maxWidth: `min(${hud.max}px, calc(100% - 24px))`,
+    maxHeight: "calc(100% - 24px)",
+    margin: 12,
+    // Matches `Page`: below `sm` the panel runs to the edge of the viewport.
+    "@media (max-width: 599.95px)": { margin: "12px 0", maxWidth: "100%" },
     "&::before": {
       content: '""',
       position: "absolute",

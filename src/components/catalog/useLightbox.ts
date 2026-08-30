@@ -1,9 +1,13 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { TouchEvent } from "react";
 import type { CatalogProject } from "./useProjects";
 
 export type LightboxController = ReturnType<typeof useLightbox>;
+
+/** Horizontal travel a swipe needs before it counts as a page turn. */
+const SWIPE_MIN = 48;
 
 /**
  * Owns which screenshot is on screen. Everything the dialog needs is derived
@@ -33,6 +37,34 @@ export function useLightbox(projects: readonly CatalogProject[]) {
     [projects],
   );
 
+  const swipeFrom = useRef<{ x: number; y: number } | null>(null);
+
+  /**
+   * Touch paging. MUI ships no gesture handling outside `SwipeableDrawer`, so
+   * the dialog needs its own; spread these onto whatever should accept swipes.
+   */
+  const swipeHandlers = useMemo(
+    () => ({
+      onTouchStart: (event: TouchEvent<HTMLElement>) => {
+        const touch = event.touches[0];
+        swipeFrom.current = touch ? { x: touch.clientX, y: touch.clientY } : null;
+      },
+      onTouchEnd: (event: TouchEvent<HTMLElement>) => {
+        const from = swipeFrom.current;
+        swipeFrom.current = null;
+        const touch = event.changedTouches[0];
+        if (!from || !touch) return;
+        const dx = touch.clientX - from.x;
+        const dy = touch.clientY - from.y;
+        // A drag that travels further vertically is the page being scrolled,
+        // not a page turn.
+        if (Math.abs(dx) < SWIPE_MIN || Math.abs(dx) <= Math.abs(dy)) return;
+        step(dx < 0 ? 1 : -1);
+      },
+    }),
+    [step],
+  );
+
   useEffect(() => {
     if (!target) return;
     const onKey = (event: KeyboardEvent) => {
@@ -56,5 +88,6 @@ export function useLightbox(projects: readonly CatalogProject[]) {
     close,
     select,
     step,
+    swipeHandlers,
   };
 }

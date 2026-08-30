@@ -16,7 +16,16 @@ const GUTTER = 56;
 
 const pad = (value: number) => String(value).padStart(2, "0");
 
-export function ProjectLightbox({ project, shot, index, isOpen, close, select, step }: LightboxController) {
+export function ProjectLightbox({
+  project,
+  shot,
+  index,
+  isOpen,
+  close,
+  select,
+  step,
+  swipeHandlers,
+}: LightboxController) {
   const tHud = useTranslations("hud");
   const tProjects = useTranslations("projects");
   const count = project?.screenshots.length ?? 0;
@@ -30,7 +39,7 @@ export function ProjectLightbox({ project, shot, index, isOpen, close, select, s
     >
       {project && shot && (
         <>
-          <PanelBar sx={{ minHeight: 40, py: 0, pr: "48px" }}>
+          <PanelBar sx={{ minHeight: 40, flexShrink: 0, py: 0, pr: "48px" }}>
             <Box component="span" id={TITLE_ID} sx={{ minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
               {tHud("gallery")} / {project.title}
             </Box>
@@ -41,14 +50,25 @@ export function ProjectLightbox({ project, shot, index, isOpen, close, select, s
           <NavFab aria-label={tHud("close")} onClick={close} sx={{ top: 0, right: 0, zIndex: 3 }}>
             ×
           </NavFab>
-          <Box sx={{ px: { xs: "16px", sm: `${GUTTER}px` }, py: { xs: "16px", sm: "24px" } }}>
-            <Box sx={{ position: "relative" }}>
+          <Box
+            sx={{
+              px: { xs: "8px", sm: `${GUTTER}px` },
+              py: { xs: "8px", sm: "24px" },
+              minHeight: 0,
+              overflow: "auto",
+            }}
+          >
+            <Box sx={{ position: "relative" }} {...swipeHandlers}>
               <CornerTicks color={hud.cyan} />
               <Box
                 component="img"
                 src={shot.src}
                 alt={shot.alt}
-                sx={{ display: "block", maxWidth: "100%", maxHeight: "72vh", m: "2px" }}
+                // Width-driven on purpose: no height cap, so the shot stays as
+                // large as the panel allows and the body scrolls if it must.
+                // `maxWidth` rather than `width` keeps a small shot at its own
+                // size instead of upscaling it into mush.
+                sx={{ display: "block", maxWidth: "100%", height: "auto", mx: "auto", my: "2px" }}
               />
               {count > 1 && (
                 <>
