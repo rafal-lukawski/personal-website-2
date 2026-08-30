@@ -11,6 +11,9 @@ const MAX_DISTANCE = 120;
 const MAX_DISTANCE_SQ = MAX_DISTANCE * MAX_DISTANCE;
 const PARTICLE_COUNT = 80;
 const SPEED = 0.28;
+const GRAVITY = 40;
+const GRAVITY_MIN_DISTANCE = 40;
+const GRAVITY_MIN_DISTANCE_SQ = GRAVITY_MIN_DISTANCE * GRAVITY_MIN_DISTANCE;
 
 function hexToRgb(hex: string): [number, number, number] {
   const h = hex.trim().replace("#", "");
@@ -39,8 +42,18 @@ export class ParticleSim {
     if (document.hidden) this.stopLoop();
     else this.startLoop();
   };
-  private readonly onTheme = () => this.syncColor();
-  private themeObserver = new MutationObserver(() => this.onTheme());
+  private mx = 0;
+  private my = 0;
+  private hasPointer = false;
+  private readonly onPointerMove = (e: PointerEvent) => {
+    this.mx = e.clientX;
+    this.my = e.clientY;
+    this.hasPointer = true;
+  };
+  private readonly onPointerLeave = () => {
+    this.hasPointer = false;
+  };
+  private themeObserver = new MutationObserver(() => this.syncColor());
 
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
@@ -53,6 +66,8 @@ export class ParticleSim {
     this.syncColor();
     this.resize(true);
     window.addEventListener("resize", this.onResize, { passive: true });
+    window.addEventListener("pointermove", this.onPointerMove, { passive: true });
+    document.documentElement.addEventListener("mouseleave", this.onPointerLeave);
     document.addEventListener("visibilitychange", this.onVisibility);
     this.themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
     this.startLoop();
@@ -62,6 +77,8 @@ export class ParticleSim {
     this.stopLoop();
     window.clearTimeout(this.resizeTimer);
     window.removeEventListener("resize", this.onResize);
+    window.removeEventListener("pointermove", this.onPointerMove);
+    document.documentElement.removeEventListener("mouseleave", this.onPointerLeave);
     document.removeEventListener("visibilitychange", this.onVisibility);
     this.themeObserver.disconnect();
   }
@@ -191,6 +208,17 @@ export class ParticleSim {
 
     for (let i = 0; i < particles.length; i++) {
       const p = particles[i];
+      if (this.hasPointer) {
+        const dx = this.mx - p.x;
+        const dy = this.my - p.y;
+        const dSq = dx * dx + dy * dy;
+        if (dSq > 1) {
+          const dist = Math.sqrt(dSq);
+          const mag = GRAVITY / Math.max(dSq, GRAVITY_MIN_DISTANCE_SQ);
+          p.sx += (dx / dist) * mag;
+          p.sy += (dy / dist) * mag;
+        }
+      }
       p.x += p.sx;
       p.y += p.sy;
       if (p.x < -p.r) p.x = w + p.r;
