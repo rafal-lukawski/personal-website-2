@@ -95,7 +95,7 @@
     },
     "generator": {
       "title": "Generator Pasków",
-      "dateRange": "December 2024 - present",
+      "dateRange": "December 2024 - November 2025",
       "customer": "Rafał Łukawski",
       "description": "Web platform for quickly creating and sharing memes related to popular Polish TV shows. Built from scratch as a complete full-stack project using Next.js and a PostgreSQL database. Users can easily edit images, use ready-made templates, and browse content on any device. The entire system is built and deployed for reliable production performance.",
       "screenshots": {
@@ -109,7 +109,7 @@
     },
     "stella": {
       "title": "Stella BIO App",
-      "dateRange": "March 2019 - April 2024",
+      "dateRange": "March 2022 - April 2024",
       "customer": "EGZOTech.com",
       "description": "Web application for configuring and managing the Stella BIO portable medical device (EMG and FES). It enables specialists and patients to remotely configure therapy programs, monitor measurements, and manage treatment. It supports both clinical and home rehabilitation, offering features like user authentication, session configuration, and comprehensive reporting.",
       "screenshots": {

@@ -40,6 +40,8 @@ import {
   Root,
   SectionLabel,
   ShotButton,
+  ShotBg,
+  ShotFg,
   ShotMeta,
   ShotThumb,
   SkipLink,
@@ -851,7 +853,9 @@ export function Catalog() {
                       gap: { xs: "20px", lg: 0 },
                     }}
                   >
-                    {projects.map((project, idx) => (
+                    {projects.map((project, idx) => {
+                      const shot = project.screenshots[0];
+                      return (
                       <Box key={project.id} component="article" sx={{ mb: { xs: 0, lg: "20px" }, "&:last-child": { mb: 0 } }}>
                         <ShotButton
                           type="button"
@@ -859,21 +863,18 @@ export function Catalog() {
                           onClick={() => openLightbox(project.id)}
                         >
                           <ShotMeta stamp={project.buildStamp} index={String(idx + 1).padStart(2, "0")} />
-                          <Image src={project.screenshots[0].src} alt={project.screenshots[0].alt} width={640} height={400} />
+                          <ShotBg aria-hidden>
+                            <Image src={shot.src} alt="" width={shot.width} height={shot.height} />
+                          </ShotBg>
+                          <ShotFg>
+                            <Image src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} />
+                          </ShotFg>
                         </ShotButton>
                         <Stack direction="row" justifyContent="space-between" alignItems="baseline" spacing={1} sx={{ mt: "7px" }}>
-                          <Typography component="h3" sx={{ m: 0, fontSize: "0.92rem" }}>
-                            {project.title}
-                          </Typography>
-                          <Stack direction="row" alignItems="center" spacing={1}>
-                            <GalleryChip
-                              type="button"
-                              onClick={() => openLightbox(project.id)}
-                              aria-label={`${ui.gallery} ${project.title}`}
-                            >
-                              {ui.gallery}
-                              <span>{project.screenshots.length}</span>
-                            </GalleryChip>
+                          <Stack direction="row" alignItems="center" spacing="8px" sx={{ minWidth: 0 }}>
+                            <Typography component="h3" sx={{ m: 0, fontSize: "0.92rem" }}>
+                              {project.title}
+                            </Typography>
                             {project.url && (
                               <LinkMui
                                 href={project.url}
@@ -882,7 +883,9 @@ export function Catalog() {
                                 aria-label={`${ui.openProject}: ${project.title}`}
                                 color="inherit"
                                 sx={{
+                                  display: "inline-flex",
                                   color: hud.muted,
+                                  flexShrink: 0,
                                   "&:hover": { color: hud.cyan },
                                   "&:focus-visible": { outline: `2px solid ${hud.cyan}`, outlineOffset: 2 },
                                 }}
@@ -891,12 +894,21 @@ export function Catalog() {
                               </LinkMui>
                             )}
                           </Stack>
+                          <GalleryChip
+                            type="button"
+                            onClick={() => openLightbox(project.id)}
+                            aria-label={`${ui.gallery} ${project.title}`}
+                          >
+                            {ui.gallery}
+                            <span>{project.screenshots.length}</span>
+                          </GalleryChip>
                         </Stack>
                         <Typography sx={{ mt: "2px", mb: 0, color: hud.dim, font: `500 10px/1.3 ${hud.mono}`, letterSpacing: "0.04em" }}>
                           {project.dateRange}
                         </Typography>
                       </Box>
-                    ))}
+                      );
+                    })}
                   </Box>
                 </PanelBody>
               </Panel>

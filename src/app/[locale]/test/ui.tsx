@@ -125,7 +125,7 @@ export const Root = styled(Box)({
     inset: 0,
     zIndex: 30,
     pointerEvents: "none",
-    backgroundImage: scanlines(0.04),
+    backgroundImage: scanlines(0.02),
   },
   "& *": { boxSizing: "border-box" },
   "& ::selection": { background: "rgba(0, 242, 255, 0.28)", color: "#edffff" },
@@ -413,7 +413,7 @@ export const ShotButton = styled("button")({
     inset: 0,
     zIndex: 2,
     pointerEvents: "none",
-    backgroundImage: scanlines(0.12),
+    backgroundImage: scanlines(0.035),
   },
   "&::after": {
     content: '""',
@@ -423,18 +423,44 @@ export const ShotButton = styled("button")({
     pointerEvents: "none",
     background: cornerFill(18),
   },
-  "& img": {
-    width: "100%",
-    height: "auto",
-    aspectRatio: "16 / 10",
-    objectFit: "cover",
-    objectPosition: "top",
-    filter: "saturate(0.86) contrast(1.04)",
-  },
   "&:hover::after": { background: cornerFill(18, frameBright) },
   "&:hover": { animation: `${glitch} 0.22s linear`, boxShadow: glow(cyan, 0.9) },
-  "&:hover img": { filter: "saturate(1.05) contrast(1.12)" },
   [reducedMotion]: { "&:hover": { animation: "none" } },
+});
+
+export const ShotBg = styled("span")({
+  position: "absolute",
+  inset: 0,
+  zIndex: 0,
+  overflow: "hidden",
+  pointerEvents: "none",
+  "& img": {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover",
+    objectPosition: "top",
+    transform: "scale(1.16)",
+    filter: "grayscale(1) blur(3px) brightness(0.22)",
+  },
+});
+
+export const ShotFg = styled("span")({
+  position: "relative",
+  display: "block",
+  zIndex: 1,
+  boxSizing: "border-box",
+  padding: 32,
+  "& img": {
+    display: "block",
+    width: "100%",
+    height: "auto",
+    objectFit: "contain",
+    objectPosition: "center",
+    filter: "saturate(0.92) contrast(1.04)",
+  },
+  [`button:hover & img`]: {
+    filter: "saturate(1.08) contrast(1.12)",
+  },
 });
 
 export const HudLink = styled(Link)({

@@ -96,7 +96,7 @@
     },
     "generator": {
       "title": "Generator Pasków",
-      "dateRange": "Grudzień 2024 - obecnie",
+      "dateRange": "Grudzień 2024 - Listopad 2025",
       "customer": "Rafał Łukawski",
       "description": "Platforma internetowa do szybkiego tworzenia i udostępniania memów nawiązujących do popularnych polskich programów telewizyjnych. Stworzona od podstaw jako kompletny projekt (full-stack) przy użyciu Next.js i bazy danych PostgreSQL. Użytkownicy mogą wygodnie edytować grafiki, korzystać z gotowych szablonów oraz przeglądać treści na dowolnym urządzeniu. Całość została przygotowana i wdrożona z myślą o stabilnym działaniu produkcyjnym.",
       "screenshots": {
@@ -110,7 +110,7 @@
     },
     "stella": {
       "title": "Stella BIO App",
-      "dateRange": "Marzec 2019 - Kwiecień 2024",
+      "dateRange": "Marzec 2022 - Kwiecień 2024",
       "customer": "EGZOTech.com",
       "description": "Aplikacja internetowa do konfiguracji i zarządzania przenośnym urządzeniem medycznym Stella BIO (EMG i FES). Umożliwia specjalistom oraz pacjentom zdalne ustawianie programów terapeutycznych, monitorowanie pomiarów i zarządzanie leczeniem. Wspiera rehabilitację kliniczną i domową, oferując m.in. uwierzytelnianie, konfigurację sesji oraz kompleksowe raportowanie.",
       "screenshots": {
