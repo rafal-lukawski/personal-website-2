@@ -49,7 +49,7 @@ export const hudDark: HudPalette = {
   scanInk: "#ffffff",
   selectionBg: "rgba(0, 242, 255, 0.28)",
   selectionFg: "#edffff",
-  overlay: "rgba(10, 10, 12, 0.92)",
+  overlay: "rgba(46, 50, 56, 0.92)",
   shotBgFilter: "grayscale(1) blur(3px) brightness(0.22)",
   frame: frameOf(CYAN_DARK),
 };
@@ -73,7 +73,7 @@ export const hudLight: HudPalette = {
   scanInk: "#1a2a32",
   selectionBg: "rgba(0, 122, 138, 0.22)",
   selectionFg: "#1a2a32",
-  overlay: "rgba(238, 243, 245, 0.92)",
+  overlay: "rgba(174, 186, 192, 0.92)",
   shotBgFilter: "grayscale(1) blur(3px) brightness(0.82)",
   frame: frameOf(CYAN_LIGHT),
 };
