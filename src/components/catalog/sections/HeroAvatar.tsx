@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import Box from "@mui/material/Box";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { hud } from "@/theme/hud";
-import { CornerLabels, CornerTicks, scanlines } from "../ui";
+import { CornerLabels, CornerTicks, glitchOnHover, glow, scanlines } from "../ui";
 
 const AVATAR_SRC = "/author.jpg";
 const AVATAR_ALT = "Rafał Łukawski";
@@ -26,9 +26,22 @@ export function HeroAvatar() {
       }}
     >
       <CornerLabels topLeft="X:014.20" topRight="Y:008.80" bottomLeft="RNG:2.40" bottomRight="LOCK:OK" />
-      <Box sx={{ position: "relative", height: "100%" }}>
-        <CornerTicks />
+      <Box
+        sx={{
+          position: "relative",
+          height: "100%",
+          // The glow has to sit on the shot itself, not on this wrapper: the
+          // wrapper is 2px larger on every side, and a shadow cast from its
+          // edge outlines that inset as a dark (or, in the light theme, pale)
+          // ring around the portrait.
+          "&:hover [data-shot]": { boxShadow: glow(hud.cyan, 0.9) },
+          "&:hover img": { filter: "contrast(1.14) saturate(1.02)" },
+          ...glitchOnHover,
+        }}
+      >
+        <CornerTicks hoverColor={hud.cyan} />
         <Box
+          data-shot
           sx={{
             position: "absolute",
             inset: "2px",

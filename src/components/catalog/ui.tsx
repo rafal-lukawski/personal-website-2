@@ -93,6 +93,12 @@ export const focusRing = {
   },
 } as const;
 
+/** The brief signal glitch every framed HUD surface plays on hover. */
+export const glitchOnHover = {
+  "&:hover": { animation: `${glitch} 0.22s linear` },
+  [reducedMotion]: { "&:hover": { animation: "none" } },
+} as const;
+
 /** Off-screen but readable by assistive tech; mirrors MUI's `visuallyHidden`. */
 export const srOnly = {
   position: "absolute",
@@ -514,8 +520,7 @@ export const ShotFrame = styled("div")({
     background: cornerFill(18),
   },
   "&:hover::after": { background: cornerFill(18, frameBright) },
-  "&:hover": { animation: `${glitch} 0.22s linear` },
-  [reducedMotion]: { "&:hover": { animation: "none" } },
+  ...glitchOnHover,
 });
 
 export const ShotButton = styled("button")({
@@ -682,11 +687,14 @@ export function CornerTicks({
   color = frame,
   weight = 1,
   animated = false,
+  hoverColor,
 }: {
   size?: number;
   color?: string;
   weight?: number;
   animated?: boolean;
+  /** Colour the ticks take while the element holding them is hovered. */
+  hoverColor?: string;
 }) {
   return (
     <Box
@@ -697,6 +705,9 @@ export function CornerTicks({
         zIndex: 4,
         pointerEvents: "none",
         background: cornerFill(size, color, weight),
+        ...(hoverColor
+          ? { "*:hover > &": { background: cornerFill(size, hoverColor, weight) } }
+          : {}),
         ...(animated
           ? { animation: `${reticle} 2.6s ease-in-out infinite`, [reducedMotion]: { animation: "none" } }
           : {}),
