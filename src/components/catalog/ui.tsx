@@ -185,7 +185,6 @@ export const TopBar = styled("header")({
     background: `linear-gradient(90deg, transparent, ${frame}, transparent)`,
     pointerEvents: "none",
   },
-  "@media (max-width: 760px)": { padding: "0 20px" },
 });
 
 export const LangLink = styled(LocaleLink)({
@@ -205,6 +204,9 @@ export const Page = styled("main")({
   maxWidth: hud.max,
   margin: "0 auto",
   padding: "20px 20px 60px",
+  // Below the `sm` breakpoint the gutters cost more than they give: the panels
+  // run edge to edge instead, so their chrome frames the viewport itself.
+  "@media (max-width: 599.95px)": { padding: "20px 0 60px" },
 });
 
 export const HudButton = styled(Button)({
