@@ -1,6 +1,23 @@
+export type ProjectStatus = "development" | "deployed" | "maintained";
+
+type Project = {
+  id: string;
+  status: ProjectStatus;
+  url: string | undefined;
+  customer: string | { display: string; url: string };
+  screenshots: readonly {
+    id: string;
+    src: string;
+    sourceUrl: string;
+    width: number;
+    height: number;
+  }[];
+};
+
 export const projectsData = [
   {
     id: "glam4less",
+    status: "development",
     url: "https://glam4less.pl",
     customer: "DRC Dawid Ryżak",
     screenshots: [
@@ -15,6 +32,7 @@ export const projectsData = [
   },
   {
     id: "mediaflip",
+    status: "maintained",
     url: "https://mediaflip.io",
     customer: "Rafał Łukawski",
     screenshots: [
@@ -50,6 +68,7 @@ export const projectsData = [
   },
   {
     id: "egzoclinic",
+    status: "deployed",
     url: undefined as string | undefined,
     customer: { display: "EGZOTech.com", url: "https://egzotech.com" },
     screenshots: [
@@ -85,6 +104,7 @@ export const projectsData = [
   },
   {
     id: "generator",
+    status: "deployed",
     url: "https://generator-paskow.pl",
     customer: "Rafał Łukawski",
     screenshots: [
@@ -106,6 +126,7 @@ export const projectsData = [
   },
   {
     id: "stella",
+    status: "deployed",
     url: "https://app.egzotech.com",
     customer: { display: "EGZOTech.com", url: "https://egzotech.com" },
     screenshots: [
@@ -127,6 +148,7 @@ export const projectsData = [
   },
   {
     id: "multibenefit",
+    status: "deployed",
     url: undefined as string | undefined,
     customer: {
       display: "Benefit Systems",
@@ -149,7 +171,7 @@ export const projectsData = [
       },
     ],
   },
-] as const;
+] as const satisfies readonly Project[];
 
 export const certificatesData = [
   {

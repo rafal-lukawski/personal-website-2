@@ -239,9 +239,10 @@ export function Catalog() {
           ...screen,
           alt: tProjects(`${project.id}.screenshots.${screen.id}.alt`),
         })),
+        statusLabel: tHud(`projectStatus.${project.status}`),
         buildStamp: `STAMP: 2024_PROJ_${String(idx + 1).padStart(2, "0")}`,
       })),
-    [tProjects],
+    [tProjects, tHud],
   );
 
   const activeProject = lightbox ? projects.find((p) => p.id === lightbox.projectId) : null;
@@ -899,7 +900,11 @@ export function Catalog() {
                           aria-label={`${tHud("gallery")} ${project.title}`}
                           onClick={() => openLightbox(project.id)}
                         >
-                          <ShotMeta stamp={project.buildStamp} index={String(idx + 1).padStart(2, "0")} />
+                          <ShotMeta
+                            status={project.statusLabel}
+                            stamp={project.buildStamp}
+                            index={String(idx + 1).padStart(2, "0")}
+                          />
                           <ShotBg aria-hidden>
                             <Image src={shot.src} alt="" width={shot.width} height={shot.height} />
                           </ShotBg>

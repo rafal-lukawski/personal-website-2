@@ -758,16 +758,18 @@ const stampSx = {
 };
 
 export function ShotMeta({
+  status,
   stamp,
   index,
 }: {
+  status: string;
   stamp: string;
   index: string;
 }) {
   return (
     <>
       <Box component="span" sx={{ ...stampSx, top: 8, left: 8 }}>
-        STATUS: DEPLOYED
+        STATUS: {status}
       </Box>
       <Box component="span" sx={{ ...stampSx, left: 8, bottom: 8 }}>
         {stamp}

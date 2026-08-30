@@ -192,6 +192,11 @@
     "terminalContact": "[MODUŁ: KONTAKT]",
     "credentials": "poświadczenie",
     "gallery": "galeria",
+    "projectStatus": {
+      "development": "W developmencie",
+      "deployed": "Wdrożony",
+      "maintained": "Wdrożony + rozwijany"
+    },
     "openProject": "otwórz projekt",
     "close": "zamknij",
     "previous": "poprzedni slajd",

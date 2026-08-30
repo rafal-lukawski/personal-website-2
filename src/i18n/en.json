@@ -191,6 +191,11 @@
     "terminalContact": "[MODULE: CONTACT_NODE]",
     "credentials": "credential",
     "gallery": "gallery",
+    "projectStatus": {
+      "development": "In development",
+      "deployed": "Deployed",
+      "maintained": "Deployed + Maintained"
+    },
     "openProject": "open project",
     "close": "close",
     "previous": "previous slide",
