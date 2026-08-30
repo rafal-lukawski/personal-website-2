@@ -2,12 +2,13 @@
 
 import { useEffect, useRef } from "react";
 import Box from "@mui/material/Box";
-import { ParticleSim } from "@/lib/particles";
+import { PARTICLES_ENABLED, ParticleSim } from "@/lib/particles";
 
 export function ParticleField() {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
+    // Null whenever the flag is off, since nothing is rendered then.
     const canvas = ref.current;
     if (!canvas) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -17,6 +18,8 @@ export function ParticleField() {
     sim.start();
     return () => sim.destroy();
   }, []);
+
+  if (!PARTICLES_ENABLED) return null;
 
   return (
     <Box

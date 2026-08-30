@@ -9,6 +9,9 @@ type Particle = {
   r: number;
 };
 
+/** Flip to `false` to turn the background particle animation off. */
+export const PARTICLES_ENABLED = true;
+
 const MAX_DISTANCE = 120;
 const MAX_DISTANCE_SQ = MAX_DISTANCE * MAX_DISTANCE;
 /** Per viewport-sized area; the canvas spans the whole document, so it scales up with page height. */
