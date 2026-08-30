@@ -18,6 +18,7 @@ import { emojiTints, hudTintColor, techIcons, tintFilterId } from "./techIcons";
 import {
   CornerTicks,
   Cursor,
+  PhosphorChar,
   EmojiTintFilters,
   GalleryChip,
   Glitch,
@@ -97,30 +98,51 @@ function usePrefersReducedMotion() {
   return reduced;
 }
 
+function isPromptChar(text: string, i: number) {
+  const ch = text[i];
+  if (ch === ">" && (i === 0 || text[i - 1] === "\n")) return true;
+  if (ch === " " && text[i - 1] === ">" && (i === 1 || text[i - 2] === "\n")) return true;
+  return false;
+}
+
 function Typewriter({ text, enabled }: { text: string; enabled: boolean }) {
-  const [shown, setShown] = useState(enabled ? "" : text);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
-    if (!enabled) {
-      setShown(text);
-      return;
-    }
+    if (!enabled) return;
 
-    setShown("");
     let i = 0;
     const id = window.setInterval(() => {
       i += 1;
-      setShown(text.slice(0, i));
+      setCount(i);
       if (i >= text.length) window.clearInterval(id);
     }, 11);
 
     return () => window.clearInterval(id);
   }, [text, enabled]);
 
+  const shownCount = enabled ? Math.min(count, text.length) : text.length;
+  const done = shownCount >= text.length;
+  const shown = text.slice(0, shownCount);
+
   return (
     <>
-      {shown}
-      <Cursor aria-hidden />
+      {shown.split("").map((ch, i) => {
+        const prompt = isPromptChar(text, i);
+        const promptSx = prompt
+          ? { color: "color-mix(in srgb, var(--hud-ok) 62%, var(--hud-muted))" }
+          : undefined;
+        return enabled ? (
+          <PhosphorChar key={i} sx={promptSx}>
+            {ch}
+          </PhosphorChar>
+        ) : (
+          <Box key={i} component="span" sx={promptSx}>
+            {ch}
+          </Box>
+        );
+      })}
+      <Cursor aria-hidden data-blink={done && enabled ? "true" : undefined} />
     </>
   );
 }
@@ -191,7 +213,7 @@ export function Catalog() {
   const pathname = usePathname();
   const reducedMotion = usePrefersReducedMotion();
   const aboutText = useMemo(
-    () => `${tAbout("paragraph1")}\n\n${tAbout("paragraph2")}`,
+    () => `> ${tAbout("paragraph1")}\n\n> ${tAbout("paragraph2")}`,
     [tAbout, locale],
   );
 
@@ -570,6 +592,7 @@ export function Catalog() {
                 <PanelStamps left="ENC: UTF-8" right="BUF: OK" />
                 <PanelBody>
                   <Typography
+                    aria-label={aboutText}
                     sx={{
                       m: 0,
                       color: hud.muted,
@@ -580,7 +603,9 @@ export function Catalog() {
                       whiteSpace: "pre-line",
                     }}
                   >
-                    <Typewriter text={aboutText} enabled={!reducedMotion} />
+                    <Box component="span" aria-hidden>
+                      <Typewriter key={aboutText} text={aboutText} enabled={!reducedMotion} />
+                    </Box>
                   </Typography>
                 </PanelBody>
               </Panel>

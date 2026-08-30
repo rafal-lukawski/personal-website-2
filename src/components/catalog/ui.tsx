@@ -50,6 +50,18 @@ const blink = keyframes`
   50%, 100% { opacity: 0; }
 `;
 
+const phosphor = keyframes`
+  0% {
+    background: color-mix(in srgb, var(--hud-ok) 22%, transparent);
+    box-shadow: 0 0 5px color-mix(in srgb, var(--hud-ok) 28%, transparent);
+  }
+  100% {
+    background: transparent;
+    box-shadow: none;
+    text-shadow: 0 0 8px color-mix(in srgb, var(--hud-ok) 35%, transparent);
+  }
+`;
+
 const glitch = keyframes`
   0%, 100% { transform: none; filter: none; }
   20% {
@@ -399,12 +411,21 @@ export function HudFieldError({ id, children }: { id: string; children: ReactNod
 
 export const Cursor = styled("span")({
   display: "inline-block",
-  width: 8,
+  width: "0.55em",
   height: "0.92em",
-  marginLeft: 3,
+  marginLeft: 1,
   verticalAlign: "-0.08em",
-  background: hud.ok,
-  animation: `${blink} 0.95s steps(1) infinite`,
+  background: "color-mix(in srgb, var(--hud-ok) 62%, transparent)",
+  boxShadow: `0 0 5px color-mix(in srgb, ${hud.ok} 38%, transparent), 0 0 10px color-mix(in srgb, ${hud.ok} 18%, transparent)`,
+  animation: "none",
+  '&[data-blink="true"]': {
+    animation: `${blink} 0.95s steps(1) infinite`,
+  },
+  [reducedMotion]: { animation: "none" },
+});
+
+export const PhosphorChar = styled("span")({
+  animation: `${phosphor} 100ms ease-out forwards`,
   [reducedMotion]: { animation: "none" },
 });
 
@@ -495,7 +516,6 @@ export const HudLink = styled(Link)({
   },
   "&:hover::after": { background: cornerFill(10, frameBright) },
 });
-HudLink.defaultProps = { underline: "none" };
 
 export const ShotThumb = styled("button")({
   position: "relative",
