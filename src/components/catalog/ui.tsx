@@ -611,7 +611,7 @@ export const ShotThumb = styled("button")({
   padding: 0,
   background: hud.panelSolid,
   cursor: "pointer",
-  opacity: 0.55,
+  opacity: 0.7,
   ...focusRing,
   "&::after": {
     content: '""',
@@ -655,11 +655,24 @@ export const LightboxDialog = styled(Dialog)({
   "& .MuiBackdrop-root": { background: hud.overlay, backdropFilter: hud.blurChrome },
   "& .MuiDialog-container": { alignItems: "center" },
   "& .MuiPaper-root": {
-    background: "transparent",
+    position: "relative",
+    // The lightbox wears the same chrome as every other surface on the site.
+    // Without a panel under them the shot, its readouts and the thumbnails read
+    // as loose cut-outs floating on the backdrop.
+    background: hud.surface,
+    backdropFilter: hud.blurSurface,
     boxShadow: "none",
     overflow: "visible",
     maxWidth: "min(1080px, calc(100% - 40px))",
     margin: 20,
+    "&::before": {
+      content: '""',
+      position: "absolute",
+      inset: 0,
+      zIndex: 2,
+      pointerEvents: "none",
+      background: cornerFill(18),
+    },
   },
 });
 
