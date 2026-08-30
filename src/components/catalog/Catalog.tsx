@@ -438,7 +438,12 @@ export function Catalog() {
                   letterSpacing: "0.01em",
                 }}
               >
-                {tHero("mottoLine1")} {tHero("mottoLine2")}
+                <Box component="span" sx={{ display: "block" }}>
+                  {tHero("mottoLine1")}
+                </Box>
+                <Box component="span" sx={{ display: "block" }}>
+                  {tHero("mottoLine2")}
+                </Box>
               </Typography>
               <Box sx={{ mt: "20px", display: "flex", justifyContent: { xs: "center", sm: "flex-start" } }}>
                 <HudButton href="#contact">{tHero("contactMe")}</HudButton>
