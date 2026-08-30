@@ -46,8 +46,12 @@ export class ParticleSim {
     this.resizeTimer = window.setTimeout(() => this.resize(), 80);
   };
   private readonly onVisibility = () => {
-    if (document.hidden) this.stopLoop();
-    else this.startLoop();
+    if (document.hidden) {
+      this.hasPointer = false;
+      this.stopLoop();
+    } else {
+      this.startLoop();
+    }
   };
   private resizeObserver = new ResizeObserver(this.onResize);
   private docLeft = 0;
@@ -65,6 +69,10 @@ export class ParticleSim {
   private readonly onPointerLeave = () => {
     this.hasPointer = false;
   };
+  /** `relatedTarget` is null only when the pointer leaves the document for good. */
+  private readonly onPointerOut = (e: PointerEvent) => {
+    if (!e.relatedTarget) this.hasPointer = false;
+  };
   private themeObserver = new MutationObserver(() => this.syncColor());
 
   constructor(canvas: HTMLCanvasElement) {
@@ -80,6 +88,10 @@ export class ParticleSim {
     this.resizeObserver.observe(this.canvas);
     window.addEventListener("resize", this.onResize, { passive: true });
     window.addEventListener("pointermove", this.onPointerMove, { passive: true });
+    // Each of these misses some way of leaving; together they cover window chrome,
+    // a second monitor, alt-tab, devtools and iframes.
+    window.addEventListener("blur", this.onPointerLeave);
+    document.addEventListener("pointerout", this.onPointerOut, { passive: true });
     document.documentElement.addEventListener("mouseleave", this.onPointerLeave);
     document.addEventListener("visibilitychange", this.onVisibility);
     this.themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
@@ -92,6 +104,8 @@ export class ParticleSim {
     this.resizeObserver.disconnect();
     window.removeEventListener("resize", this.onResize);
     window.removeEventListener("pointermove", this.onPointerMove);
+    window.removeEventListener("blur", this.onPointerLeave);
+    document.removeEventListener("pointerout", this.onPointerOut);
     document.documentElement.removeEventListener("mouseleave", this.onPointerLeave);
     document.removeEventListener("visibilitychange", this.onVisibility);
     this.themeObserver.disconnect();
