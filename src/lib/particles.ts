@@ -9,8 +9,8 @@ type Particle = {
   r: number;
 };
 
-/** Flip to `false` to turn the background particle animation off. */
-export const PARTICLES_ENABLED = true;
+/** Opt-in: only a literal `true` runs the animation. Empty, missing or anything else = off. */
+export const PARTICLES_ENABLED = process.env.NEXT_PUBLIC_ENABLE_PARTICLES === "true";
 
 const MAX_DISTANCE = 120;
 const MAX_DISTANCE_SQ = MAX_DISTANCE * MAX_DISTANCE;
