@@ -35,7 +35,7 @@ import {
   SiTypescript,
 } from "react-icons/si";
 import { IoMdSettings } from "react-icons/io";
-import { MdLoop } from "react-icons/md";
+import { MdLoop, MdWaterfallChart } from "react-icons/md";
 import { hud, hudDark } from "@/theme/hud";
 
 export const channels = (c: string) => {
@@ -89,7 +89,7 @@ export const techIcons: Record<string, TechIcon> = {
   Jest: { icon: SiJest, color: red[700] },
   Scrum: { icon: MdLoop, color: green[600] },
   Kanban: { emoji: "📌", color: tint(red[600]), desaturate: true },
-  Waterfall: { emoji: "📋", color: tint(blue[700]), desaturate: true },
+  Waterfall: { icon: MdWaterfallChart, color: blue[700] },
   Jira: { icon: SiJira, color: blue[800] },
   Confluence: { icon: SiConfluence, color: lightBlue[700] },
   GitHub: { icon: SiGithub, color: TEXT },
