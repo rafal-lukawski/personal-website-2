@@ -20,8 +20,8 @@
   },
   "about": {
     "title": "About",
-    "paragraph1": "Hello, my name is Rafał Łukawski. I help companies efficiently build and deploy modern software. I combine the roles of developer and project manager, which allows me to seamlessly translate business ideas into code. I offer full-cycle support – from architecture design and team coordination, to coding, AI integration, and production deployment.",
-    "paragraph2": "I combine over 20 years of IT experience (including Onet.pl) with Google Cloud Architect and Scrum Master certifications. On a daily basis, I build complete web and mobile applications using AI and mentor other developers.",
+    "paragraph1": "We live in fantastic times, when building larger projects with AI takes weeks or months rather than years. We already live in an era where software, at a lower cost, is becoming more of a tool for achieving business goals.",
+    "paragraph2": "If, like me, you share a fascination with what is happening and have business ideas, I invite you to collaborate on building mobile and web applications.",
     "contactCommand": "INITIATE_CONTACT"
   },
   "projectManagement": {
