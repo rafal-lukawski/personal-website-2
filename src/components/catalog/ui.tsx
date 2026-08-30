@@ -14,11 +14,11 @@ import { hud } from "@/theme/hud";
 import { channels, tintFilterId } from "./techIcons";
 
 const cyan = hud.cyan;
-const frame = "var(--hud-frame)";
+const frame = hud.frame;
 const frameBright = cyan;
 
 export const scanlines = (alpha = 0.05, gap = 3) => {
-  const ink = `color-mix(in srgb, var(--hud-scan-ink) ${Math.round(alpha * 100)}%, transparent)`;
+  const ink = `color-mix(in srgb, ${hud.scanInk} ${Math.round(alpha * 100)}%, transparent)`;
   return `repeating-linear-gradient(to bottom, ${ink} 0, ${ink} 1px, transparent 1px, transparent ${gap}px)`;
 };
 
@@ -35,9 +35,9 @@ function cornerFill(size = 18, c: string = frame, weight = 1) {
 }
 
 const pulse = keyframes`
-  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--hud-ok) 58%, transparent); }
-  70% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--hud-ok) 0%, transparent); }
-  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--hud-ok) 0%, transparent); }
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, ${hud.ok} 58%, transparent); }
+  70% { box-shadow: 0 0 0 8px color-mix(in srgb, ${hud.ok} 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, ${hud.ok} 0%, transparent); }
 `;
 
 const sidebarScan = keyframes`
@@ -52,13 +52,13 @@ const blink = keyframes`
 
 const phosphor = keyframes`
   0% {
-    background: color-mix(in srgb, var(--hud-ok) 22%, transparent);
-    box-shadow: 0 0 5px color-mix(in srgb, var(--hud-ok) 28%, transparent);
+    background: color-mix(in srgb, ${hud.ok} 22%, transparent);
+    box-shadow: 0 0 5px color-mix(in srgb, ${hud.ok} 28%, transparent);
   }
   100% {
     background: transparent;
     box-shadow: none;
-    text-shadow: 0 0 8px color-mix(in srgb, var(--hud-ok) 35%, transparent);
+    text-shadow: 0 0 8px color-mix(in srgb, ${hud.ok} 35%, transparent);
   }
 `;
 
@@ -66,15 +66,15 @@ const glitch = keyframes`
   0%, 100% { transform: none; filter: none; }
   20% {
     transform: translate(1px, -1px);
-    filter: drop-shadow(-2px 0 color-mix(in srgb, var(--hud-glitch) 70%, transparent)) drop-shadow(2px 0 color-mix(in srgb, var(--hud-cyan) 70%, transparent));
+    filter: drop-shadow(-2px 0 color-mix(in srgb, ${hud.glitch} 70%, transparent)) drop-shadow(2px 0 color-mix(in srgb, ${hud.cyan} 70%, transparent));
   }
   45% {
     transform: translate(-1px, 1px);
-    filter: drop-shadow(2px 0 color-mix(in srgb, var(--hud-glitch) 70%, transparent)) drop-shadow(-2px 0 color-mix(in srgb, var(--hud-cyan) 70%, transparent));
+    filter: drop-shadow(2px 0 color-mix(in srgb, ${hud.glitch} 70%, transparent)) drop-shadow(-2px 0 color-mix(in srgb, ${hud.cyan} 70%, transparent));
   }
   70% {
     transform: translate(1px, 1px);
-    filter: drop-shadow(-1px 0 color-mix(in srgb, var(--hud-glitch) 50%, transparent)) drop-shadow(1px 0 color-mix(in srgb, var(--hud-cyan) 50%, transparent));
+    filter: drop-shadow(-1px 0 color-mix(in srgb, ${hud.glitch} 50%, transparent)) drop-shadow(1px 0 color-mix(in srgb, ${hud.cyan} 50%, transparent));
   }
 `;
 
@@ -104,7 +104,7 @@ export const Root = styled(Box)({
     zIndex: 1,
     pointerEvents: "none",
     backgroundImage:
-      "linear-gradient(var(--hud-grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--hud-grid-line) 1px, transparent 1px)",
+      `linear-gradient(${hud.gridLine} 1px, transparent 1px), linear-gradient(90deg, ${hud.gridLine} 1px, transparent 1px)`,
     backgroundSize: "20px 20px",
   },
   "&::after": {
@@ -116,7 +116,7 @@ export const Root = styled(Box)({
     backgroundImage: scanlines(0.02),
   },
   "& *": { boxSizing: "border-box" },
-  "& ::selection": { background: "var(--hud-selection-bg)", color: "var(--hud-selection-fg)" },
+  "& ::selection": { background: hud.selectionBg, color: hud.selectionFg },
 });
 
 export const SkipLink = styled(Link)({
@@ -207,7 +207,7 @@ export const HudButton = styled(Button)({
   },
   "&:hover::after": { background: cornerFill(12, frameBright) },
   "&:hover": {
-    background: "color-mix(in srgb, var(--hud-cyan) 8%, transparent)",
+    background: `color-mix(in srgb, ${hud.cyan} 8%, transparent)`,
     color: cyan,
     textShadow: `0 0 8px ${cyan}`,
     boxShadow: glow(cyan),
@@ -227,7 +227,7 @@ export const Glitch = styled("h1")({
   lineHeight: 0.92,
   letterSpacing: "0.045em",
   textTransform: "uppercase",
-  backgroundImage: `repeating-linear-gradient(to bottom, ${cyan} 0px, ${cyan} 2px, color-mix(in srgb, var(--hud-cyan-deep) 42%, ${cyan}) 2px, color-mix(in srgb, var(--hud-cyan-deep) 42%, ${cyan}) 3px)`,
+  backgroundImage: `repeating-linear-gradient(to bottom, ${cyan} 0px, ${cyan} 2px, color-mix(in srgb, ${hud.cyanDeep} 42%, ${cyan}) 2px, color-mix(in srgb, ${hud.cyanDeep} 42%, ${cyan}) 3px)`,
   backgroundClip: "text",
   WebkitBackgroundClip: "text",
   color: "transparent",
@@ -262,7 +262,7 @@ export const Panel = styled("section", {
           right: 0,
           height: 80,
           background:
-            "linear-gradient(to bottom, transparent, color-mix(in srgb, var(--hud-cyan) 12%, transparent), transparent)",
+            `linear-gradient(to bottom, transparent, color-mix(in srgb, ${hud.cyan} 12%, transparent), transparent)`,
           animation: `${sidebarScan} 7.8s linear infinite`,
           pointerEvents: "none",
           [reducedMotion]: { animation: "none" },
@@ -281,7 +281,7 @@ export const PanelBar = styled(Stack)({
   letterSpacing: "0.15em",
   textTransform: "uppercase",
   color: cyan,
-  background: "linear-gradient(90deg, color-mix(in srgb, var(--hud-cyan) 8%, transparent), transparent 55%)",
+  background: `linear-gradient(90deg, color-mix(in srgb, ${hud.cyan} 8%, transparent), transparent 55%)`,
   "&::after": {
     content: '""',
     position: "absolute",
@@ -353,14 +353,14 @@ export const HudField = styled(TextField)({
     },
     "&.Mui-focused::after": { background: cornerFill(10, frameBright) },
     "&.Mui-error::after": {
-      background: cornerFill(10, "color-mix(in srgb, var(--hud-danger) 60%, transparent)"),
+      background: cornerFill(10, `color-mix(in srgb, ${hud.danger} 60%, transparent)`),
     },
     "&.Mui-error.Mui-focused::after": { background: cornerFill(10, hud.danger) },
     "&.Mui-error": { boxShadow: glow(hud.danger, 0.55) },
   },
   "& .MuiInputLabel-root.Mui-error": {
     color: hud.danger,
-    textShadow: `0 0 8px color-mix(in srgb, var(--hud-danger) 25%, transparent)`,
+    textShadow: `0 0 8px color-mix(in srgb, ${hud.danger} 25%, transparent)`,
   },
   "& .MuiOutlinedInput-input": { padding: "10px 12px" },
   "& .MuiInputBase-multiline": { padding: 0 },
@@ -383,7 +383,7 @@ export function HudFieldError({ id, children }: { id: string; children: ReactNod
         font: `500 10px/1 ${hud.mono}`,
         letterSpacing: "0.12em",
         textTransform: "uppercase",
-        textShadow: `0 0 8px color-mix(in srgb, var(--hud-danger) 50%, transparent)`,
+        textShadow: `0 0 8px color-mix(in srgb, ${hud.danger} 50%, transparent)`,
         background: hud.panel,
         "&::after": {
           content: '""',
@@ -416,7 +416,7 @@ export const Cursor = styled("span")({
   height: "0.92em",
   marginLeft: 1,
   verticalAlign: "-0.08em",
-  background: "color-mix(in srgb, var(--hud-ok) 62%, transparent)",
+  background: `color-mix(in srgb, ${hud.ok} 62%, transparent)`,
   boxShadow: `0 0 5px color-mix(in srgb, ${hud.ok} 38%, transparent), 0 0 10px color-mix(in srgb, ${hud.ok} 18%, transparent)`,
   animation: "none",
   '&[data-blink="true"]': {
@@ -472,7 +472,7 @@ export const ShotBg = styled("span")({
     objectFit: "cover",
     objectPosition: "top",
     transform: "scale(1.16)",
-    filter: "var(--hud-shot-bg-filter)",
+    filter: hud.shotBgFilter,
   },
 });
 
@@ -564,7 +564,7 @@ export const GalleryChip = styled("button")({
 });
 
 export const LightboxDialog = styled(Dialog)({
-  "& .MuiBackdrop-root": { background: "var(--hud-overlay)", backdropFilter: hud.blurChrome },
+  "& .MuiBackdrop-root": { background: hud.overlay, backdropFilter: hud.blurChrome },
   "& .MuiDialog-container": { alignItems: "center" },
   "& .MuiPaper-root": {
     background: "transparent",
@@ -695,7 +695,7 @@ export function ProcessDots() {
 }
 
 export function StatusBadge({ children }: { children: ReactNode }) {
-  const ok = "color-mix(in srgb, var(--hud-ok) 50%, transparent)";
+  const ok = `color-mix(in srgb, ${hud.ok} 50%, transparent)`;
   return (
     <Box
       component="span"

@@ -131,7 +131,7 @@ function Typewriter({ text, enabled }: { text: string; enabled: boolean }) {
       {shown.split("").map((ch, i) => {
         const prompt = isPromptChar(text, i);
         const promptSx = prompt
-          ? { color: "color-mix(in srgb, var(--hud-ok) 62%, var(--hud-muted))" }
+          ? { color: `color-mix(in srgb, ${hud.ok} 62%, ${hud.muted})` }
           : undefined;
         return enabled ? (
           <PhosphorChar key={i} sx={promptSx}>
@@ -570,7 +570,7 @@ export function Catalog() {
                       height: "28%",
                       zIndex: 2,
                       pointerEvents: "none",
-                      background: "linear-gradient(to bottom, transparent, color-mix(in srgb, var(--hud-cyan) 28%, transparent), transparent)",
+                      background: `linear-gradient(to bottom, transparent, color-mix(in srgb, ${hud.cyan} 28%, transparent), transparent)`,
                     }}
                     initial={{ top: "-20%" }}
                     animate={{ top: ["-20%", "85%"] }}

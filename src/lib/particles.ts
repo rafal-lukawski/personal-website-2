@@ -30,7 +30,7 @@ function hexToRgb(hex: string): [number, number, number] | null {
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 }
 
-/** Used until `--hud-cyan` can be read off the document (first paint, detached canvas). */
+/** Used until `--mui-palette-hud-cyan` can be read off the document (first paint, detached canvas). */
 const FALLBACK_RGB: [number, number, number] = hexToRgb(hudDark.cyan) ?? [0, 0, 0];
 
 export class ParticleSim {
@@ -115,7 +115,9 @@ export class ParticleSim {
   }
 
   private syncColor() {
-    const raw = getComputedStyle(document.documentElement).getPropertyValue("--hud-cyan");
+    const raw = getComputedStyle(document.documentElement).getPropertyValue(
+      "--mui-palette-hud-cyan",
+    );
     this.rgb = hexToRgb(raw) ?? FALLBACK_RGB;
   }
 

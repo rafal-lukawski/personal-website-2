@@ -8,6 +8,7 @@ import { useColorScheme } from "@mui/material/styles";
 import { useTranslations } from "next-intl";
 import { LuContrast, LuMoon, LuSun } from "react-icons/lu";
 import type { ColorModePreference } from "@/theme/colorMode";
+import { hud } from "@/theme/hud";
 
 const TRACK = 24;
 const THUMB = 18;
@@ -74,8 +75,8 @@ export function ColorModeButton() {
           width: THUMB,
           height: THUMB,
           borderRadius: "50%",
-          bgcolor: "color-mix(in srgb, var(--hud-cyan) 16%, transparent)",
-          boxShadow: "0 0 10px color-mix(in srgb, var(--hud-cyan) 28%, transparent)",
+          bgcolor: `color-mix(in srgb, ${hud.cyan} 16%, transparent)`,
+          boxShadow: `0 0 10px color-mix(in srgb, ${hud.cyan} 28%, transparent)`,
           transition: "left 0.18s ease",
           pointerEvents: "none",
         }}
@@ -122,14 +123,14 @@ function ModeSlot({
         borderRadius: "50%",
         lineHeight: 1,
         fontSize: 13,
-        color: active ? "var(--hud-cyan)" : "var(--hud-dim)",
+        color: active ? hud.cyan : hud.dim,
         "& svg": { display: "block" },
         "&:hover": {
-          color: "var(--hud-cyan)",
+          color: hud.cyan,
           background: "transparent",
         },
         "&:focus-visible": {
-          outline: "2px solid var(--hud-cyan)",
+          outline: `2px solid ${hud.cyan}`,
           outlineOffset: 2,
         },
       }}

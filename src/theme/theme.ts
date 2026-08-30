@@ -1,10 +1,21 @@
 import { createTheme } from "@mui/material/styles";
-import { hud, hudDark, hudLight } from "./hud";
+import { hud, hudDark, hudLight, type HudPalette } from "./hud";
+
+declare module "@mui/material/styles" {
+  interface Palette {
+    hud: HudPalette;
+  }
+  interface PaletteOptions {
+    hud?: HudPalette;
+  }
+}
 
 const theme = createTheme({
   cssVariables: {
     colorSchemeSelector: "class",
   },
+  // Matches the HUD identity: no class on <html> resolves to dark.
+  defaultColorScheme: "dark",
   colorSchemes: {
     light: {
       palette: {
@@ -18,6 +29,7 @@ const theme = createTheme({
           disabled: hudLight.dim,
         },
         divider: hudLight.cyan,
+        hud: hudLight,
       },
     },
     dark: {
@@ -32,6 +44,7 @@ const theme = createTheme({
           disabled: hudDark.dim,
         },
         divider: hudDark.cyan,
+        hud: hudDark,
       },
     },
   },
@@ -63,8 +76,8 @@ const theme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: "var(--hud-bg)",
-          color: "var(--hud-text)",
+          backgroundColor: hud.bg,
+          color: hud.text,
         },
       },
     },

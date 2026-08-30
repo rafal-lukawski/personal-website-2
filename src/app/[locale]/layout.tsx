@@ -110,13 +110,12 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={htmlColorClass}
+      className={[oxanium.variable, jetBrains.variable, htmlColorClass]
+        .filter(Boolean)
+        .join(" ")}
       suppressHydrationWarning
     >
-      <body
-        className={`${oxanium.variable} ${jetBrains.variable}`}
-        suppressHydrationWarning
-      >
+      <body suppressHydrationWarning>
         <InitColorSchemeScript
           attribute="class"
           defaultMode={colorMode}

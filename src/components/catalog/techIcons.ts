@@ -36,7 +36,7 @@ import {
 } from "react-icons/si";
 import { IoMdSettings } from "react-icons/io";
 import { MdLoop } from "react-icons/md";
-import { hudDark } from "@/theme/hud";
+import { hud, hudDark } from "@/theme/hud";
 
 export const channels = (c: string) => {
   const v = c.replace("#", "");
@@ -103,5 +103,5 @@ export const emojiTints = [
 ];
 
 export function hudTintColor(brand: string) {
-  return `color-mix(in srgb, var(--hud-cyan) 72%, ${brand} 28%)`;
+  return `color-mix(in srgb, ${hud.cyan} 72%, ${brand} 28%)`;
 }

@@ -19,7 +19,16 @@ export type HudPalette = {
   selectionFg: string;
   overlay: string;
   shotBgFilter: string;
+  /** Derived from `cyan`; the standard border tint for HUD chrome. */
+  frame: string;
 };
+
+const CYAN_DARK = "#00f2ff";
+const CYAN_LIGHT = "#007a8a";
+
+function frameOf(cyan: string): string {
+  return `color-mix(in srgb, ${cyan} 50%, transparent)`;
+}
 
 export const hudDark: HudPalette = {
   bg: "#0a0a0c",
@@ -27,7 +36,7 @@ export const hudDark: HudPalette = {
   sunken: "rgba(0, 0, 0, 0.15)",
   panel: "rgba(10, 10, 12, 0.8)",
   panelSolid: "#0a0a0c",
-  cyan: "#00f2ff",
+  cyan: CYAN_DARK,
   cyanDeep: "#007a82",
   ok: "#00ff41",
   warn: "#ffd24d",
@@ -42,6 +51,7 @@ export const hudDark: HudPalette = {
   selectionFg: "#edffff",
   overlay: "rgba(10, 10, 12, 0.92)",
   shotBgFilter: "grayscale(1) blur(3px) brightness(0.22)",
+  frame: frameOf(CYAN_DARK),
 };
 
 export const hudLight: HudPalette = {
@@ -50,7 +60,7 @@ export const hudLight: HudPalette = {
   sunken: "rgba(26, 42, 50, 0.06)",
   panel: "rgba(255, 255, 255, 0.82)",
   panelSolid: "#f7fbfc",
-  cyan: "#007a8a",
+  cyan: CYAN_LIGHT,
   cyanDeep: "#005760",
   ok: "#128a3e",
   warn: "#b3760b",
@@ -65,72 +75,41 @@ export const hudLight: HudPalette = {
   selectionFg: "#1a2a32",
   overlay: "rgba(238, 243, 245, 0.92)",
   shotBgFilter: "grayscale(1) blur(3px) brightness(0.82)",
+  frame: frameOf(CYAN_LIGHT),
 };
 
-/** Backdrop blur is the same in both schemes, so it sits outside the palettes. */
-const blurSurface = "3px";
-const blurChrome = "4px";
+/** MUI flattens `palette.hud` from both color schemes into these variables. */
+const v = (token: keyof HudPalette) => `var(--mui-palette-hud-${token})`;
 
-function paletteVars(p: HudPalette): string {
-  return `
-    --hud-bg: ${p.bg};
-    --hud-surface: ${p.surface};
-    --hud-sunken: ${p.sunken};
-    --hud-panel: ${p.panel};
-    --hud-panel-solid: ${p.panelSolid};
-    --hud-cyan: ${p.cyan};
-    --hud-cyan-deep: ${p.cyanDeep};
-    --hud-ok: ${p.ok};
-    --hud-warn: ${p.warn};
-    --hud-text: ${p.text};
-    --hud-muted: ${p.muted};
-    --hud-dim: ${p.dim};
-    --hud-danger: ${p.danger};
-    --hud-glitch: ${p.glitch};
-    --hud-grid-line: ${p.gridLine};
-    --hud-scan-ink: ${p.scanInk};
-    --hud-selection-bg: ${p.selectionBg};
-    --hud-selection-fg: ${p.selectionFg};
-    --hud-overlay: ${p.overlay};
-    --hud-shot-bg-filter: ${p.shotBgFilter};
-    --hud-frame: color-mix(in srgb, ${p.cyan} 50%, transparent);
-  `;
-}
-
-/** Injected once on `:root` so styled HUD chrome follows `html.light` / `html.dark`. */
-export function hudRootCss(): string {
-  return `
-    :root {
-      --hud-blur-surface: blur(${blurSurface});
-      --hud-blur-chrome: blur(${blurChrome});
-    }
-    :root, html.dark {
-      ${paletteVars(hudDark)}
-      color-scheme: dark;
-    }
-    html.light {
-      ${paletteVars(hudLight)}
-      color-scheme: light;
-    }
-  `;
-}
-
+/**
+ * Ergonomic accessor for the HUD tokens. Components use this instead of writing
+ * `var(...)` by hand, so the variable names stay an implementation detail here.
+ */
 export const hud = {
-  bg: "var(--hud-bg)",
-  surface: "var(--hud-surface)",
-  sunken: "var(--hud-sunken)",
-  panel: "var(--hud-panel)",
-  panelSolid: "var(--hud-panel-solid)",
-  cyan: "var(--hud-cyan)",
-  ok: "var(--hud-ok)",
-  warn: "var(--hud-warn)",
-  text: "var(--hud-text)",
-  muted: "var(--hud-muted)",
-  dim: "var(--hud-dim)",
-  danger: "var(--hud-danger)",
-  glitch: "var(--hud-glitch)",
-  blurSurface: "var(--hud-blur-surface)",
-  blurChrome: "var(--hud-blur-chrome)",
+  bg: v("bg"),
+  surface: v("surface"),
+  sunken: v("sunken"),
+  panel: v("panel"),
+  panelSolid: v("panelSolid"),
+  cyan: v("cyan"),
+  cyanDeep: v("cyanDeep"),
+  ok: v("ok"),
+  warn: v("warn"),
+  text: v("text"),
+  muted: v("muted"),
+  dim: v("dim"),
+  danger: v("danger"),
+  glitch: v("glitch"),
+  gridLine: v("gridLine"),
+  scanInk: v("scanInk"),
+  selectionBg: v("selectionBg"),
+  selectionFg: v("selectionFg"),
+  overlay: v("overlay"),
+  shotBgFilter: v("shotBgFilter"),
+  frame: v("frame"),
+  // Backdrop blur is the same in both schemes, so it needs no variable.
+  blurSurface: "blur(3px)",
+  blurChrome: "blur(4px)",
   headerH: 40,
   max: 1240,
   grid: 20,
