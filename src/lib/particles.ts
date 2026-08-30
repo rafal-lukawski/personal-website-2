@@ -10,6 +10,7 @@ type Particle = {
 const MAX_DISTANCE = 120;
 const MAX_DISTANCE_SQ = MAX_DISTANCE * MAX_DISTANCE;
 const PARTICLE_COUNT = 80;
+const SPEED = 0.28;
 
 function hexToRgb(hex: string): [number, number, number] {
   const h = hex.trim().replace("#", "");
@@ -92,7 +93,7 @@ export class ParticleSim {
   private generate() {
     this.particles = new Array(PARTICLE_COUNT);
     for (let i = 0; i < PARTICLE_COUNT; i++) {
-      const speed = Math.random() * 1 + 0.35;
+      const speed = (Math.random() * 1 + 0.35) * SPEED;
       const direction = Math.PI * 2 * Math.random();
       const z = Math.random() * 8;
       this.particles[i] = {
