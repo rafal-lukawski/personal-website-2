@@ -30,9 +30,9 @@ export function ProjectCard({
   index: number;
   onOpen: (projectId: string) => void;
 }) {
-  const tHud = useTranslations("hud");
+  const t = useTranslations();
   const shot = project.screenshots[0];
-  const galleryLabel = `${tHud("gallery")} ${project.title}`;
+  const galleryLabel = `${t("hud.gallery")} ${project.title}`;
 
   return (
     <Box component="article" sx={{ mb: { xs: 0, lg: "20px" }, "&:last-child": { mb: 0 } }}>
@@ -67,7 +67,7 @@ export function ProjectCard({
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${tHud("openProject")}: ${project.title}`}
+              aria-label={`${t("hud.openProject")}: ${project.title}`}
               color="inherit"
               sx={{
                 display: "inline-flex",
@@ -82,7 +82,7 @@ export function ProjectCard({
           )}
         </Stack>
         <GalleryChip type="button" onClick={() => onOpen(project.id)} aria-label={galleryLabel}>
-          {tHud("gallery")}
+          {t("hud.gallery")}
           <span>{project.screenshots.length}</span>
         </GalleryChip>
       </Stack>

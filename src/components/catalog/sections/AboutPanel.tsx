@@ -9,23 +9,26 @@ import { Typewriter, TYPEWRITER_LINE_HEIGHT } from "../Typewriter";
 import { Panel, PanelBody, PanelHeader, srOnly } from "../ui";
 import type { SectionProps } from "./types";
 
-const PARAGRAPHS = ["paragraph1", "paragraph2", "paragraph3", "paragraph4"] as const;
+const PARAGRAPHS = [
+  "about.paragraph1",
+  "about.paragraph2",
+  "about.paragraph3",
+  "about.paragraph4",
+] as const;
 
 export function AboutPanel({ order }: SectionProps) {
-  const tHud = useTranslations("hud");
-  const tHero = useTranslations("hero");
-  const tAbout = useTranslations("about");
+  const t = useTranslations();
   const reducedMotion = usePrefersReducedMotion();
 
   // Cheap enough to rebuild every render, and never stale after a locale swap.
-  const command = tAbout("contactCommand");
-  const body = PARAGRAPHS.map((key) => `> ${tAbout(key)}`).join("\n\n");
+  const command = t("about.contactCommand");
+  const body = PARAGRAPHS.map((key) => `> ${t(key)}`).join("\n\n");
   const text = `${body}\n\n> ${command}`;
 
   return (
     <Panel id="about" sx={{ order }}>
       <PanelHeader
-        title={tHud("terminalAbout")}
+        title={t("hud.terminalAbout")}
         meta="PID: 0x41"
         stampLeft="ENC: UTF-8"
         stampRight="BUF: OK"
@@ -54,7 +57,7 @@ export function AboutPanel({ order }: SectionProps) {
             enabled={!reducedMotion}
             command={command}
             commandHref="#contact"
-            commandLabel={tHero("contactMe")}
+            commandLabel={t("hero.contactMe")}
           />
         </Typography>
       </PanelBody>

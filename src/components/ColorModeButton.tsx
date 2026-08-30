@@ -16,9 +16,9 @@ const PAD = 2;
 
 /** Left-to-right slot order; the thumb offset is the index in here. */
 const SLOTS = [
-  { mode: "system", label: "colorModeToSystem", Icon: LuContrast },
-  { mode: "light", label: "colorModeToLight", Icon: LuSun },
-  { mode: "dark", label: "colorModeToDark", Icon: LuMoon },
+  { mode: "system", label: "hud.colorModeToSystem", Icon: LuContrast },
+  { mode: "light", label: "hud.colorModeToLight", Icon: LuSun },
+  { mode: "dark", label: "hud.colorModeToDark", Icon: LuMoon },
 ] as const satisfies readonly {
   mode: ColorModePreference;
   label: string;
@@ -27,7 +27,7 @@ const SLOTS = [
 
 export function ColorModeButton() {
   const { mode, setMode } = useColorScheme();
-  const tHud = useTranslations("hud");
+  const t = useTranslations();
 
   if (!mode) {
     return (
@@ -49,7 +49,7 @@ export function ColorModeButton() {
   return (
     <Box
       role="radiogroup"
-      aria-label={tHud("colorMode")}
+      aria-label={t("hud.colorMode")}
       sx={{
         position: "relative",
         display: "inline-flex",
@@ -85,7 +85,7 @@ export function ColorModeButton() {
         <ModeSlot
           key={slotMode}
           active={mode === slotMode}
-          aria-label={tHud(label)}
+          aria-label={t(label)}
           onClick={() => setMode(slotMode)}
         >
           <Icon size={13} />

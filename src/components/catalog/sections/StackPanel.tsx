@@ -9,19 +9,17 @@ import { StackCard } from "./StackCard";
 
 /** Project-management cards live next to the tech grid but have no icon data. */
 const PM_CATEGORIES = [
-  { titleKey: "methodologies", items: ["Scrum", "Kanban", "Waterfall"] },
-  { titleKey: "tools", items: ["Jira", "Confluence", "GitHub", "Asana"] },
+  { titleKey: "projectManagement.methodologies", items: ["Scrum", "Kanban", "Waterfall"] },
+  { titleKey: "projectManagement.tools", items: ["Jira", "Confluence", "GitHub", "Asana"] },
 ] as const;
 
 export function StackPanel({ order }: SectionProps) {
-  const tHud = useTranslations("hud");
-  const tTech = useTranslations("technologies");
-  const tPm = useTranslations("projectManagement");
+  const t = useTranslations();
 
   return (
     <Panel id="stack" sx={{ order }}>
       <PanelHeader
-        title={tHud("moduleStack")}
+        title={t("hud.moduleStack")}
         meta={`NODES: ${stackCategories.length + PM_CATEGORIES.length}`}
         stampLeft="SYS_LOAD: 24%"
         stampRight="SYNC: OK"
@@ -35,7 +33,7 @@ export function StackPanel({ order }: SectionProps) {
           }}
         >
           {stackCategories.map((category) => (
-            <StackCard key={category.titleKey} title={tTech(category.titleKey)} items={category.items} />
+            <StackCard key={category.titleKey} title={t(`technologies.${category.titleKey}`)} items={category.items} />
           ))}
         </Box>
         <Box
@@ -47,7 +45,7 @@ export function StackPanel({ order }: SectionProps) {
           }}
         >
           {PM_CATEGORIES.map((category) => (
-            <StackCard key={category.titleKey} title={tPm(category.titleKey)} items={category.items} />
+            <StackCard key={category.titleKey} title={t(category.titleKey)} items={category.items} />
           ))}
         </Box>
       </PanelBody>

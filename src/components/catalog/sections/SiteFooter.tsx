@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { hud } from "@/theme/hud";
 
 export function SiteFooter() {
-  const tFooter = useTranslations("footer");
+  const t = useTranslations();
 
   return (
     <Stack
@@ -31,7 +31,7 @@ export function SiteFooter() {
         },
       }}
     >
-      <span>{tFooter("copyright", { year: new Date().getFullYear() })}</span>
+      <span>{t("footer.copyright", { year: new Date().getFullYear() })}</span>
     </Stack>
   );
 }

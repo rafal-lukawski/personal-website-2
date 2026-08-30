@@ -26,8 +26,7 @@ export function ProjectLightbox({
   step,
   swipeHandlers,
 }: LightboxController) {
-  const tHud = useTranslations("hud");
-  const tProjects = useTranslations("projects");
+  const t = useTranslations();
   const count = project?.screenshots.length ?? 0;
 
   return (
@@ -41,13 +40,13 @@ export function ProjectLightbox({
         <>
           <PanelBar sx={{ minHeight: 40, flexShrink: 0, py: 0, pr: "48px" }}>
             <Box component="span" id={TITLE_ID} sx={{ minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-              {tHud("gallery")} / {project.title}
+              {t("hud.gallery")} / {project.title}
             </Box>
             <MonoMeta aria-live="polite" sx={{ color: hud.dim, letterSpacing: "0.1em", lineHeight: 1, flexShrink: 0 }}>
               {pad(index + 1)} / {pad(count)}
             </MonoMeta>
           </PanelBar>
-          <NavFab aria-label={tHud("close")} onClick={close} sx={{ top: 0, right: 0, zIndex: 3 }}>
+          <NavFab aria-label={t("hud.close")} onClick={close} sx={{ top: 0, right: 0, zIndex: 3 }}>
             ×
           </NavFab>
           <Box
@@ -73,7 +72,7 @@ export function ProjectLightbox({
               {count > 1 && (
                 <>
                   <NavFab
-                    aria-label={tHud("previous")}
+                    aria-label={t("hud.previous")}
                     onClick={() => step(-1)}
                     // Outside the shot on wide screens, over it on narrow ones,
                     // where there is no gutter left to sit in.
@@ -82,7 +81,7 @@ export function ProjectLightbox({
                     ‹
                   </NavFab>
                   <NavFab
-                    aria-label={tHud("next")}
+                    aria-label={t("hud.next")}
                     onClick={() => step(1)}
                     sx={{ right: { xs: 8, sm: -(GUTTER - 8) }, top: "50%", transform: "translateY(-50%)", zIndex: 3 }}
                   >
@@ -93,7 +92,7 @@ export function ProjectLightbox({
             </Box>
             {shot.sourceUrl && (
               <MonoMeta id={CAPTION_ID} sx={{ mt: "8px", textAlign: "right", lineHeight: 1.2 }}>
-                {tProjects("source")}: {shot.sourceUrl}
+                {t("projects.source")}: {shot.sourceUrl}
               </MonoMeta>
             )}
             {count > 1 && (
@@ -110,7 +109,7 @@ export function ProjectLightbox({
                     key={thumb.id}
                     type="button"
                     data-active={idx === index}
-                    aria-label={`${tHud("gallery")} ${idx + 1} / ${count}`}
+                    aria-label={`${t("hud.gallery")} ${idx + 1} / ${count}`}
                     onClick={() => select(idx)}
                   >
                     <Image src={thumb.src} alt={thumb.alt} width={120} height={75} />

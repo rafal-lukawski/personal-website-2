@@ -18,8 +18,7 @@ export function ProjectsPanel({
   projects: readonly CatalogProject[];
   onOpen: (projectId: string) => void;
 }) {
-  const tHud = useTranslations("hud");
-  const tProjects = useTranslations("projects");
+  const t = useTranslations();
 
   return (
     <Box
@@ -34,7 +33,7 @@ export function ProjectsPanel({
     >
       <Panel scan>
         <PanelHeader
-          title={tHud("moduleProjects")}
+          title={t("hud.moduleProjects")}
           meta="FEED: LIVE"
           stampLeft={`IDX: ${String(projects.length).padStart(2, "0")}`}
           stampRight="RX: 100%"
@@ -46,7 +45,7 @@ export function ProjectsPanel({
             justifyContent="space-between"
             sx={{ mb: "10px" }}
           >
-            <SectionLabel sx={{ m: 0, fontSize: "0.86rem" }}>{tProjects("title")}</SectionLabel>
+            <SectionLabel sx={{ m: 0, fontSize: "0.86rem" }}>{t("projects.title")}</SectionLabel>
             <Typography sx={{ color: hud.dim, font: `500 11px/1 ${hud.mono}` }}>
               {String(projects.length).padStart(2, "0")}
             </Typography>

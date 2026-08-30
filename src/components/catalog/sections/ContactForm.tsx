@@ -17,16 +17,16 @@ import {
 import { HudButton, HudFormField } from "../ui";
 
 export function ContactForm() {
-  const tContact = useTranslations("contact");
+  const t = useTranslations();
   const [status, setStatus] = useState<ContactStatus>("idle");
   const [errors, setErrors] = useState<ContactErrors>({});
 
   const validationCopy = useMemo(
     () => ({
-      required: tContact("form.errors.required"),
-      email: tContact("form.errors.email"),
+      required: t("contact.form.errors.required"),
+      email: t("contact.form.errors.email"),
     }),
-    [tContact],
+    [t],
   );
 
   /** Re-validate as the visitor types, but only once they have seen an error. */
@@ -72,10 +72,10 @@ export function ContactForm() {
   };
 
   const submitLabel = {
-    idle: "form.send",
-    submitting: "form.sending",
-    success: "form.sent",
-    error: "form.error",
+    idle: "contact.form.send",
+    submitting: "contact.form.sending",
+    success: "contact.form.sent",
+    error: "contact.form.error",
   }[status];
 
   return (
@@ -86,18 +86,18 @@ export function ContactForm() {
       onChange={handleChange}
       sx={{ display: "flex", flexDirection: "column", gap: "20px" }}
     >
-      <HudFormField id="tc-name" name="name" label={tContact("form.name")} error={errors.name} />
+      <HudFormField id="tc-name" name="name" label={t("contact.form.name")} error={errors.name} />
       <HudFormField
         id="tc-email"
         name="email"
         type="email"
-        label={tContact("form.email")}
+        label={t("contact.form.email")}
         error={errors.email}
       />
       <HudFormField
         id="tc-message"
         name="message"
-        label={tContact("form.message")}
+        label={t("contact.form.message")}
         multiline
         minRows={5}
         error={errors.message}
@@ -108,7 +108,7 @@ export function ContactForm() {
           disabled={status === "submitting"}
           data-state={status === "success" || status === "error" ? status : undefined}
         >
-          {tContact(submitLabel)}
+          {t(submitLabel)}
         </HudButton>
       </Box>
       <Box aria-live="polite" aria-atomic="true" sx={{ minHeight: "1.2em" }}>
@@ -120,7 +120,7 @@ export function ContactForm() {
               color: status === "success" ? hud.ok : hud.danger,
             }}
           >
-            {tContact(status === "success" ? "form.successMessage" : "form.errorMessage")}
+            {t(status === "success" ? "contact.form.successMessage" : "contact.form.errorMessage")}
           </Typography>
         )}
       </Box>

@@ -8,13 +8,12 @@ import { Glitch, HudButton, Panel, PanelHeader, StatusBadge } from "../ui";
 import { HeroAvatar } from "./HeroAvatar";
 
 export function HeroPanel() {
-  const tHud = useTranslations("hud");
-  const tHero = useTranslations("hero");
+  const t = useTranslations();
 
   return (
     <Panel id="hero" sx={{ mb: "20px" }}>
       <PanelHeader
-        title={tHud("moduleIdentity")}
+        title={t("hud.moduleIdentity")}
         meta="LOC: 52.2297 / 21.0122"
         stampLeft="SYS_LOAD: 24%"
         stampRight="UPLINK: STABLE"
@@ -31,10 +30,10 @@ export function HeroPanel() {
       >
         <Box sx={{ position: "relative", zIndex: 1, fontFamily: hud.mono }}>
           <Box sx={{ mb: "12px", display: "flex", justifyContent: { xs: "center", sm: "flex-start" } }}>
-            <StatusBadge>{tHud("active")}</StatusBadge>
+            <StatusBadge>{t("hud.active")}</StatusBadge>
           </Box>
-          <Glitch>{tHero("name")}</Glitch>
-          <HeroRoles title={tHero("title")} />
+          <Glitch>{t("hero.name")}</Glitch>
+          <HeroRoles title={t("hero.title")} />
           <Typography
             sx={{
               mt: "10px",
@@ -47,14 +46,14 @@ export function HeroPanel() {
             }}
           >
             <Box component="span" sx={{ display: "block" }}>
-              {tHero("mottoLine1")}
+              {t("hero.mottoLine1")}
             </Box>
             <Box component="span" sx={{ display: "block" }}>
-              {tHero("mottoLine2")}
+              {t("hero.mottoLine2")}
             </Box>
           </Typography>
           <Box sx={{ mt: "20px", display: "flex", justifyContent: { xs: "center", sm: "flex-start" } }}>
-            <HudButton href="#contact">{tHero("contactMe")}</HudButton>
+            <HudButton href="#contact">{t("hero.contactMe")}</HudButton>
           </Box>
         </Box>
 

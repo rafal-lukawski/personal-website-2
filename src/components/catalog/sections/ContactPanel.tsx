@@ -11,14 +11,12 @@ import type { SectionProps } from "./types";
 import { ContactForm } from "./ContactForm";
 
 export function ContactPanel({ order }: SectionProps) {
-  const tHud = useTranslations("hud");
-  const tHero = useTranslations("hero");
-  const tContact = useTranslations("contact");
+  const t = useTranslations();
 
   return (
     <Panel id="contact" sx={{ order }}>
       <PanelHeader
-        title={tHud("terminalContact")}
+        title={t("hud.terminalContact")}
         meta="CH: SECURE"
         stampLeft="LOC: 52.2297 / 21.0122"
         stampRight="TX: READY"
@@ -40,7 +38,7 @@ export function ContactPanel({ order }: SectionProps) {
               letterSpacing: "0.01em",
             }}
           >
-            {tHero("tagline")}
+            {t("hero.tagline")}
           </Typography>
           <Stack spacing="20px">
             {socialLinks.map(({ name, url, icon: Icon }) => (
@@ -53,7 +51,7 @@ export function ContactPanel({ order }: SectionProps) {
         </Box>
 
         <Box>
-          <SectionLabel>{tContact("sendMessage")}</SectionLabel>
+          <SectionLabel>{t("contact.sendMessage")}</SectionLabel>
           <ContactForm />
         </Box>
       </PanelBody>

@@ -8,13 +8,12 @@ import type { SectionProps } from "./types";
 import { CertificateCard } from "./CertificateCard";
 
 export function CertificatesPanel({ order }: SectionProps) {
-  const tHud = useTranslations("hud");
-  const tCerts = useTranslations("certificates");
+  const t = useTranslations();
 
   return (
     <Panel id="certificates" sx={{ order }}>
       <PanelHeader
-        title={tHud("moduleCerts")}
+        title={t("hud.moduleCerts")}
         meta={`REC: ${String(certificatesData.length).padStart(2, "0")}`}
         stampLeft="VERIFY: PASS"
         stampRight="CHK: 0xA7"
@@ -31,9 +30,9 @@ export function CertificatesPanel({ order }: SectionProps) {
             <CertificateCard
               key={certificate.nameKey}
               certificate={certificate}
-              name={tCerts(`items.${certificate.nameKey}.name`)}
-              issuer={tCerts(`items.${certificate.nameKey}.issuer`)}
-              credentialsLabel={tHud("credentials")}
+              name={t(`certificates.items.${certificate.nameKey}.name`)}
+              issuer={t(`certificates.items.${certificate.nameKey}.issuer`)}
+              credentialsLabel={t("hud.credentials")}
             />
           ))}
         </Box>

@@ -25,7 +25,7 @@ import { EmojiTintFilters, Page, Root, SkipLink } from "./ui";
 const ORDER = { about: 1, projects: 2, stack: 3, certificates: 4, contact: 5 } as const;
 
 export function Catalog() {
-  const tHud = useTranslations("hud");
+  const t = useTranslations();
   const projects = useProjects();
   const lightbox = useLightbox(projects);
 
@@ -33,7 +33,7 @@ export function Catalog() {
     <Root>
       <ParticleField />
       <EmojiTintFilters colors={emojiTints} />
-      <SkipLink href="#about">{tHud("skip")}</SkipLink>
+      <SkipLink href="#about">{t("hud.skip")}</SkipLink>
 
       <SiteHeader />
 
