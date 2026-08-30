@@ -179,5 +179,24 @@
     "sitemap": "Sitemap",
     "socials": "Socials",
     "copyright": "© {year} Rafał Łukawski"
+  },
+  "hud": {
+    "skip": "Skip to content",
+    "active": "active",
+    "moduleIdentity": "[MODULE: IDENTITY_CORE]",
+    "moduleProjects": "[MODULE: PROJECT_FEED]",
+    "moduleStack": "[MODULE: TECH_STACK]",
+    "moduleCerts": "[MODULE: CERTIFICATE_DB]",
+    "terminalAbout": "[MODULE: PROFILE_DATA]",
+    "terminalContact": "[MODULE: CONTACT_NODE]",
+    "credentials": "credential",
+    "gallery": "gallery",
+    "openProject": "open project",
+    "close": "close",
+    "previous": "previous slide",
+    "next": "next slide",
+    "colorMode": "Color mode",
+    "colorModeToLight": "Switch to light mode",
+    "colorModeToDark": "Switch to dark mode"
   }
 }

@@ -8,25 +8,22 @@ import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import GlobalStyles from "@mui/material/GlobalStyles";
-import { ThemeProvider, keyframes, styled } from "@mui/material/styles";
+import { keyframes, styled } from "@mui/material/styles";
 import { Link as LocaleLink } from "@/i18n/routing";
-import { catalogTheme, hud } from "./theme";
+import { hud } from "@/theme/hud";
 import { channels, tintFilterId } from "./techIcons";
 
 const cyan = hud.cyan;
-
-// Frame arms are chrome, not content: a hairline at ~50% cyan at rest, brought
-// up to full only where an element is hovered or focused.
-const frame = `${cyan}80`;
+const frame = "var(--hud-frame)";
 const frameBright = cyan;
 
-export const scanlines = (alpha = 0.05, gap = 3) =>
-  `repeating-linear-gradient(to bottom, rgba(255,255,255,${alpha}) 0, rgba(255,255,255,${alpha}) 1px, transparent 1px, transparent ${gap}px)`;
+export const scanlines = (alpha = 0.05, gap = 3) => {
+  const ink = `color-mix(in srgb, var(--hud-scan-ink) ${Math.round(alpha * 100)}%, transparent)`;
+  return `repeating-linear-gradient(to bottom, ${ink} 0, ${ink} 1px, transparent 1px, transparent ${gap}px)`;
+};
 
-// Neon glow replaces every box-shadow in the system.
 export const glow = (c: string = cyan, strength = 1) =>
-  `0 0 ${10 * strength}px ${c}59, 0 0 ${28 * strength}px ${c}26`;
+  `0 0 ${10 * strength}px color-mix(in srgb, ${c} 35%, transparent), 0 0 ${28 * strength}px color-mix(in srgb, ${c} 15%, transparent)`;
 
 function cornerFill(size = 18, c: string = frame, weight = 1) {
   return [
@@ -37,25 +34,10 @@ function cornerFill(size = 18, c: string = frame, weight = 1) {
   ].join(", ");
 }
 
-export function CatalogThemeProvider({ children }: { children: ReactNode }) {
-  return (
-    <ThemeProvider theme={catalogTheme}>
-      <GlobalStyles
-        styles={`
-          html:has([data-catalog="test"]) { color-scheme: dark; }
-          html:has([data-catalog="test"]) body { background: ${hud.bg} !important; color: ${hud.text}; }
-          html:has([data-catalog="test"]) footer { display: none !important; }
-        `}
-      />
-      {children}
-    </ThemeProvider>
-  );
-}
-
 const pulse = keyframes`
-  0% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.58); }
-  70% { box-shadow: 0 0 0 8px rgba(0, 255, 65, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0); }
+  0% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--hud-ok) 58%, transparent); }
+  70% { box-shadow: 0 0 0 8px color-mix(in srgb, var(--hud-ok) 0%, transparent); }
+  100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--hud-ok) 0%, transparent); }
 `;
 
 const sidebarScan = keyframes`
@@ -73,24 +55,22 @@ const drift = keyframes`
   50% { transform: translateY(7px); opacity: 0.8; }
 `;
 
-// RGB split: a red ghost to one side, a cyan ghost to the other.
 const glitch = keyframes`
   0%, 100% { transform: none; filter: none; }
   20% {
     transform: translate(1px, -1px);
-    filter: drop-shadow(-2px 0 rgba(255, 0, 72, 0.7)) drop-shadow(2px 0 rgba(0, 242, 255, 0.7));
+    filter: drop-shadow(-2px 0 rgba(255, 0, 72, 0.7)) drop-shadow(2px 0 color-mix(in srgb, var(--hud-cyan) 70%, transparent));
   }
   45% {
     transform: translate(-1px, 1px);
-    filter: drop-shadow(2px 0 rgba(255, 0, 72, 0.7)) drop-shadow(-2px 0 rgba(0, 242, 255, 0.7));
+    filter: drop-shadow(2px 0 rgba(255, 0, 72, 0.7)) drop-shadow(-2px 0 color-mix(in srgb, var(--hud-cyan) 70%, transparent));
   }
   70% {
     transform: translate(1px, 1px);
-    filter: drop-shadow(-1px 0 rgba(255, 0, 72, 0.5)) drop-shadow(1px 0 rgba(0, 242, 255, 0.5));
+    filter: drop-shadow(-1px 0 rgba(255, 0, 72, 0.5)) drop-shadow(1px 0 color-mix(in srgb, var(--hud-cyan) 50%, transparent));
   }
 `;
 
-// Reticle arms breathe so the targeting frame never reads as a static border.
 const reticle = keyframes`
   0%, 100% { opacity: 0.62; transform: scale(0.98); }
   50% { opacity: 1; transform: scale(1); }
@@ -116,7 +96,7 @@ export const Root = styled(Box)({
     zIndex: 0,
     pointerEvents: "none",
     backgroundImage:
-      "linear-gradient(#ffffff08 1px, transparent 1px), linear-gradient(90deg, #ffffff08 1px, transparent 1px)",
+      "linear-gradient(var(--hud-grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--hud-grid-line) 1px, transparent 1px)",
     backgroundSize: "20px 20px",
   },
   "&::after": {
@@ -128,7 +108,7 @@ export const Root = styled(Box)({
     backgroundImage: scanlines(0.02),
   },
   "& *": { boxSizing: "border-box" },
-  "& ::selection": { background: "rgba(0, 242, 255, 0.28)", color: "#edffff" },
+  "& ::selection": { background: "var(--hud-selection-bg)", color: "var(--hud-selection-fg)" },
 });
 
 export const SkipLink = styled(Link)({
@@ -179,15 +159,11 @@ export const TopBar = styled("header")({
   "@media (max-width: 760px)": { padding: "0 20px" },
 });
 
-export const BarLink = styled(LocaleLink)({
-  color: hud.muted,
-  textDecoration: "none",
-  ...focusRing,
-  "&:hover": { color: cyan },
-});
-
 export const LangLink = styled(LocaleLink)({
-  padding: "4px 6px",
+  display: "inline-flex",
+  alignItems: "center",
+  height: 24,
+  padding: "0 6px",
   color: hud.dim,
   textDecoration: "none",
   ...focusRing,
@@ -223,7 +199,7 @@ export const HudButton = styled(Button)({
   },
   "&:hover::after": { background: cornerFill(12, frameBright) },
   "&:hover": {
-    background: "rgba(0, 242, 255, 0.08)",
+    background: "color-mix(in srgb, var(--hud-cyan) 8%, transparent)",
     color: cyan,
     textShadow: `0 0 8px ${cyan}`,
     boxShadow: glow(cyan),
@@ -243,7 +219,7 @@ export const Glitch = styled("h1")({
   lineHeight: 0.92,
   letterSpacing: "0.045em",
   textTransform: "uppercase",
-  backgroundImage: `repeating-linear-gradient(to bottom, ${cyan} 0px, ${cyan} 2px, #007a82 2px, #007a82 3px)`,
+  backgroundImage: `repeating-linear-gradient(to bottom, ${cyan} 0px, ${cyan} 2px, var(--hud-cyan-deep) 2px, var(--hud-cyan-deep) 3px)`,
   backgroundClip: "text",
   WebkitBackgroundClip: "text",
   color: "transparent",
@@ -277,7 +253,8 @@ export const Panel = styled("section", {
           left: 0,
           right: 0,
           height: 80,
-          background: "linear-gradient(to bottom, transparent, rgba(0, 242, 255, 0.12), transparent)",
+          background:
+            "linear-gradient(to bottom, transparent, color-mix(in srgb, var(--hud-cyan) 12%, transparent), transparent)",
           animation: `${sidebarScan} 7.8s linear infinite`,
           pointerEvents: "none",
           [reducedMotion]: { animation: "none" },
@@ -296,7 +273,7 @@ export const PanelBar = styled(Stack)({
   letterSpacing: "0.15em",
   textTransform: "uppercase",
   color: cyan,
-  background: "linear-gradient(90deg, rgba(0, 242, 255, 0.08), transparent 55%)",
+  background: "linear-gradient(90deg, color-mix(in srgb, var(--hud-cyan) 8%, transparent), transparent 55%)",
   "&::after": {
     content: '""',
     position: "absolute",
@@ -304,7 +281,7 @@ export const PanelBar = styled(Stack)({
     right: 20,
     bottom: 0,
     height: 1,
-    background: `linear-gradient(90deg, ${cyan}59, transparent)`,
+    background: `linear-gradient(90deg, color-mix(in srgb, ${cyan} 35%, transparent), transparent)`,
   },
   position: "relative",
 });
@@ -320,7 +297,7 @@ export const SectionLabel = styled("h2")({
   letterSpacing: "0.15em",
   textTransform: "uppercase",
   color: cyan,
-  textShadow: `0 0 8px ${cyan}40`,
+  textShadow: `0 0 8px color-mix(in srgb, ${cyan} 25%, transparent)`,
 });
 
 export const HudCard = styled("article")({
@@ -367,22 +344,20 @@ export const HudField = styled(TextField)({
       background: cornerFill(10),
     },
     "&.Mui-focused::after": { background: cornerFill(10, frameBright) },
-    "&.Mui-error::after": { background: cornerFill(10, `${hud.danger}99`) },
+    "&.Mui-error::after": {
+      background: cornerFill(10, "color-mix(in srgb, var(--hud-danger) 60%, transparent)"),
+    },
     "&.Mui-error.Mui-focused::after": { background: cornerFill(10, hud.danger) },
     "&.Mui-error": { boxShadow: glow(hud.danger, 0.55) },
   },
   "& .MuiInputLabel-root.Mui-error": {
     color: hud.danger,
-    textShadow: `0 0 8px ${hud.danger}40`,
+    textShadow: `0 0 8px color-mix(in srgb, var(--hud-danger) 25%, transparent)`,
   },
   "& .MuiOutlinedInput-input": { padding: "10px 12px" },
   "& .MuiInputBase-multiline": { padding: 0 },
 });
 
-/**
- * Validation readout under a field. Same L-arms as the inputs, danger tint
- * instead of cyan, so it reads as a telemetry block rather than a browser bubble.
- */
 export function HudFieldError({ id, children }: { id: string; children: ReactNode }) {
   return (
     <Box
@@ -400,7 +375,7 @@ export function HudFieldError({ id, children }: { id: string; children: ReactNod
         font: `500 10px/1 ${hud.mono}`,
         letterSpacing: "0.12em",
         textTransform: "uppercase",
-        textShadow: `0 0 8px ${hud.danger}80`,
+        textShadow: `0 0 8px color-mix(in srgb, var(--hud-danger) 50%, transparent)`,
         background: hud.panel,
         "&::after": {
           content: '""',
@@ -446,7 +421,7 @@ export const Particles = styled("svg")({
   opacity: 0.7,
   animation: `${drift} 18s ease-in-out infinite`,
   zIndex: 0,
-  "& line": { stroke: "rgba(0, 242, 255, 0.23)", strokeWidth: 0.34 },
+  "& line": { stroke: "color-mix(in srgb, var(--hud-cyan) 23%, transparent)", strokeWidth: 0.34 },
   "& circle": { fill: cyan },
   [reducedMotion]: { animation: "none" },
   "@media (max-width: 760px)": { inset: "0 0 auto 0", height: "45%" },
@@ -495,7 +470,7 @@ export const ShotBg = styled("span")({
     objectFit: "cover",
     objectPosition: "top",
     transform: "scale(1.16)",
-    filter: "grayscale(1) blur(3px) brightness(0.22)",
+    filter: "var(--hud-shot-bg-filter)",
   },
 });
 
@@ -586,7 +561,7 @@ export const GalleryChip = styled("button")({
 });
 
 export const LightboxDialog = styled(Dialog)({
-  "& .MuiBackdrop-root": { background: "rgba(10, 10, 12, 0.92)", backdropFilter: "blur(12px)" },
+  "& .MuiBackdrop-root": { background: "var(--hud-overlay)", backdropFilter: "blur(12px)" },
   "& .MuiDialog-container": { alignItems: "center" },
   "& .MuiPaper-root": {
     background: "transparent",
@@ -618,12 +593,6 @@ export const NavFab = styled(IconButton)({
   "&:hover": { color: cyan, background: hud.panel },
 });
 
-/**
- * The single corner-bracket primitive. Panels, cards, buttons and fields all
- * render the exact same L-arms via `cornerFill`, so the geometry never drifts.
- * Only the top-left / bottom-right pair is drawn, so a frame implies its box
- * along one diagonal instead of closing it on all four corners.
- */
 export function CornerTicks({
   size = 18,
   color = frame,
@@ -650,10 +619,6 @@ export function CornerTicks({
   );
 }
 
-/**
- * Micro-telemetry pinned to a module's bottom corners. It lives in the gutter
- * `PanelBody` reserves, so it reads as frame chrome and never overlaps content.
- */
 export function PanelStamps({ left, right }: { left?: string; right?: string }) {
   const base = {
     position: "absolute" as const,
@@ -674,14 +639,7 @@ export function PanelStamps({ left, right }: { left?: string; right?: string }) 
   );
 }
 
-/**
- * Emoji glyphs ignore `color`, so the pictographic ones are re-coloured with a
- * luminance ramp instead: each pixel keeps its own shading but is mapped onto
- * that row's tint, which keeps the icon's base hue while bringing it into the
- * console's cyan family alongside the vector icons.
- */
 export function EmojiTintFilters({ colors }: { colors: string[] }) {
-  // Emoji sit mid-luminance, so lift the ramp to reach the full tint.
   const gain = 1.55;
   const lum = [0.2126, 0.7152, 0.0722];
   return (
@@ -704,7 +662,6 @@ export function EmojiTintFilters({ colors }: { colors: string[] }) {
   );
 }
 
-/** Process/telemetry code shown inside a module header bar, beside the dots. */
 export const BarMeta = styled("span")({
   font: `500 9px/1 ${hud.mono}`,
   letterSpacing: "0.15em",
@@ -726,7 +683,6 @@ export function ProcessDots() {
             height: 8,
             borderRadius: "50%",
             bgcolor: color,
-            // only the live "online" light glows
             boxShadow: idx === dots.length - 1 ? glow(hud.ok, 0.5) : "none",
           }}
         />
@@ -736,7 +692,7 @@ export function ProcessDots() {
 }
 
 export function StatusBadge({ children }: { children: ReactNode }) {
-  const ok = `${hud.ok}80`;
+  const ok = "color-mix(in srgb, var(--hud-ok) 50%, transparent)";
   return (
     <Box
       component="span"
@@ -753,8 +709,6 @@ export function StatusBadge({ children }: { children: ReactNode }) {
         letterSpacing: "0.1em",
         fontSize: 10,
         fontFamily: hud.mono,
-        // Trimming the label to cap height (below) also shrinks the box, so pin
-        // the height back to what the untrimmed line box gave: 14px + 4px x 2.
         minHeight: 22,
         position: "relative",
         "&::after": {
@@ -782,12 +736,6 @@ export function StatusBadge({ children }: { children: ReactNode }) {
           [reducedMotion]: { animation: "none" },
         }}
       />
-      {/*
-        Trimming the line box down to cap height makes the flex centring act on
-        the letters themselves rather than on the ascender/descender space the
-        uppercase label never fills, so the text sits optically centred and the
-        dot lines up with it without a magic offset.
-      */}
       <Box component="span" sx={{ display: "block", textBox: "trim-both cap alphabetic" }}>
         {children}
       </Box>

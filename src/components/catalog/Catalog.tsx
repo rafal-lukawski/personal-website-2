@@ -11,12 +11,11 @@ import Typography from "@mui/material/Typography";
 import LinkMui from "@mui/material/Link";
 import { FaEnvelope, FaExternalLinkAlt, FaGithub, FaLinkedin } from "react-icons/fa";
 import { socialLinks } from "@/config/socials";
+import { ColorModeButton } from "@/components/ColorModeButton";
+import { hud } from "@/theme/hud";
 import { certificatesData, projectsData, stackCategories } from "./content";
-import { emojiTints, techIcons, tintFilterId } from "./techIcons";
-import { hud } from "./theme";
+import { emojiTints, hudTintColor, techIcons, tintFilterId } from "./techIcons";
 import {
-  BarLink,
-  CatalogThemeProvider,
   CornerTicks,
   Cursor,
   EmojiTintFilters,
@@ -51,45 +50,6 @@ import {
   StatusBadge,
   TopBar,
 } from "./ui";
-
-const copy = {
-  pl: {
-    prototype: "prototyp",
-    current: "obecna wersja",
-    active: "aktywny",
-    skip: "Przejdź do treści",
-    moduleIdentity: "[MODULE: IDENTITY_CORE]",
-    moduleProjects: "PROJECT_FEED",
-    moduleStack: "[MODULE: TECH_STACK]",
-    moduleCerts: "[MODULE: CERTIFICATE_DB]",
-    terminalAbout: "[MODULE: PROFILE_DATA]",
-    terminalContact: "[MODULE: CONTACT_NODE]",
-    credentials: "poświadczenie",
-    gallery: "galeria",
-    openProject: "otwórz projekt",
-    close: "zamknij",
-    previous: "poprzedni slajd",
-    next: "następny slajd",
-  },
-  en: {
-    prototype: "prototype",
-    current: "live site",
-    active: "active",
-    skip: "Skip to content",
-    moduleIdentity: "[MODULE: IDENTITY_CORE]",
-    moduleProjects: "[MODULE: PROJECT_FEED]",
-    moduleStack: "[MODULE: TECH_STACK]",
-    moduleCerts: "[MODULE: CERTIFICATE_DB]",
-    terminalAbout: "[MODULE: PROFILE_DATA]",
-    terminalContact: "[MODULE: CONTACT_NODE]",
-    credentials: "credential",
-    gallery: "gallery",
-    openProject: "open project",
-    close: "close",
-    previous: "previous slide",
-    next: "next slide",
-  },
-} as const;
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -234,7 +194,7 @@ function StackCard({ title, items }: { title: string; items: readonly string[] }
                   width: 16,
                   fontSize: "0.94rem",
                   fontWeight: 700,
-                  color: meta?.color ?? hud.dim,
+                  color: meta ? hudTintColor(meta.color) : hud.dim,
                   filter: meta?.desaturate ? `url(#${tintFilterId(meta.color)})` : "none",
                 }}
               >
@@ -251,7 +211,7 @@ function StackCard({ title, items }: { title: string; items: readonly string[] }
 
 export function Catalog() {
   const locale = useLocale() as "pl" | "en";
-  const ui = copy[locale] ?? copy.en;
+  const tHud = useTranslations("hud");
   const tHero = useTranslations("hero");
   const tAbout = useTranslations("about");
   const tTech = useTranslations("technologies");
@@ -376,38 +336,32 @@ export function Catalog() {
   const submitState = status === "success" || status === "error" ? status : undefined;
 
   return (
-    <CatalogThemeProvider>
-      <Root>
-        <EmojiTintFilters colors={emojiTints} />
-        <SkipLink href="#about">{ui.skip}</SkipLink>
+    <Root>
+      <EmojiTintFilters colors={emojiTints} />
+      <SkipLink href="#about">{tHud("skip")}</SkipLink>
 
-        <TopBar>
-          <Stack direction="row" alignItems="center" spacing="14px">
-            <Box component="span" sx={{ color: hud.cyan }}>
-              RL
-            </Box>
-            <Box component="span" sx={{ display: { xs: "none", sm: "inline" } }}>
-              {ui.prototype}
-            </Box>
+      <TopBar>
+        <Stack direction="row" alignItems="center" spacing="14px">
+          <Box component="span" sx={{ color: hud.cyan }}>
+            RL
+          </Box>
+        </Stack>
+        <Stack direction="row" alignItems="center" spacing="10px">
+          <ColorModeButton />
+          <Stack direction="row" alignItems="center" spacing="2px">
+            {(["pl", "en"] as const).map((code) => (
+              <LangLink
+                key={code}
+                href={pathname}
+                locale={code}
+                aria-current={locale === code ? "page" : undefined}
+              >
+                {code}
+              </LangLink>
+            ))}
           </Stack>
-          <Stack direction="row" alignItems="center" spacing="14px">
-            <BarLink href="/" locale={locale}>
-              {ui.current}
-            </BarLink>
-            <Stack direction="row" spacing="2px">
-              {(["pl", "en"] as const).map((code) => (
-                <LangLink
-                  key={code}
-                  href={pathname}
-                  locale={code}
-                  aria-current={locale === code ? "page" : undefined}
-                >
-                  {code}
-                </LangLink>
-              ))}
-            </Stack>
-          </Stack>
-        </TopBar>
+        </Stack>
+      </TopBar>
 
         <Page id="top">
           <Box
@@ -422,7 +376,7 @@ export function Catalog() {
           >
             <CornerTicks />
             <PanelBar>
-              <span>{ui.moduleIdentity}</span>
+              <span>{tHud("moduleIdentity")}</span>
               <Stack direction="row" alignItems="center" spacing="10px">
                 <BarMeta>LOC: 52.2297 / 21.0122</BarMeta>
                 <ProcessDots />
@@ -442,7 +396,7 @@ export function Catalog() {
             <HeroParticleNetwork />
             <Box sx={{ position: "relative", zIndex: 1, fontFamily: hud.mono }}>
               <Box sx={{ mb: "12px", display: "flex", justifyContent: { xs: "center", sm: "flex-start" } }}>
-                <StatusBadge>{ui.active}</StatusBadge>
+                <StatusBadge>{tHud("active")}</StatusBadge>
               </Box>
               <Glitch>
                 {tHero("name")}
@@ -629,7 +583,7 @@ export function Catalog() {
                       height: "28%",
                       zIndex: 2,
                       pointerEvents: "none",
-                      background: "linear-gradient(to bottom, transparent, rgba(0, 242, 255, 0.28), transparent)",
+                      background: "linear-gradient(to bottom, transparent, color-mix(in srgb, var(--hud-cyan) 28%, transparent), transparent)",
                     }}
                     initial={{ top: "-20%" }}
                     animate={{ top: ["-20%", "85%"] }}
@@ -651,7 +605,7 @@ export function Catalog() {
             <Stack spacing="20px">
               <Panel id="about">
                 <PanelBar>
-                  <span>{ui.terminalAbout}</span>
+                  <span>{tHud("terminalAbout")}</span>
                   <Stack direction="row" alignItems="center" spacing="10px">
                     <BarMeta>PID: 0x41</BarMeta>
                     <ProcessDots />
@@ -677,7 +631,7 @@ export function Catalog() {
 
               <Panel id="stack">
                 <PanelBar>
-                  <span>{ui.moduleStack}</span>
+                  <span>{tHud("moduleStack")}</span>
                   <Stack direction="row" alignItems="center" spacing="10px">
                     <BarMeta>NODES: 8</BarMeta>
                     <ProcessDots />
@@ -712,7 +666,7 @@ export function Catalog() {
 
               <Panel id="certificates">
                 <PanelBar>
-                  <span>{ui.moduleCerts}</span>
+                  <span>{tHud("moduleCerts")}</span>
                   <Stack direction="row" alignItems="center" spacing="10px">
                     <BarMeta>REC: 02</BarMeta>
                     <ProcessDots />
@@ -774,7 +728,7 @@ export function Catalog() {
                             letterSpacing: "0.06em",
                           }}
                         >
-                          {tCerts(`items.${cert.nameKey}.issuer`)} · {ui.credentials}
+                          {tCerts(`items.${cert.nameKey}.issuer`)} · {tHud("credentials")}
                         </Typography>
                       </LinkMui>
                     ))}
@@ -784,7 +738,7 @@ export function Catalog() {
 
               <Panel id="contact">
                 <PanelBar>
-                  <span>{ui.terminalContact}</span>
+                  <span>{tHud("terminalContact")}</span>
                   <Stack direction="row" alignItems="center" spacing="10px">
                     <BarMeta>CH: SECURE</BarMeta>
                     <ProcessDots />
@@ -904,7 +858,7 @@ export function Catalog() {
             >
               <Panel scan>
                 <PanelBar>
-                  <span>{ui.moduleProjects}</span>
+                  <span>{tHud("moduleProjects")}</span>
                   <Stack direction="row" alignItems="center" spacing="10px">
                     <BarMeta>FEED: LIVE</BarMeta>
                     <ProcessDots />
@@ -922,7 +876,7 @@ export function Catalog() {
                         letterSpacing: "0.15em",
                         textTransform: "uppercase",
                         color: hud.cyan,
-                        textShadow: `0 0 8px ${hud.cyan}40`,
+                        textShadow: `0 0 8px color-mix(in srgb, ${hud.cyan} 25%, transparent)`,
                       }}
                     >
                       {tProjects("title")}
@@ -942,7 +896,7 @@ export function Catalog() {
                       <Box key={project.id} component="article" sx={{ mb: { xs: 0, lg: "20px" }, "&:last-child": { mb: 0 } }}>
                         <ShotButton
                           type="button"
-                          aria-label={`${ui.gallery} ${project.title}`}
+                          aria-label={`${tHud("gallery")} ${project.title}`}
                           onClick={() => openLightbox(project.id)}
                         >
                           <ShotMeta stamp={project.buildStamp} index={String(idx + 1).padStart(2, "0")} />
@@ -963,7 +917,7 @@ export function Catalog() {
                                 href={project.url}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                aria-label={`${ui.openProject}: ${project.title}`}
+                                aria-label={`${tHud("openProject")}: ${project.title}`}
                                 color="inherit"
                                 sx={{
                                   display: "inline-flex",
@@ -980,9 +934,9 @@ export function Catalog() {
                           <GalleryChip
                             type="button"
                             onClick={() => openLightbox(project.id)}
-                            aria-label={`${ui.gallery} ${project.title}`}
+                            aria-label={`${tHud("gallery")} ${project.title}`}
                           >
-                            {ui.gallery}
+                            {tHud("gallery")}
                             <span>{project.screenshots.length}</span>
                           </GalleryChip>
                         </Stack>
@@ -1017,14 +971,11 @@ export function Catalog() {
                 right: 0,
                 top: 0,
                 height: 1,
-                background: `linear-gradient(90deg, transparent, ${hud.cyan}80, transparent)`,
+                background: `linear-gradient(90deg, transparent, color-mix(in srgb, ${hud.cyan} 50%, transparent), transparent)`,
               },
             }}
           >
             <span>{tFooter("copyright", { year })}</span>
-            <BarLink href="/" locale={locale}>
-              {ui.current}
-            </BarLink>
           </Stack>
         </Page>
 
@@ -1037,7 +988,7 @@ export function Catalog() {
           {activeProject && activeShot && lightbox && (
             <Box sx={{ position: "relative", px: { xs: 5, sm: 6 } }}>
               <Typography id="tc-lightbox-title" sx={{ position: "absolute", width: 1, height: 1, overflow: "hidden", clip: "rect(0 0 0 0)" }}>
-                {ui.gallery} {activeProject.title}
+                {tHud("gallery")} {activeProject.title}
               </Typography>
               <Typography
                 sx={{
@@ -1083,7 +1034,7 @@ export function Catalog() {
                       key={shot.id}
                       type="button"
                       data-active={idx === lightbox.index}
-                      aria-label={`${ui.gallery} ${idx + 1} / ${activeProject.screenshots.length}`}
+                      aria-label={`${tHud("gallery")} ${idx + 1} / ${activeProject.screenshots.length}`}
                       onClick={() => setLightbox({ projectId: activeProject.id, index: idx })}
                     >
                       <Image src={shot.src} alt={shot.alt} width={120} height={75} />
@@ -1091,15 +1042,15 @@ export function Catalog() {
                   ))}
                 </Stack>
               )}
-              <NavFab aria-label={ui.close} onClick={closeLightbox} sx={{ top: 0, right: 0 }}>
+              <NavFab aria-label={tHud("close")} onClick={closeLightbox} sx={{ top: 0, right: 0 }}>
                 ×
               </NavFab>
               {activeProject.screenshots.length > 1 && (
                 <>
-                  <NavFab aria-label={ui.previous} onClick={() => stepLightbox(-1)} sx={{ left: 0, top: "50%", transform: "translateY(-50%)" }}>
+                  <NavFab aria-label={tHud("previous")} onClick={() => stepLightbox(-1)} sx={{ left: 0, top: "50%", transform: "translateY(-50%)" }}>
                     ‹
                   </NavFab>
-                  <NavFab aria-label={ui.next} onClick={() => stepLightbox(1)} sx={{ right: 0, top: "50%", transform: "translateY(-50%)" }}>
+                  <NavFab aria-label={tHud("next")} onClick={() => stepLightbox(1)} sx={{ right: 0, top: "50%", transform: "translateY(-50%)" }}>
                     ›
                   </NavFab>
                 </>
@@ -1108,6 +1059,5 @@ export function Catalog() {
           )}
         </LightboxDialog>
       </Root>
-    </CatalogThemeProvider>
-  );
+    );
 }

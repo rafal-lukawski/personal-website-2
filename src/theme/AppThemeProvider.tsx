@@ -3,7 +3,9 @@
 import * as React from "react";
 import { ThemeProvider, useColorScheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import GlobalStyles from "@mui/material/GlobalStyles";
 import theme from "./theme";
+import { hudRootCss } from "./hud";
 import {
   COLOR_MODE_COOKIE,
   COLOR_MODE_STORAGE_KEY,
@@ -85,6 +87,7 @@ export function AppThemeProvider({
       noSsr={noSsr}
       disableTransitionOnChange
     >
+      <GlobalStyles styles={hudRootCss()} />
       <CssBaseline enableColorScheme />
       <ColorSchemeClassSync defaultMode={defaultMode} />
       <ColorModeCookieSync />

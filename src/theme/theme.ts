@@ -1,154 +1,74 @@
-import { createTheme, responsiveFontSizes } from "@mui/material/styles";
-import { grey } from "@mui/material/colors";
+import { createTheme } from "@mui/material/styles";
+import { hud, hudDark, hudLight } from "./hud";
 
-declare module "@mui/material/styles" {
-  interface TypographyVariants {
-    footerLink: React.CSSProperties;
-    body3: React.CSSProperties;
-  }
-
-  interface TypographyVariantsOptions {
-    footerLink?: React.CSSProperties;
-    body3?: React.CSSProperties;
-  }
-}
-
-declare module "@mui/material/Typography" {
-  interface TypographyPropsVariantOverrides {
-    footerLink: true;
-    body3: true;
-  }
-}
-
-let theme = createTheme({
+const theme = createTheme({
   cssVariables: {
     colorSchemeSelector: "class",
   },
   colorSchemes: {
     light: {
       palette: {
-        background: {
-          default: grey[100],
-          paper: "#ffffff",
-        },
+        primary: { main: hudLight.cyan },
+        success: { main: hudLight.ok },
+        error: { main: hudLight.danger },
+        background: { default: hudLight.bg, paper: hudLight.panelSolid },
         text: {
-          primary: grey[900],
-          secondary: grey[700],
+          primary: hudLight.text,
+          secondary: hudLight.muted,
+          disabled: hudLight.dim,
         },
-        divider: grey[300],
+        divider: hudLight.cyan,
       },
     },
     dark: {
       palette: {
-        background: {
-          default: grey[900],
-          paper: "#2a2a2a",
-        },
+        primary: { main: hudDark.cyan },
+        success: { main: hudDark.ok },
+        error: { main: hudDark.danger },
+        background: { default: hudDark.bg, paper: hudDark.panelSolid },
         text: {
-          primary: grey[100],
-          secondary: grey[400],
+          primary: hudDark.text,
+          secondary: hudDark.muted,
+          disabled: hudDark.dim,
         },
-        divider: grey[700],
+        divider: hudDark.cyan,
       },
     },
   },
   typography: {
-    fontFamily: "var(--font-geist-sans), Arial, sans-serif",
-    h3: {
-      fontFamily: "var(--font-geist-mono), monospace",
-      fontWeight: 700,
-      letterSpacing: ".2rem",
-      color: "var(--mui-palette-text-primary)",
-    },
-    h4: {
-      fontFamily: "var(--font-geist-mono), monospace",
-      fontWeight: 700,
-      letterSpacing: ".2rem",
-      color: "var(--mui-palette-text-primary)",
-    },
-    h5: {
-      fontFamily: "var(--font-geist-mono), monospace",
-      fontWeight: 700,
-      color: "var(--mui-palette-text-primary)",
-    },
-    h6: {
-      fontWeight: 700,
-      color: "var(--mui-palette-text-primary)",
-    },
-    body1: {
-      color: "var(--mui-palette-text-secondary)",
-      lineHeight: 1.4,
-      fontSize: "1rem",
-    },
-    body2: {
-      color: "var(--mui-palette-text-secondary)",
-      fontSize: "0.9rem",
-      lineHeight: 1.4,
-    },
-    body3: {
-      color: "var(--mui-palette-text-secondary)",
-      fontSize: "0.7rem",
-      lineHeight: 1.4,
-    },
-    footerLink: {
-      color: "var(--mui-palette-text-secondary)",
-      fontSize: "0.9rem",
-      lineHeight: 1.5,
-      whiteSpace: "nowrap",
-    },
-    button: {
-      textTransform: "none",
-    },
+    fontFamily: hud.mono,
+    button: { textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 500 },
   },
+  shape: { borderRadius: 0 },
   components: {
+    MuiButtonBase: { defaultProps: { disableRipple: true } },
     MuiButton: {
       styleOverrides: {
         root: {
-          textTransform: "none",
+          minWidth: 0,
+          borderRadius: 0,
+          boxShadow: "none",
+          "&:hover": { boxShadow: "none" },
         },
       },
     },
-    MuiTypography: {
+    MuiInputBase: {
+      styleOverrides: { root: { fontFamily: hud.mono, borderRadius: 0 } },
+    },
+    MuiPaper: {
       styleOverrides: {
-        body1: ({ theme: t }) => ({
-          [t.breakpoints.up("md")]: {
-            fontSize: "1.1rem",
-          },
-        }),
-        body2: ({ theme: t }) => ({
-          [t.breakpoints.up("md")]: {
-            fontSize: "1rem",
-          },
-        }),
-        // Custom variant — adjust responsive sizing based on ownerState
-        root: ({ ownerState, theme: t }) =>
-          ownerState.variant === "body3"
-            ? {
-                [t.breakpoints.up("md")]: {
-                  fontSize: "0.8rem",
-                },
-              }
-            : {},
+        root: { backgroundImage: "none", backgroundColor: hud.panelSolid },
       },
     },
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          backgroundColor: "var(--mui-palette-background-default)",
-          color: "var(--mui-palette-text-primary)",
-        },
-      },
-    },
-    MuiAppBar: {
-      styleOverrides: {
-        root: {
-          color: "inherit",
+          backgroundColor: "var(--hud-bg)",
+          color: "var(--hud-text)",
         },
       },
     },
   },
 });
-
-theme = responsiveFontSizes(theme);
 
 export default theme;
