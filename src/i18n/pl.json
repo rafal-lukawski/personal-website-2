@@ -185,7 +185,7 @@
     "skip": "Przejdź do treści",
     "active": "aktywny",
     "moduleIdentity": "[MODUŁ: IDENTYFIKACJA]",
-    "moduleProjects": "[MODUŁ: LISTA PROJEKTÓW]",
+    "moduleProjects": "[MODUŁ: LISTA_PROJEKTÓW]",
     "moduleStack": "[MODUŁ: STOS_TECHNOLOGICZNY]",
     "moduleCerts": "[MODUŁ: CERTYFIKATY]",
     "terminalAbout": "[MODUŁ: O_MNIE]",

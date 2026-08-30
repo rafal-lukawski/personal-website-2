@@ -35,7 +35,6 @@ import {
   PanelBar,
   PanelBody,
   PanelStamps,
-  Particles,
   ProcessDots,
   Root,
   SectionLabel,
@@ -84,24 +83,6 @@ const socialIcons = {
   Email: FaEnvelope,
 } as const;
 
-const particles = [
-  { x: 12, y: 20, size: 2.5 },
-  { x: 24, y: 42, size: 2 },
-  { x: 44, y: 26, size: 2.2 },
-  { x: 58, y: 46, size: 2.4 },
-  { x: 72, y: 20, size: 2.1 },
-  { x: 86, y: 40, size: 2.4 },
-] as const;
-
-const particleLines = [
-  [12, 20, 24, 42],
-  [24, 42, 44, 26],
-  [44, 26, 58, 46],
-  [58, 46, 72, 20],
-  [72, 20, 86, 40],
-  [24, 42, 58, 46],
-] as const;
-
 function usePrefersReducedMotion() {
   const [reduced, setReduced] = useState(false);
 
@@ -141,19 +122,6 @@ function Typewriter({ text, enabled }: { text: string; enabled: boolean }) {
       {shown}
       <Cursor aria-hidden />
     </>
-  );
-}
-
-function HeroParticleNetwork() {
-  return (
-    <Particles viewBox="0 0 100 60" preserveAspectRatio="none" aria-hidden>
-      {particleLines.map(([x1, y1, x2, y2], idx) => (
-        <line key={`${x1}-${idx}`} x1={x1} y1={y1} x2={x2} y2={y2} />
-      ))}
-      {particles.map((node, idx) => (
-        <circle key={`${node.x}-${idx}`} cx={node.x} cy={node.y} r={node.size / 2} />
-      ))}
-    </Particles>
   );
 }
 
@@ -393,7 +361,6 @@ export function Catalog() {
                 textAlign: { xs: "center", sm: "left" },
               }}
             >
-            <HeroParticleNetwork />
             <Box sx={{ position: "relative", zIndex: 1, fontFamily: hud.mono }}>
               <Box sx={{ mb: "12px", display: "flex", justifyContent: { xs: "center", sm: "flex-start" } }}>
                 <StatusBadge>{tHud("active")}</StatusBadge>
@@ -441,17 +408,6 @@ export function Catalog() {
               <Typography
                 sx={{
                   mt: "10px",
-                  mb: 0,
-                  color: hud.muted,
-                  font: `400 0.95rem/1.45 ${hud.mono}`,
-                  letterSpacing: "0.01em",
-                }}
-              >
-                {tHero("tagline")}
-              </Typography>
-              <Typography
-                sx={{
-                  mt: 2,
                   mb: 0,
                   maxWidth: "42em",
                   mx: { xs: "auto", sm: 0 },
@@ -753,6 +709,17 @@ export function Catalog() {
                   }}
                 >
                   <Box>
+                    <Typography
+                      sx={{
+                        mt: 0,
+                        mb: "20px",
+                        color: hud.muted,
+                        font: `400 0.95rem/1.45 ${hud.mono}`,
+                        letterSpacing: "0.01em",
+                      }}
+                    >
+                      {tHero("tagline")}
+                    </Typography>
                     <Stack spacing="20px">
                       {socialLinks.map((social) => {
                         const Icon = socialIcons[social.name as keyof typeof socialIcons] ?? FaEnvelope;

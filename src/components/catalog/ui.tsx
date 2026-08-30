@@ -50,11 +50,6 @@ const blink = keyframes`
   50%, 100% { opacity: 0; }
 `;
 
-const drift = keyframes`
-  0%, 100% { transform: translateY(0); opacity: 0.55; }
-  50% { transform: translateY(7px); opacity: 0.8; }
-`;
-
 const glitch = keyframes`
   0%, 100% { transform: none; filter: none; }
   20% {
@@ -413,20 +408,6 @@ export const Cursor = styled("span")({
   [reducedMotion]: { animation: "none" },
 });
 
-export const Particles = styled("svg")({
-  position: "absolute",
-  inset: "20px 20% auto 0",
-  height: "56%",
-  pointerEvents: "none",
-  opacity: 0.7,
-  animation: `${drift} 18s ease-in-out infinite`,
-  zIndex: 0,
-  "& line": { stroke: "color-mix(in srgb, var(--hud-cyan) 23%, transparent)", strokeWidth: 0.34 },
-  "& circle": { fill: cyan },
-  [reducedMotion]: { animation: "none" },
-  "@media (max-width: 760px)": { inset: "0 0 auto 0", height: "45%" },
-});
-
 export const ShotButton = styled("button")({
   position: "relative",
   width: "100%",
@@ -502,8 +483,9 @@ export const HudLink = styled(Link)({
   textDecoration: "none",
   position: "relative",
   ...focusRing,
-  "& svg": { color: cyan },
-  "&:hover": { color: cyan },
+  "& svg": { color: cyan, width: 16, height: 16, flexShrink: 0 },
+  "&:hover": { color: cyan, textDecoration: "none" },
+  "&.MuiLink-underlineAlways, &.MuiLink-underlineHover": { textDecoration: "none" },
   "&::after": {
     content: '""',
     position: "absolute",
@@ -513,6 +495,7 @@ export const HudLink = styled(Link)({
   },
   "&:hover::after": { background: cornerFill(10, frameBright) },
 });
+HudLink.defaultProps = { underline: "none" };
 
 export const ShotThumb = styled("button")({
   position: "relative",
