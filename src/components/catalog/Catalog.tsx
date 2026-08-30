@@ -106,8 +106,21 @@ function isPromptChar(text: string, i: number) {
   return false;
 }
 
-function Typewriter({ text, enabled }: { text: string; enabled: boolean }) {
+function Typewriter({
+  text,
+  enabled,
+  command,
+  commandHref,
+  commandLabel,
+}: {
+  text: string;
+  enabled: boolean;
+  command: string;
+  commandHref: string;
+  commandLabel: string;
+}) {
   const [count, setCount] = useState(0);
+  const commandStart = text.length - command.length;
 
   useEffect(() => {
     if (!enabled) return;
@@ -124,25 +137,64 @@ function Typewriter({ text, enabled }: { text: string; enabled: boolean }) {
 
   const shownCount = enabled ? Math.min(count, text.length) : text.length;
   const done = shownCount >= text.length;
-  const shown = text.slice(0, shownCount);
 
-  return (
-    <>
-      {shown.split("").map((ch, i) => {
+  const renderChars = (from: number, to: number, extraSx?: object) =>
+    text
+      .slice(from, to)
+      .split("")
+      .map((ch, offset) => {
+        const i = from + offset;
         const prompt = isPromptChar(text, i);
-        const promptSx = prompt
-          ? { color: `color-mix(in srgb, ${hud.ok} 62%, ${hud.muted})` }
-          : undefined;
+        const sx = {
+          ...(prompt
+            ? { color: `color-mix(in srgb, ${hud.ok} 62%, ${hud.muted})` }
+            : undefined),
+          ...extraSx,
+        };
         return enabled ? (
-          <PhosphorChar key={i} sx={promptSx}>
+          <PhosphorChar key={i} sx={sx}>
             {ch}
           </PhosphorChar>
         ) : (
-          <Box key={i} component="span" sx={promptSx}>
+          <Box key={i} component="span" sx={sx}>
             {ch}
           </Box>
         );
-      })}
+      });
+
+  const bodyTo = Math.min(shownCount, commandStart);
+  const commandTo = Math.max(commandStart, shownCount);
+
+  return (
+    <>
+      <Box component="span" aria-hidden>
+        {renderChars(0, bodyTo)}
+      </Box>
+      {shownCount > commandStart && (
+        <Box
+          component="a"
+          href={commandHref}
+          aria-label={commandLabel}
+          sx={{
+            color: hud.cyan,
+            textDecoration: "none",
+            cursor: "pointer",
+            font: "inherit",
+            letterSpacing: "0.06em",
+            "&:hover": {
+              textShadow: `0 0 8px ${hud.cyan}`,
+              textDecoration: "underline",
+              textUnderlineOffset: "3px",
+            },
+            "&:focus-visible": {
+              outline: `2px solid ${hud.cyan}`,
+              outlineOffset: 2,
+            },
+          }}
+        >
+          {renderChars(commandStart, commandTo)}
+        </Box>
+      )}
       <Cursor aria-hidden data-blink={done && enabled ? "true" : undefined} />
     </>
   );
@@ -213,10 +265,12 @@ export function Catalog() {
   const tFooter = useTranslations("footer");
   const pathname = usePathname();
   const reducedMotion = usePrefersReducedMotion();
-  const aboutText = useMemo(
+  const aboutCommand = tAbout("contactCommand");
+  const aboutBody = useMemo(
     () => `> ${tAbout("paragraph1")}\n\n> ${tAbout("paragraph2")}`,
     [tAbout, locale],
   );
+  const aboutText = `${aboutBody}\n\n> ${aboutCommand}`;
 
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errors, setErrors] = useState<ContactErrors>({});
@@ -540,24 +594,6 @@ export function Catalog() {
                     backgroundImage: scanlines(0.13),
                   }}
                 />
-                <Box
-                  aria-hidden
-                  sx={{
-                    position: "absolute",
-                    inset: "18%",
-                    zIndex: 3,
-                    pointerEvents: "none",
-                    "&::before, &::after": {
-                      content: '""',
-                      position: "absolute",
-                      background: hud.cyan,
-                    },
-                    "&::before": { left: "50%", top: -6, bottom: -6, width: 1, transform: "translateX(-50%)", opacity: 0.3 },
-                    "&::after": { top: "50%", left: -6, right: -6, height: 1, transform: "translateY(-50%)", opacity: 0.3 },
-                  }}
-                >
-                  <CornerTicks size={12} animated />
-                </Box>
                 <Image src="/author.jpg" alt="Rafał Łukawski" width={440} height={440} priority />
                 {!reducedMotion && (
                   <Box
@@ -605,8 +641,9 @@ export function Catalog() {
                 <PanelStamps left="ENC: UTF-8" right="BUF: OK" />
                 <PanelBody>
                   <Typography
-                    aria-label={aboutText}
+                    component="div"
                     sx={{
+                      position: "relative",
                       m: 0,
                       color: hud.muted,
                       fontFamily: hud.mono,
@@ -616,9 +653,30 @@ export function Catalog() {
                       whiteSpace: "pre-line",
                     }}
                   >
-                    <Box component="span" aria-hidden>
-                      <Typewriter key={aboutText} text={aboutText} enabled={!reducedMotion} />
+                    <Box
+                      component="p"
+                      sx={{
+                        position: "absolute",
+                        width: 1,
+                        height: 1,
+                        padding: 0,
+                        margin: -1,
+                        overflow: "hidden",
+                        clip: "rect(0, 0, 0, 0)",
+                        whiteSpace: "nowrap",
+                        border: 0,
+                      }}
+                    >
+                      {aboutBody}
                     </Box>
+                    <Typewriter
+                      key={aboutText}
+                      text={aboutText}
+                      enabled={!reducedMotion}
+                      command={aboutCommand}
+                      commandHref="#contact"
+                      commandLabel={tHero("contactMe")}
+                    />
                   </Typography>
                 </PanelBody>
               </Panel>

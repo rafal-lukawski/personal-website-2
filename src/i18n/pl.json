@@ -21,8 +21,9 @@
   },
   "about": {
     "title": "O mnie",
-    "paragraph1": "Cześć, nazywam się Rafał Łukawski. Pomagam firmom sprawnie tworzyć i wdrażać nowoczesne oprogramowanie. Łączę rolę programisty i kierownika projektów, dzięki czemu spójnie przekładam pomysły biznesowe na kod. Oferuję pełne wsparcie – od projektowania architektury i koordynacji zespołu, po programowanie, integrację rozwiązań AI i wdrożenie gotowego produktu.",
-    "paragraph2": "Łączę ponad 20 lat doświadczenia w IT (w tym Onet.pl) z certyfikatami Google Cloud Architect i Scrum Master. Na co dzień buduję kompletne aplikacje webowe i mobilne z wykorzystaniem AI oraz mentoruję programistów."
+    "paragraph1": "Żyjemy w fantastycznych czasach, gdzie zbudowanie większych projektów dzięki AI zajmuje nie lata, a tygodnie lub miesiące. Żyjemy już w czasach, gdzie oprogramowanie mniejszym kosztem w większym stopniu staje się narzędziem do osiągania celów biznesowych.",
+    "paragraph2": "Jeżeli tak jak ja podzielasz fascynację tym co się dzieje, masz pomysły biznesowe, zapraszam do współpracy w zakresie budowy aplikacji mobilnych i webowych.",
+    "contactCommand": "ZAINICJUJ_KONTAKT"
   },
   "projectManagement": {
     "title": "Zarządzanie projektami",
