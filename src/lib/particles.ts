@@ -1,3 +1,5 @@
+import { hudDark } from "@/theme/hud";
+
 type Particle = {
   x: number;
   y: number;
@@ -17,13 +19,16 @@ const GRAVITY = 40;
 const GRAVITY_MIN_DISTANCE = 40;
 const GRAVITY_MIN_DISTANCE_SQ = GRAVITY_MIN_DISTANCE * GRAVITY_MIN_DISTANCE;
 
-function hexToRgb(hex: string): [number, number, number] {
+function hexToRgb(hex: string): [number, number, number] | null {
   const h = hex.trim().replace("#", "");
   const full = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
   const n = Number.parseInt(full.slice(0, 6), 16);
-  if (Number.isNaN(n)) return [0, 242, 255];
+  if (Number.isNaN(n)) return null;
   return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 }
+
+/** Used until `--hud-cyan` can be read off the document (first paint, detached canvas). */
+const FALLBACK_RGB: [number, number, number] = hexToRgb(hudDark.cyan) ?? [0, 0, 0];
 
 export class ParticleSim {
   private canvas: HTMLCanvasElement;
@@ -33,7 +38,7 @@ export class ParticleSim {
   private h = 0;
   private raf = 0;
   private running = false;
-  private rgb: [number, number, number] = [0, 242, 255];
+  private rgb: [number, number, number] = FALLBACK_RGB;
   private readonly pair: [number, number, number, number] = [-1, 0, -1, 0];
   private resizeTimer = 0;
   private readonly onResize = () => {
@@ -94,7 +99,7 @@ export class ParticleSim {
 
   private syncColor() {
     const raw = getComputedStyle(document.documentElement).getPropertyValue("--hud-cyan");
-    this.rgb = hexToRgb(raw || "#00f2ff");
+    this.rgb = hexToRgb(raw) ?? FALLBACK_RGB;
   }
 
   private resize(seed = false) {

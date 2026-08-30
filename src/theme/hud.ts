@@ -7,10 +7,12 @@ export type HudPalette = {
   cyan: string;
   cyanDeep: string;
   ok: string;
+  warn: string;
   text: string;
   muted: string;
   dim: string;
   danger: string;
+  glitch: string;
   gridLine: string;
   scanInk: string;
   selectionBg: string;
@@ -28,10 +30,12 @@ export const hudDark: HudPalette = {
   cyan: "#00f2ff",
   cyanDeep: "#007a82",
   ok: "#00ff41",
+  warn: "#ffd24d",
   text: "#d7e4eb",
   muted: "#9eb2be",
   dim: "#68808d",
   danger: "#ff6d8d",
+  glitch: "#ff0048",
   gridLine: "#ffffff08",
   scanInk: "#ffffff",
   selectionBg: "rgba(0, 242, 255, 0.28)",
@@ -49,10 +53,12 @@ export const hudLight: HudPalette = {
   cyan: "#007a8a",
   cyanDeep: "#005760",
   ok: "#128a3e",
+  warn: "#b3760b",
   text: "#1a2a32",
   muted: "#4a6570",
   dim: "#6a8490",
   danger: "#c43d5a",
+  glitch: "#d1003c",
   gridLine: "#1a2a3214",
   scanInk: "#1a2a32",
   selectionBg: "rgba(0, 122, 138, 0.22)",
@@ -75,10 +81,12 @@ function paletteVars(p: HudPalette): string {
     --hud-cyan: ${p.cyan};
     --hud-cyan-deep: ${p.cyanDeep};
     --hud-ok: ${p.ok};
+    --hud-warn: ${p.warn};
     --hud-text: ${p.text};
     --hud-muted: ${p.muted};
     --hud-dim: ${p.dim};
     --hud-danger: ${p.danger};
+    --hud-glitch: ${p.glitch};
     --hud-grid-line: ${p.gridLine};
     --hud-scan-ink: ${p.scanInk};
     --hud-selection-bg: ${p.selectionBg};
@@ -115,10 +123,12 @@ export const hud = {
   panelSolid: "var(--hud-panel-solid)",
   cyan: "var(--hud-cyan)",
   ok: "var(--hud-ok)",
+  warn: "var(--hud-warn)",
   text: "var(--hud-text)",
   muted: "var(--hud-muted)",
   dim: "var(--hud-dim)",
   danger: "var(--hud-danger)",
+  glitch: "var(--hud-glitch)",
   blurSurface: "var(--hud-blur-surface)",
   blurChrome: "var(--hud-blur-chrome)",
   headerH: 40,

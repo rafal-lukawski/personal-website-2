@@ -66,15 +66,15 @@ const glitch = keyframes`
   0%, 100% { transform: none; filter: none; }
   20% {
     transform: translate(1px, -1px);
-    filter: drop-shadow(-2px 0 rgba(255, 0, 72, 0.7)) drop-shadow(2px 0 color-mix(in srgb, var(--hud-cyan) 70%, transparent));
+    filter: drop-shadow(-2px 0 color-mix(in srgb, var(--hud-glitch) 70%, transparent)) drop-shadow(2px 0 color-mix(in srgb, var(--hud-cyan) 70%, transparent));
   }
   45% {
     transform: translate(-1px, 1px);
-    filter: drop-shadow(2px 0 rgba(255, 0, 72, 0.7)) drop-shadow(-2px 0 color-mix(in srgb, var(--hud-cyan) 70%, transparent));
+    filter: drop-shadow(2px 0 color-mix(in srgb, var(--hud-glitch) 70%, transparent)) drop-shadow(-2px 0 color-mix(in srgb, var(--hud-cyan) 70%, transparent));
   }
   70% {
     transform: translate(1px, 1px);
-    filter: drop-shadow(-1px 0 rgba(255, 0, 72, 0.5)) drop-shadow(1px 0 color-mix(in srgb, var(--hud-cyan) 50%, transparent));
+    filter: drop-shadow(-1px 0 color-mix(in srgb, var(--hud-glitch) 50%, transparent)) drop-shadow(1px 0 color-mix(in srgb, var(--hud-cyan) 50%, transparent));
   }
 `;
 
@@ -675,7 +675,7 @@ export const BarMeta = styled("span")({
 });
 
 export function ProcessDots() {
-  const dots = [hud.danger, "#ffd24d", hud.ok];
+  const dots = [hud.danger, hud.warn, hud.ok];
   return (
     <Stack direction="row" spacing="6px" aria-hidden>
       {dots.map((color, idx) => (
