@@ -128,7 +128,7 @@ export const SkipLink = styled(Link)({
     left: 8,
     zIndex: 50,
     background: hud.panel,
-    backdropFilter: "blur(12px)",
+    backdropFilter: hud.blurChrome,
     padding: "8px 12px",
     font: `500 12px/1 ${hud.mono}`,
     textTransform: "uppercase",
@@ -148,7 +148,7 @@ export const TopBar = styled("header")({
   gap: 20,
   padding: "0 20px",
   background: hud.panel,
-  backdropFilter: "blur(12px)",
+  backdropFilter: hud.blurChrome,
   font: `500 11px/1 ${hud.mono}`,
   letterSpacing: "0.1em",
   textTransform: "uppercase",
@@ -192,7 +192,7 @@ export const HudButton = styled(Button)({
   padding: "10px 20px",
   border: 0,
   background: hud.panel,
-  backdropFilter: "blur(12px)",
+  backdropFilter: hud.blurChrome,
   color: cyan,
   font: `500 12px/1 ${hud.mono}`,
   letterSpacing: "0.1em",
@@ -241,7 +241,7 @@ export const Panel = styled("section", {
 })<{ scan?: boolean }>(({ scan }) => ({
   position: "relative",
   background: hud.surface,
-  backdropFilter: "blur(4px)",
+  backdropFilter: hud.blurSurface,
   scrollMarginTop: hud.headerH + 20,
   overflow: scan ? "hidden" : undefined,
   "&::before": {
@@ -311,7 +311,7 @@ export const HudCard = styled("article")({
   position: "relative",
   padding: "16px 16px 16px",
   background: hud.sunken,
-  backdropFilter: "blur(12px)",
+  backdropFilter: hud.blurChrome,
   "&::before": {
     content: '""',
     position: "absolute",
@@ -543,7 +543,7 @@ export const GalleryChip = styled("button")({
   gap: 6,
   border: 0,
   background: hud.panel,
-  backdropFilter: "blur(12px)",
+  backdropFilter: hud.blurChrome,
   color: cyan,
   textTransform: "uppercase",
   letterSpacing: "0.1em",
@@ -564,7 +564,7 @@ export const GalleryChip = styled("button")({
 });
 
 export const LightboxDialog = styled(Dialog)({
-  "& .MuiBackdrop-root": { background: "var(--hud-overlay)", backdropFilter: "blur(12px)" },
+  "& .MuiBackdrop-root": { background: "var(--hud-overlay)", backdropFilter: hud.blurChrome },
   "& .MuiDialog-container": { alignItems: "center" },
   "& .MuiPaper-root": {
     background: "transparent",
@@ -582,7 +582,7 @@ export const NavFab = styled(IconButton)({
   borderRadius: 0,
   border: 0,
   background: hud.panel,
-  backdropFilter: "blur(12px)",
+  backdropFilter: hud.blurChrome,
   color: hud.text,
   ...focusRing,
   "&::after": {
@@ -706,7 +706,7 @@ export function StatusBadge({ children }: { children: ReactNode }) {
         px: "12px",
         py: "4px",
         background: hud.panel,
-        backdropFilter: "blur(12px)",
+        backdropFilter: hud.blurChrome,
         color: hud.ok,
         textTransform: "uppercase",
         letterSpacing: "0.1em",

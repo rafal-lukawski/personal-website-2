@@ -61,6 +61,10 @@ export const hudLight: HudPalette = {
   shotBgFilter: "grayscale(1) blur(3px) brightness(0.82)",
 };
 
+/** Backdrop blur is the same in both schemes, so it sits outside the palettes. */
+const blurSurface = "2px";
+const blurChrome = "4px";
+
 function paletteVars(p: HudPalette): string {
   return `
     --hud-bg: ${p.bg};
@@ -88,6 +92,10 @@ function paletteVars(p: HudPalette): string {
 /** Injected once on `:root` so styled HUD chrome follows `html.light` / `html.dark`. */
 export function hudRootCss(): string {
   return `
+    :root {
+      --hud-blur-surface: blur(${blurSurface});
+      --hud-blur-chrome: blur(${blurChrome});
+    }
     :root, html.dark {
       ${paletteVars(hudDark)}
       color-scheme: dark;
@@ -111,6 +119,8 @@ export const hud = {
   muted: "var(--hud-muted)",
   dim: "var(--hud-dim)",
   danger: "var(--hud-danger)",
+  blurSurface: "var(--hud-blur-surface)",
+  blurChrome: "var(--hud-blur-chrome)",
   headerH: 40,
   max: 1240,
   grid: 20,

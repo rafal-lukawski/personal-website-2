@@ -363,8 +363,8 @@ export function Catalog() {
               position: "relative",
               mb: "20px",
               background: hud.surface,
-              backdropFilter: "blur(8px)",
-              WebkitBackdropFilter: "blur(8px)",
+              backdropFilter: hud.blurSurface,
+              WebkitBackdropFilter: hud.blurSurface,
             }}
           >
             <CornerTicks />
@@ -686,7 +686,7 @@ export function Catalog() {
                           textAlign: "center",
                           p: "20px",
                           background: hud.sunken,
-                          backdropFilter: "blur(12px)",
+                          backdropFilter: hud.blurChrome,
                           "&:hover": { boxShadow: glow(hud.cyan, 0.8) },
                           "&:focus-visible": { outline: `2px solid ${hud.cyan}`, outlineOffset: 2 },
                         }}
