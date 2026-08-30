@@ -21,7 +21,7 @@ export type HudPalette = {
 
 export const hudDark: HudPalette = {
   bg: "#0a0a0c",
-  surface: "rgba(21, 38, 44, 0.26)",
+  surface: "rgba(21, 38, 44, 0.18)",
   sunken: "rgba(0, 0, 0, 0.15)",
   panel: "rgba(10, 10, 12, 0.8)",
   panelSolid: "#0a0a0c",
@@ -42,7 +42,7 @@ export const hudDark: HudPalette = {
 
 export const hudLight: HudPalette = {
   bg: "#eef3f5",
-  surface: "rgba(255, 255, 255, 0.55)",
+  surface: "rgba(255, 255, 255, 0.22)",
   sunken: "rgba(26, 42, 50, 0.06)",
   panel: "rgba(255, 255, 255, 0.82)",
   panelSolid: "#f7fbfc",

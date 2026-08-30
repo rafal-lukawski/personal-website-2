@@ -241,7 +241,8 @@ export const Panel = styled("section", {
 })<{ scan?: boolean }>(({ scan }) => ({
   position: "relative",
   background: hud.surface,
-  backdropFilter: "blur(12px)",
+  backdropFilter: "blur(4px)",
+  WebkitBackdropFilter: "blur(4px)",
   scrollMarginTop: hud.headerH + 20,
   overflow: scan ? "hidden" : undefined,
   "&::before": {

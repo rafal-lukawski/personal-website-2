@@ -363,7 +363,8 @@ export function Catalog() {
               position: "relative",
               mb: "20px",
               background: hud.surface,
-              backdropFilter: "blur(12px)",
+              backdropFilter: "blur(8px)",
+              WebkitBackdropFilter: "blur(8px)",
             }}
           >
             <CornerTicks />
