@@ -606,45 +606,51 @@ export function Catalog() {
               >
                 LOCK:OK
               </Typography>
-              <Box
-                sx={{
-                  position: "relative",
-                  height: "100%",
-                  overflow: "hidden",
-                  bgcolor: hud.bg,
-                  "& img": { width: "100%", height: "100%", objectFit: "cover", filter: "contrast(1.07) saturate(0.88)" },
-                }}
-              >
-                <CornerTicks animated />
+              <Box sx={{ position: "relative", height: "100%" }}>
+                <CornerTicks />
                 <Box
-                  aria-hidden
                   sx={{
                     position: "absolute",
-                    inset: 0,
-                    zIndex: 2,
-                    pointerEvents: "none",
-                    backgroundImage: scanlines(0.13),
+                    inset: "2px",
+                    overflow: "hidden",
+                    "& img": {
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      filter: "contrast(1.07) saturate(0.88)",
+                    },
                   }}
-                />
-                <Image src="/author.jpg" alt="Rafał Łukawski" width={440} height={440} priority />
-                {!reducedMotion && (
+                >
                   <Box
-                    component={motion.span}
                     aria-hidden
                     sx={{
                       position: "absolute",
-                      left: 0,
-                      right: 0,
-                      height: "28%",
+                      inset: 0,
                       zIndex: 2,
                       pointerEvents: "none",
-                      background: `linear-gradient(to bottom, transparent, color-mix(in srgb, ${hud.cyan} 28%, transparent), transparent)`,
+                      backgroundImage: scanlines(0.13),
                     }}
-                    initial={{ top: "-20%" }}
-                    animate={{ top: ["-20%", "85%"] }}
-                    transition={{ duration: 5.6, repeat: Infinity, ease: "easeInOut" }}
                   />
-                )}
+                  <Image src="/author.jpg" alt="Rafał Łukawski" width={440} height={440} priority />
+                  {!reducedMotion && (
+                    <Box
+                      component={motion.span}
+                      aria-hidden
+                      sx={{
+                        position: "absolute",
+                        left: 0,
+                        right: 0,
+                        height: "28%",
+                        zIndex: 2,
+                        pointerEvents: "none",
+                        background: `linear-gradient(to bottom, transparent, color-mix(in srgb, ${hud.cyan} 28%, transparent), transparent)`,
+                      }}
+                      initial={{ top: "-20%" }}
+                      animate={{ top: ["-20%", "85%"] }}
+                      transition={{ duration: 5.6, repeat: Infinity, ease: "easeInOut" }}
+                    />
+                  )}
+                </Box>
               </Box>
             </Box>
             </Box>
@@ -1119,6 +1125,7 @@ export function Catalog() {
                     display: "block",
                     maxWidth: "100%",
                     maxHeight: "78vh",
+                    m: "2px",
                   }}
                 />
               </Box>

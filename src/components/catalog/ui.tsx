@@ -436,13 +436,14 @@ export const ShotButton = styled("button")({
   padding: 0,
   border: 0,
   overflow: "hidden",
+  background: "transparent",
   cursor: "pointer",
   color: "inherit",
   ...focusRing,
   "&::before": {
     content: '""',
     position: "absolute",
-    inset: 0,
+    inset: 2,
     zIndex: 2,
     pointerEvents: "none",
     backgroundImage: scanlines(0.035),
@@ -462,7 +463,7 @@ export const ShotButton = styled("button")({
 
 export const ShotBg = styled("span")({
   position: "absolute",
-  inset: 0,
+  inset: 2,
   zIndex: 0,
   overflow: "hidden",
   pointerEvents: "none",
@@ -482,6 +483,7 @@ export const ShotFg = styled("span")({
   zIndex: 1,
   boxSizing: "border-box",
   padding: 32,
+  margin: 2,
   "& img": {
     display: "block",
     width: "100%",
@@ -599,10 +601,12 @@ export const NavFab = styled(IconButton)({
 export function CornerTicks({
   size = 18,
   color = frame,
+  weight = 1,
   animated = false,
 }: {
   size?: number;
   color?: string;
+  weight?: number;
   animated?: boolean;
 }) {
   return (
@@ -613,7 +617,7 @@ export function CornerTicks({
         inset: 0,
         zIndex: 4,
         pointerEvents: "none",
-        background: cornerFill(size, color),
+        background: cornerFill(size, color, weight),
         ...(animated
           ? { animation: `${reticle} 2.6s ease-in-out infinite`, [reducedMotion]: { animation: "none" } }
           : {}),
