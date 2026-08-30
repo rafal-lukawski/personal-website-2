@@ -74,6 +74,13 @@ export const projectsData = [
     screenshots: [
       {
         id: "screen1",
+        src: "/projects/egzoclinic-4.webp",
+        sourceUrl: "egzotech.com",
+        width: 1024,
+        height: 556,
+      },
+      {
+        id: "screen5",
         src: "/projects/egzoclinic-5.webp",
         sourceUrl: "egzotech.com",
         width: 440,
@@ -93,13 +100,7 @@ export const projectsData = [
         width: 1024,
         height: 538,
       },
-      {
-        id: "screen4",
-        src: "/projects/egzoclinic-4.webp",
-        sourceUrl: "egzotech.com",
-        width: 1024,
-        height: 556,
-      },
+
     ],
   },
   {
@@ -132,17 +133,17 @@ export const projectsData = [
     screenshots: [
       {
         id: "screen1",
-        src: "/projects/stella-app_login-page.webp",
-        sourceUrl: "egzotech.com",
-        width: 1440,
-        height: 900,
-      },
-      {
-        id: "screen2",
         src: "/projects/stella-app_emg-program.webp",
         sourceUrl: "egzotech.com",
         width: 1444,
         height: 896,
+      },
+      {
+        id: "screen2",
+        src: "/projects/stella-app_login-page.webp",
+        sourceUrl: "egzotech.com",
+        width: 1440,
+        height: 900,
       },
     ],
   },

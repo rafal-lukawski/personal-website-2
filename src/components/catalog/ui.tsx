@@ -912,6 +912,12 @@ const stampSx = {
   textShadow: `0 0 8px ${cyan}`,
   textTransform: "uppercase" as const,
   pointerEvents: "none" as const,
+  // A faint plate lifts the stamp off the screenshot underneath it, which is
+  // arbitrarily light or dark; `panelSolid` keeps it on-scheme in both themes.
+  padding: "3px 5px",
+  background: `color-mix(in srgb, ${hud.panelSolid} 72%, transparent)`,
+  backdropFilter: hud.blurChrome,
+  border: `1px solid color-mix(in srgb, ${hud.frame} 70%, transparent)`,
 };
 
 export function ShotMeta({
