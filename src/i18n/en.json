@@ -45,9 +45,9 @@
     "title": "Latest Projects",
     "customer": "Customer",
     "source": "Source",
+    "present": "present",
     "glam4less": {
       "title": "glam4less.pl",
-      "dateRange": "July 2026 - present",
       "customer": "DRC Dawid Ryżak",
       "description": "Glam4Less is a service dedicated to women that enables the rental and sale of new and used clothing. Using AI, it provides a virtual fitting room that combines a photo of a garment with a silhouette to generate a preview of the outfit on the user's figure.",
       "screenshots": {
@@ -58,7 +58,6 @@
     },
     "mediaflip": {
       "title": "mediaflip.io",
-      "dateRange": "January 2026 - present",
       "customer": "Rafał Łukawski",
       "description": "An advanced multimedia generator that allows users to quickly and easily create content (images, videos, and text) without unnecessary steps. The platform is built with a strong focus on high performance, security, and scalability, leveraging a modern technology stack.",
       "screenshots": {
@@ -78,7 +77,6 @@
     },
     "egzoclinic": {
       "title": "EGZOClinic",
-      "dateRange": "January 2022 - October 2025",
       "customer": "EGZOTech.com",
       "description": "Comprehensive software platform for physiotherapy and neurorehabilitation. The application runs on robotic medical devices including Stella BIO, Sidra LEG, and Meissa OT, facilitating rehabilitation for conditions like strokes and spinal cord injuries. Features include progressive continuous passive motion (CPM) therapy, computer-assisted movement (CAM) exercises including CAM Isokinetic and CAM Torque, graphical interface for EMS parameter configuration, comprehensive reporting with EMG data analysis, spasticity protection, electrode placement guidance, rehabilitation games, and multilingual support.",
       "screenshots": {
@@ -98,7 +96,6 @@
     },
     "generator": {
       "title": "Generator Pasków",
-      "dateRange": "December 2024 - November 2025",
       "customer": "Rafał Łukawski",
       "description": "Web platform for quickly creating and sharing memes related to popular Polish TV shows. Built from scratch as a complete full-stack project using Next.js and a PostgreSQL database. Users can easily edit images, use ready-made templates, and browse content on any device. The entire system is built and deployed for reliable production performance.",
       "screenshots": {
@@ -112,7 +109,6 @@
     },
     "stella": {
       "title": "Stella BIO App",
-      "dateRange": "March 2022 - April 2024",
       "customer": "EGZOTech.com",
       "description": "Web application for configuring and managing the Stella BIO portable medical device (EMG and FES). It enables specialists and patients to remotely configure therapy programs, monitor measurements, and manage treatment. It supports both clinical and home rehabilitation, offering features like user authentication, session configuration, and comprehensive reporting.",
       "screenshots": {
@@ -126,7 +122,6 @@
     },
     "multibenefit": {
       "title": "Multibenefit",
-      "dateRange": "June 2013 - February 2016",
       "customer": "Benefit Systems",
       "description": "E-commerce platform enabling employees to choose non-wage benefits (including MultiSport cards, vouchers, and tickets). Built from scratch, it supports employee well-being and facilitates the distribution of benefits for employers.",
       "screenshots": {

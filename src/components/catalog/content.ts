@@ -1,8 +1,15 @@
 export type ProjectStatus = "development" | "deployed" | "maintained";
 
+/** Month precision is all the feed ever renders, so the day is left out. */
+export type YearMonth = `${number}-${number}`;
+
 type Project = {
   id: string;
   status: ProjectStatus;
+  /** First month of work; also the year stamped on the card. */
+  startDate: YearMonth;
+  /** Last month of work; `undefined` while the project is still running. */
+  endDate: YearMonth | undefined;
   url: string | undefined;
   customer: string | { display: string; url: string };
   screenshots: readonly {
@@ -18,6 +25,8 @@ export const projectsData = [
   {
     id: "glam4less",
     status: "development",
+    startDate: "2026-07",
+    endDate: undefined,
     url: "https://glam4less.pl",
     customer: "DRC Dawid Ryżak",
     screenshots: [
@@ -33,6 +42,8 @@ export const projectsData = [
   {
     id: "mediaflip",
     status: "maintained",
+    startDate: "2026-01",
+    endDate: undefined,
     url: "https://mediaflip.io",
     customer: "Rafał Łukawski",
     screenshots: [
@@ -69,6 +80,8 @@ export const projectsData = [
   {
     id: "egzoclinic",
     status: "deployed",
+    startDate: "2022-01",
+    endDate: "2025-10",
     url: undefined as string | undefined,
     customer: { display: "EGZOTech.com", url: "https://egzotech.com" },
     screenshots: [
@@ -106,6 +119,8 @@ export const projectsData = [
   {
     id: "generator",
     status: "deployed",
+    startDate: "2024-12",
+    endDate: "2025-11",
     url: "https://generator-paskow.pl",
     customer: "Rafał Łukawski",
     screenshots: [
@@ -128,6 +143,8 @@ export const projectsData = [
   {
     id: "stella",
     status: "deployed",
+    startDate: "2022-03",
+    endDate: "2024-04",
     url: "https://app.egzotech.com",
     customer: { display: "EGZOTech.com", url: "https://egzotech.com" },
     screenshots: [
@@ -150,6 +167,8 @@ export const projectsData = [
   {
     id: "multibenefit",
     status: "deployed",
+    startDate: "2013-06",
+    endDate: "2016-02",
     url: undefined as string | undefined,
     customer: {
       display: "Benefit Systems",

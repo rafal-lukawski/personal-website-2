@@ -22,12 +22,9 @@ import {
 
 export function ProjectCard({
   project,
-  index,
   onOpen,
 }: {
   project: CatalogProject;
-  /** Zero-based position in the feed; shown as the stamped slot number. */
-  index: number;
   onOpen: (projectId: string) => void;
 }) {
   const t = useTranslations();
@@ -41,7 +38,7 @@ export function ProjectCard({
           <ShotMeta
             status={project.statusLabel}
             stamp={project.buildStamp}
-            index={String(index + 1).padStart(2, "0")}
+            index={project.slotLabel}
           />
           <ShotBg aria-hidden>
             <Image src={shot.src} alt="" width={shot.width} height={shot.height} />

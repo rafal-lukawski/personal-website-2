@@ -57,8 +57,8 @@ export function ProjectsPanel({
               gap: { xs: "20px", lg: 0 },
             }}
           >
-            {projects.map((project, idx) => (
-              <ProjectCard key={project.id} project={project} index={idx} onOpen={onOpen} />
+            {projects.map((project) => (
+              <ProjectCard key={project.id} project={project} onOpen={onOpen} />
             ))}
           </Box>
         </PanelBody>

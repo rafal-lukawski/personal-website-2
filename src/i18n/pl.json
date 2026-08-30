@@ -46,9 +46,9 @@
     "title": "Najnowsze Projekty",
     "customer": "Klient",
     "source": "Źródło",
+    "present": "obecnie",
     "glam4less": {
       "title": "glam4less.pl",
-      "dateRange": "Lipiec 2026 - obecnie",
       "customer": "DRC Dawid Ryżak",
       "description": "Serwis Glam4Less dedykowany dla kobiet, umożliwia wypożyczanie i sprzedaż nowych i używanych ubrań. Dzięki wykorzystaniu AI udostępnia wirtualną przymierzalnię, gdzie łącząc zdjęcie ubrania i sylwetki generuje podgląd kreacji nałożony na sylwetkę.",
       "screenshots": {
@@ -59,7 +59,6 @@
     },
     "mediaflip": {
       "title": "mediaflip.io",
-      "dateRange": "Styczeń 2026 - obecnie",
       "customer": "Rafał Łukawski",
       "description": "Zaawansowany generator multimediów, który pozwala użytkownikom na szybkie i proste tworzenie treści (zdjęcia, wideo i tekst) bez zbędnych kroków. Platforma została zbudowana z naciskiem na najwyższą wydajność, bezpieczeństwo oraz skalowalność, wykorzystując nowoczesny stos technologiczny.",
       "screenshots": {
@@ -79,7 +78,6 @@
     },
     "egzoclinic": {
       "title": "EGZOClinic",
-      "dateRange": "Styczeń 2022 - Październik 2025",
       "customer": "EGZOTech.com",
       "description": "Kompleksowa platforma programowa dla fizjoterapii i neurorehabilitacji. Aplikacja działa na robotycznych urządzeniach medycznych, w tym Stella BIO, Sidra LEG i Meissa OT. Funkcje obejmują progresywną terapię CPM, ćwiczenia wspomagane komputerowo CAM, interfejs graficzny do konfiguracji parametrów EMS, kompleksowe raportowanie z analizą danych EMG, ochronę przed spastycznością, przewodnik rozmieszczenia elektrod, gry rehabilitacyjne i wsparcie wielojęzyczne.",
       "screenshots": {
@@ -99,7 +97,6 @@
     },
     "generator": {
       "title": "Generator Pasków",
-      "dateRange": "Grudzień 2024 - Listopad 2025",
       "customer": "Rafał Łukawski",
       "description": "Platforma internetowa do szybkiego tworzenia i udostępniania memów nawiązujących do popularnych polskich programów telewizyjnych. Stworzona od podstaw jako kompletny projekt (full-stack) przy użyciu Next.js i bazy danych PostgreSQL. Użytkownicy mogą wygodnie edytować grafiki, korzystać z gotowych szablonów oraz przeglądać treści na dowolnym urządzeniu. Całość została przygotowana i wdrożona z myślą o stabilnym działaniu produkcyjnym.",
       "screenshots": {
@@ -113,7 +110,6 @@
     },
     "stella": {
       "title": "Stella BIO App",
-      "dateRange": "Marzec 2022 - Kwiecień 2024",
       "customer": "EGZOTech.com",
       "description": "Aplikacja internetowa do konfiguracji i zarządzania przenośnym urządzeniem medycznym Stella BIO (EMG i FES). Umożliwia specjalistom oraz pacjentom zdalne ustawianie programów terapeutycznych, monitorowanie pomiarów i zarządzanie leczeniem. Wspiera rehabilitację kliniczną i domową, oferując m.in. uwierzytelnianie, konfigurację sesji oraz kompleksowe raportowanie.",
       "screenshots": {
@@ -127,7 +123,6 @@
     },
     "multibenefit": {
       "title": "Multibenefit",
-      "dateRange": "Czerwiec 2013 - Luty 2016",
       "customer": "Benefit Systems",
       "description": "Platforma e-commerce umożliwiająca pracownikom wybór świadczeń pozapłacowych (m.in. karty MultiSport, vouchery, bilety). Zbudowana od podstaw, wspiera dobrostan zatrudnionych oraz ułatwia pracodawcom dystrybucję benefitów.",
       "screenshots": {
