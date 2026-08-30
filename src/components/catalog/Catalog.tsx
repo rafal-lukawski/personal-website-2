@@ -99,10 +99,28 @@ function usePrefersReducedMotion() {
   return reduced;
 }
 
-function isPromptChar(text: string, i: number) {
-  const ch = text[i];
-  if (ch === ">" && (i === 0 || text[i - 1] === "\n")) return true;
-  if (ch === " " && text[i - 1] === ">" && (i === 1 || text[i - 2] === "\n")) return true;
+type Glyph = { ch: string; bold: boolean };
+
+function parseBold(raw: string): Glyph[] {
+  const glyphs: Glyph[] = [];
+  let bold = false;
+  for (let i = 0; i < raw.length; i++) {
+    if (raw[i] === "*" && raw[i + 1] === "*") {
+      bold = !bold;
+      i += 1;
+      continue;
+    }
+    glyphs.push({ ch: raw[i], bold });
+  }
+  return glyphs;
+}
+
+function isPromptGlyph(glyphs: Glyph[], i: number) {
+  const ch = glyphs[i]?.ch;
+  if (ch === ">" && (i === 0 || glyphs[i - 1].ch === "\n")) return true;
+  if (ch === " " && glyphs[i - 1]?.ch === ">" && (i === 1 || glyphs[i - 2]?.ch === "\n")) {
+    return true;
+  }
   return false;
 }
 
@@ -119,8 +137,9 @@ function Typewriter({
   commandHref: string;
   commandLabel: string;
 }) {
+  const glyphs = useMemo(() => parseBold(text), [text]);
   const [count, setCount] = useState(0);
-  const commandStart = text.length - command.length;
+  const commandStart = glyphs.length - command.length;
 
   useEffect(() => {
     if (!enabled) return;
@@ -129,38 +148,36 @@ function Typewriter({
     const id = window.setInterval(() => {
       i += 1;
       setCount(i);
-      if (i >= text.length) window.clearInterval(id);
+      if (i >= glyphs.length) window.clearInterval(id);
     }, 11);
 
     return () => window.clearInterval(id);
-  }, [text, enabled]);
+  }, [text, enabled, glyphs.length]);
 
-  const shownCount = enabled ? Math.min(count, text.length) : text.length;
-  const done = shownCount >= text.length;
+  const shownCount = enabled ? Math.min(count, glyphs.length) : glyphs.length;
+  const done = shownCount >= glyphs.length;
 
-  const renderChars = (from: number, to: number, extraSx?: object) =>
-    text
-      .slice(from, to)
-      .split("")
-      .map((ch, offset) => {
-        const i = from + offset;
-        const prompt = isPromptChar(text, i);
-        const sx = {
-          ...(prompt
-            ? { color: `color-mix(in srgb, ${hud.ok} 62%, ${hud.muted})` }
+  const renderChars = (from: number, to: number) =>
+    glyphs.slice(from, to).map((glyph, offset) => {
+      const i = from + offset;
+      const prompt = isPromptGlyph(glyphs, i);
+      const sx = {
+        ...(prompt
+          ? { color: `color-mix(in srgb, ${hud.ok} 62%, ${hud.muted})` }
+          : glyph.bold
+            ? { fontWeight: 700, color: hud.text }
             : undefined),
-          ...extraSx,
-        };
-        return enabled ? (
-          <PhosphorChar key={i} sx={sx}>
-            {ch}
-          </PhosphorChar>
-        ) : (
-          <Box key={i} component="span" sx={sx}>
-            {ch}
-          </Box>
-        );
-      });
+      };
+      return enabled ? (
+        <PhosphorChar key={i} sx={sx}>
+          {glyph.ch}
+        </PhosphorChar>
+      ) : (
+        <Box key={i} component="span" sx={sx}>
+          {glyph.ch}
+        </Box>
+      );
+    });
 
   const bodyTo = Math.min(shownCount, commandStart);
   const commandTo = Math.max(commandStart, shownCount);
@@ -267,10 +284,19 @@ export function Catalog() {
   const reducedMotion = usePrefersReducedMotion();
   const aboutCommand = tAbout("contactCommand");
   const aboutBody = useMemo(
-    () => `> ${tAbout("paragraph1")}\n\n> ${tAbout("paragraph2")}`,
+    () =>
+      [
+        tAbout("paragraph1"),
+        tAbout("paragraph2"),
+        tAbout("paragraph3"),
+        tAbout("paragraph4"),
+      ]
+        .map((paragraph) => `> ${paragraph}`)
+        .join("\n\n"),
     [tAbout, locale],
   );
   const aboutText = `${aboutBody}\n\n> ${aboutCommand}`;
+  const aboutBodyPlain = aboutBody.replaceAll("**", "");
 
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errors, setErrors] = useState<ContactErrors>({});
@@ -667,7 +693,7 @@ export function Catalog() {
                         border: 0,
                       }}
                     >
-                      {aboutBody}
+                      {aboutBodyPlain}
                     </Box>
                     <Typewriter
                       key={aboutText}
