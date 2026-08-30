@@ -164,7 +164,11 @@
       "sent": "Wiadomość wysłana!",
       "error": "Błąd - Spróbuj ponownie",
       "successMessage": "Dziękuję! Twoja wiadomość została wysłana.",
-      "errorMessage": "Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie."
+      "errorMessage": "Wystąpił błąd podczas wysyłania wiadomości. Spróbuj ponownie.",
+      "errors": {
+        "required": "ERR: POLE_PUSTE",
+        "email": "ERR: ADRES_NIEPOPRAWNY"
+      }
     }
   },
   "footer": {

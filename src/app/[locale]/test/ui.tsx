@@ -367,10 +367,65 @@ export const HudField = styled(TextField)({
       background: cornerFill(10),
     },
     "&.Mui-focused::after": { background: cornerFill(10, frameBright) },
+    "&.Mui-error::after": { background: cornerFill(10, `${hud.danger}99`) },
+    "&.Mui-error.Mui-focused::after": { background: cornerFill(10, hud.danger) },
+    "&.Mui-error": { boxShadow: glow(hud.danger, 0.55) },
+  },
+  "& .MuiInputLabel-root.Mui-error": {
+    color: hud.danger,
+    textShadow: `0 0 8px ${hud.danger}40`,
   },
   "& .MuiOutlinedInput-input": { padding: "10px 12px" },
   "& .MuiInputBase-multiline": { padding: 0 },
 });
+
+/**
+ * Validation readout under a field. Same L-arms as the inputs, danger tint
+ * instead of cyan, so it reads as a telemetry block rather than a browser bubble.
+ */
+export function HudFieldError({ id, children }: { id: string; children: ReactNode }) {
+  return (
+    <Box
+      id={id}
+      role="alert"
+      sx={{
+        position: "relative",
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "8px",
+        mt: "8px",
+        px: "10px",
+        py: "7px",
+        color: hud.danger,
+        font: `500 10px/1 ${hud.mono}`,
+        letterSpacing: "0.12em",
+        textTransform: "uppercase",
+        textShadow: `0 0 8px ${hud.danger}80`,
+        background: hud.panel,
+        "&::after": {
+          content: '""',
+          position: "absolute",
+          inset: 0,
+          pointerEvents: "none",
+          background: cornerFill(8, hud.danger),
+        },
+      }}
+    >
+      <Box
+        aria-hidden
+        component="span"
+        sx={{
+          width: 6,
+          height: 6,
+          flexShrink: 0,
+          bgcolor: hud.danger,
+          boxShadow: glow(hud.danger, 0.5),
+        }}
+      />
+      {children}
+    </Box>
+  );
+}
 
 export const Cursor = styled("span")({
   display: "inline-block",

@@ -25,6 +25,7 @@ import {
   HudButton,
   HudCard,
   HudField,
+  HudFieldError,
   HudLink,
   LangLink,
   LightboxDialog,
@@ -89,6 +90,33 @@ const copy = {
     next: "next slide",
   },
 } as const;
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+type ContactFields = { name: string; email: string; message: string };
+type ContactErrors = Partial<Record<keyof ContactFields, string>>;
+
+function readContactFields(form: HTMLFormElement): ContactFields {
+  const data = new FormData(form);
+  return {
+    name: String(data.get("name") ?? ""),
+    email: String(data.get("email") ?? ""),
+    message: String(data.get("message") ?? ""),
+  };
+}
+
+function validateContact(
+  values: ContactFields,
+  messages: { required: string; email: string },
+): ContactErrors {
+  const errors: ContactErrors = {};
+  if (!values.name.trim()) errors.name = messages.required;
+  const email = values.email.trim();
+  if (!email) errors.email = messages.required;
+  else if (!EMAIL_RE.test(email)) errors.email = messages.email;
+  if (!values.message.trim()) errors.message = messages.required;
+  return errors;
+}
 
 const socialIcons = {
   LinkedIn: FaLinkedin,
@@ -240,7 +268,15 @@ export function Catalog() {
   );
 
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
+  const [errors, setErrors] = useState<ContactErrors>({});
   const [lightbox, setLightbox] = useState<{ projectId: string; index: number } | null>(null);
+  const validationCopy = useMemo(
+    () => ({
+      required: tContact("form.errors.required"),
+      email: tContact("form.errors.email"),
+    }),
+    [tContact],
+  );
 
   const projects = useMemo(
     () =>
@@ -294,10 +330,29 @@ export function Catalog() {
     return () => document.removeEventListener("keydown", onKey);
   }, [lightbox, stepLightbox]);
 
+  const handleFormChange = (event: FormEvent<HTMLFormElement>) => {
+    const form = event.currentTarget;
+    if (status === "success" || status === "error") setStatus("idle");
+    setErrors((current) => {
+      if (!current.name && !current.email && !current.message) return current;
+      return validateContact(readContactFields(form), validationCopy);
+    });
+  };
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    setStatus("submitting");
     const form = event.currentTarget;
+    const nextErrors = validateContact(readContactFields(form), validationCopy);
+
+    if (nextErrors.name || nextErrors.email || nextErrors.message) {
+      setErrors(nextErrors);
+      const first = (["name", "email", "message"] as const).find((key) => nextErrors[key]);
+      if (first) (form.elements.namedItem(first) as HTMLElement | null)?.focus();
+      return;
+    }
+
+    setErrors({});
+    setStatus("submitting");
     const formData = new FormData(form);
 
     try {
@@ -764,27 +819,55 @@ export function Catalog() {
 
                   <Box>
                     <SectionLabel>{tContact("sendMessage")}</SectionLabel>
-                    <Box component="form" onSubmit={handleSubmit} sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-                      <HudField id="tc-name" name="name" label={tContact("form.name")} required fullWidth InputLabelProps={{ shrink: true }} />
-                      <HudField
-                        id="tc-email"
-                        name="email"
-                        type="email"
-                        label={tContact("form.email")}
-                        required
-                        fullWidth
-                        InputLabelProps={{ shrink: true }}
-                      />
-                      <HudField
-                        id="tc-message"
-                        name="message"
-                        label={tContact("form.message")}
-                        required
-                        fullWidth
-                        multiline
-                        minRows={5}
-                        InputLabelProps={{ shrink: true }}
-                      />
+                    <Box
+                      component="form"
+                      noValidate
+                      onSubmit={handleSubmit}
+                      onChange={handleFormChange}
+                      sx={{ display: "flex", flexDirection: "column", gap: "20px" }}
+                    >
+                      <Box>
+                        <HudField
+                          id="tc-name"
+                          name="name"
+                          label={tContact("form.name")}
+                          required
+                          fullWidth
+                          error={Boolean(errors.name)}
+                          inputProps={{ "aria-describedby": errors.name ? "tc-name-err" : undefined }}
+                          InputLabelProps={{ shrink: true }}
+                        />
+                        {errors.name && <HudFieldError id="tc-name-err">{errors.name}</HudFieldError>}
+                      </Box>
+                      <Box>
+                        <HudField
+                          id="tc-email"
+                          name="email"
+                          type="email"
+                          label={tContact("form.email")}
+                          required
+                          fullWidth
+                          error={Boolean(errors.email)}
+                          inputProps={{ "aria-describedby": errors.email ? "tc-email-err" : undefined }}
+                          InputLabelProps={{ shrink: true }}
+                        />
+                        {errors.email && <HudFieldError id="tc-email-err">{errors.email}</HudFieldError>}
+                      </Box>
+                      <Box>
+                        <HudField
+                          id="tc-message"
+                          name="message"
+                          label={tContact("form.message")}
+                          required
+                          fullWidth
+                          multiline
+                          minRows={5}
+                          error={Boolean(errors.message)}
+                          inputProps={{ "aria-describedby": errors.message ? "tc-message-err" : undefined }}
+                          InputLabelProps={{ shrink: true }}
+                        />
+                        {errors.message && <HudFieldError id="tc-message-err">{errors.message}</HudFieldError>}
+                      </Box>
                       <Box>
                         <HudButton type="submit" disabled={status === "submitting"} data-state={submitState}>
                           {status === "submitting"
