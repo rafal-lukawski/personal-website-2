@@ -7,8 +7,8 @@ import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
-import TextField from "@mui/material/TextField";
-import { keyframes, styled } from "@mui/material/styles";
+import TextField, { type TextFieldProps } from "@mui/material/TextField";
+import { keyframes, styled, type CSSObject } from "@mui/material/styles";
 import { Link as LocaleLink } from "@/i18n/routing";
 import { hud } from "@/theme/hud";
 import { channels, tintFilterId } from "./techIcons";
@@ -84,11 +84,26 @@ const reticle = keyframes`
 `;
 
 const reducedMotion = "@media (prefers-reduced-motion: reduce)";
-const focusRing = {
+
+/** The single focus treatment for every interactive HUD element. */
+export const focusRing = {
   "&:focus-visible": {
     outline: `2px solid ${cyan}`,
     outlineOffset: 2,
   },
+} as const;
+
+/** Off-screen but readable by assistive tech; mirrors MUI's `visuallyHidden`. */
+export const srOnly = {
+  position: "absolute",
+  width: "1px",
+  height: "1px",
+  padding: 0,
+  margin: "-1px",
+  overflow: "hidden",
+  clip: "rect(0 0 0 0)",
+  whiteSpace: "nowrap",
+  border: 0,
 } as const;
 
 export const Root = styled(Box)({
@@ -237,8 +252,17 @@ export const Glitch = styled("h1")({
   [reducedMotion]: { "&:hover": { animation: "none", filter: `drop-shadow(0 0 6px color-mix(in srgb, ${cyan} 55%, transparent))` } },
 });
 
+/**
+ * Emotion stops filtering invalid DOM props as soon as `shouldForwardProp` is
+ * supplied, so the styling props have to be excluded by hand as well.
+ */
+const forwardExcept =
+  (...styleProps: string[]) =>
+  (prop: PropertyKey) =>
+    prop !== "sx" && prop !== "as" && prop !== "theme" && !styleProps.includes(String(prop));
+
 export const Panel = styled("section", {
-  shouldForwardProp: (prop) => prop !== "scan",
+  shouldForwardProp: forwardExcept("scan"),
 })<{ scan?: boolean }>(({ scan }) => ({
   position: "relative",
   background: hud.surface,
@@ -308,7 +332,8 @@ export const SectionLabel = styled("h2")({
   textShadow: `0 0 8px color-mix(in srgb, ${cyan} 25%, transparent)`,
 });
 
-export const HudCard = styled("article")({
+/** Sunken card chrome: corner ticks that brighten and glitch on hover. */
+const hudCardStyles: CSSObject = {
   position: "relative",
   padding: "16px 16px 16px",
   background: hud.sunken,
@@ -323,6 +348,17 @@ export const HudCard = styled("article")({
   "&:hover::before": { background: cornerFill(12, frameBright) },
   "&:hover": { animation: `${glitch} 0.2s linear`, boxShadow: glow(cyan, 0.8) },
   [reducedMotion]: { "&:hover": { animation: "none" } },
+};
+
+export const HudCard = styled("article")(hudCardStyles);
+
+/** `HudCard` for cards that are themselves a link. */
+export const HudCardLink = styled("a")({
+  ...hudCardStyles,
+  display: "block",
+  color: "inherit",
+  textDecoration: "none",
+  ...focusRing,
 });
 
 export const HudField = styled(TextField)({
@@ -406,6 +442,41 @@ export function HudFieldError({ id, children }: { id: string; children: ReactNod
         }}
       />
       {children}
+    </Box>
+  );
+}
+
+/** A labelled HUD input plus its error readout, wired for screen readers. */
+export function HudFormField({
+  id,
+  name,
+  label,
+  error,
+  ...field
+}: {
+  id: string;
+  name: string;
+  label: string;
+  /** Message to show below the field; also flips the field into its error state. */
+  error?: string;
+} & Pick<TextFieldProps, "type" | "multiline" | "minRows">) {
+  const errorId = `${id}-err`;
+  return (
+    <Box>
+      <HudField
+        {...field}
+        id={id}
+        name={name}
+        label={label}
+        required
+        fullWidth
+        error={Boolean(error)}
+        slotProps={{
+          htmlInput: { "aria-describedby": error ? errorId : undefined },
+          inputLabel: { shrink: true },
+        }}
+      />
+      {error && <HudFieldError id={errorId}>{error}</HudFieldError>}
     </Box>
   );
 }
@@ -634,18 +705,20 @@ export function CornerTicks({
   );
 }
 
+/** Shared look of the tiny decorative readouts printed on panel chrome. */
+const microStamp = {
+  position: "absolute" as const,
+  m: 0,
+  zIndex: 4,
+  font: `500 8px/1 ${hud.mono}`,
+  textTransform: "uppercase" as const,
+  color: hud.dim,
+  pointerEvents: "none" as const,
+  whiteSpace: "nowrap" as const,
+};
+
 export function PanelStamps({ left, right }: { left?: string; right?: string }) {
-  const base = {
-    position: "absolute" as const,
-    bottom: 6,
-    zIndex: 4,
-    font: `500 8px/1 ${hud.mono}`,
-    letterSpacing: "0.15em",
-    textTransform: "uppercase" as const,
-    color: hud.dim,
-    pointerEvents: "none" as const,
-    whiteSpace: "nowrap" as const,
-  };
+  const base = { ...microStamp, bottom: 6, letterSpacing: "0.15em" };
   return (
     <Box aria-hidden>
       {left && <Box component="span" sx={{ ...base, left: 26 }}>{left}</Box>}
@@ -653,6 +726,67 @@ export function PanelStamps({ left, right }: { left?: string; right?: string }) 
     </Box>
   );
 }
+
+const CORNERS = {
+  topLeft: { top: 0, left: 0 },
+  topRight: { top: 0, right: 0 },
+  bottomLeft: { bottom: 0, left: 0 },
+  bottomRight: { bottom: 0, right: 0 },
+} as const;
+
+/** Decorative readouts pinned to the four corners of a positioned box. */
+export function CornerLabels(labels: Partial<Record<keyof typeof CORNERS, string>>) {
+  return (
+    <Box aria-hidden>
+      {(Object.keys(CORNERS) as (keyof typeof CORNERS)[]).map((corner) =>
+        labels[corner] ? (
+          <Box
+            key={corner}
+            component="span"
+            sx={{ ...microStamp, letterSpacing: "0.1em", ...CORNERS[corner] }}
+          >
+            {labels[corner]}
+          </Box>
+        ) : null,
+      )}
+    </Box>
+  );
+}
+
+/** Title bar + status dots + corner stamps: the chrome every panel shares. */
+export function PanelHeader({
+  title,
+  meta,
+  stampLeft,
+  stampRight,
+}: {
+  title: string;
+  meta?: string;
+  stampLeft?: string;
+  stampRight?: string;
+}) {
+  return (
+    <>
+      <PanelBar>
+        <span>{title}</span>
+        <Stack direction="row" alignItems="center" spacing="10px">
+          {meta && <BarMeta>{meta}</BarMeta>}
+          <ProcessDots />
+        </Stack>
+      </PanelBar>
+      <PanelStamps left={stampLeft} right={stampRight} />
+    </>
+  );
+}
+
+/** Small mono caption used for dates, counters and credentials. */
+export const MonoMeta = styled("span")({
+  display: "block",
+  margin: 0,
+  font: `500 10px/1.3 ${hud.mono}`,
+  letterSpacing: "0.06em",
+  color: hud.muted,
+});
 
 export function EmojiTintFilters({ colors }: { colors: string[] }) {
   const gain = 1.55;
