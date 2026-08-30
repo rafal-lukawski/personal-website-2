@@ -13,6 +13,7 @@ import { FaEnvelope, FaExternalLinkAlt, FaGithub, FaLinkedin } from "react-icons
 import { socialLinks } from "@/config/socials";
 import { ColorModeButton } from "@/components/ColorModeButton";
 import { hud } from "@/theme/hud";
+import { ParticleField } from "./ParticleField";
 import { certificatesData, projectsData, stackCategories } from "./content";
 import { emojiTints, hudTintColor, techIcons, tintFilterId } from "./techIcons";
 import {
@@ -327,6 +328,7 @@ export function Catalog() {
 
   return (
     <Root>
+      <ParticleField />
       <EmojiTintFilters colors={emojiTints} />
       <SkipLink href="#about">{tHud("skip")}</SkipLink>
 

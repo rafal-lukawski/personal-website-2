@@ -100,7 +100,7 @@ export const Root = styled(Box)({
     content: '""',
     position: "fixed",
     inset: 0,
-    zIndex: 0,
+    zIndex: 1,
     pointerEvents: "none",
     backgroundImage:
       "linear-gradient(var(--hud-grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--hud-grid-line) 1px, transparent 1px)",
