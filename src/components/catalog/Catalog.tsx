@@ -589,8 +589,12 @@ export function Catalog() {
               gap: "20px",
             }}
           >
-            <Stack spacing="20px">
-              <Panel id="about">
+            <Stack
+              spacing="20px"
+              useFlexGap
+              sx={{ display: { xs: "contents", lg: "flex" } }}
+            >
+              <Panel id="about" sx={{ order: 1 }}>
                 <PanelBar>
                   <span>{tHud("terminalAbout")}</span>
                   <Stack direction="row" alignItems="center" spacing="10px">
@@ -619,7 +623,7 @@ export function Catalog() {
                 </PanelBody>
               </Panel>
 
-              <Panel id="stack">
+              <Panel id="stack" sx={{ order: 3 }}>
                 <PanelBar>
                   <span>{tHud("moduleStack")}</span>
                   <Stack direction="row" alignItems="center" spacing="10px">
@@ -654,7 +658,7 @@ export function Catalog() {
                 </PanelBody>
               </Panel>
 
-              <Panel id="certificates">
+              <Panel id="certificates" sx={{ order: 4 }}>
                 <PanelBar>
                   <span>{tHud("moduleCerts")}</span>
                   <Stack direction="row" alignItems="center" spacing="10px">
@@ -726,7 +730,7 @@ export function Catalog() {
                 </PanelBody>
               </Panel>
 
-              <Panel id="contact">
+              <Panel id="contact" sx={{ order: 5 }}>
                 <PanelBar>
                   <span>{tHud("terminalContact")}</span>
                   <Stack direction="row" alignItems="center" spacing="10px">
@@ -855,7 +859,12 @@ export function Catalog() {
             <Box
               component="aside"
               id="projects"
-              sx={{ position: { lg: "sticky" }, top: { lg: hud.headerH + 12 }, alignSelf: { lg: "start" } }}
+              sx={{
+                order: 2,
+                position: { lg: "sticky" },
+                top: { lg: hud.headerH + 12 },
+                alignSelf: { lg: "start" },
+              }}
             >
               <Panel scan>
                 <PanelBar>
