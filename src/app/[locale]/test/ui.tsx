@@ -238,13 +238,19 @@ export const HudButton = styled(Button)({
 export const Glitch = styled("h1")({
   margin: 0,
   fontFamily: hud.display,
-  fontSize: "clamp(2.1rem, 5.7vw, 3.9rem)",
-  lineHeight: 0.94,
-  letterSpacing: "-0.03em",
-  color: cyan,
-  textShadow: `0 0 10px ${cyan}`,
+  fontWeight: 800,
+  fontSize: "clamp(2.2rem, 6.2vw, 4.15rem)",
+  lineHeight: 0.92,
+  letterSpacing: "0.045em",
+  textTransform: "uppercase",
+  backgroundImage: `repeating-linear-gradient(to bottom, ${cyan} 0px, ${cyan} 2px, #007a82 2px, #007a82 3px)`,
+  backgroundClip: "text",
+  WebkitBackgroundClip: "text",
+  color: "transparent",
+  WebkitTextFillColor: "transparent",
+  filter: `drop-shadow(0 0 10px ${cyan})`,
   "&:hover": { animation: `${glitch} 0.2s linear` },
-  [reducedMotion]: { "&:hover": { animation: "none" } },
+  [reducedMotion]: { "&:hover": { animation: "none", filter: `drop-shadow(0 0 10px ${cyan})` } },
 });
 
 export const Panel = styled("section", {

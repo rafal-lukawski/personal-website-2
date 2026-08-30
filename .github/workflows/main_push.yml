@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - beta-site2
 
 concurrency:
   group: deploy-${{ github.ref }}

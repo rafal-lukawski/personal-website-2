@@ -1,9 +1,9 @@
-import { JetBrains_Mono, Syne } from "next/font/google";
+import { JetBrains_Mono, Oxanium } from "next/font/google";
 import type { Metadata } from "next";
 
-const syne = Syne({
+const oxanium = Oxanium({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-syne",
+  variable: "--font-oxanium",
   weight: ["600", "700", "800"],
 });
 
@@ -24,7 +24,7 @@ export default function TestCatalogLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className={`${syne.variable} ${jetBrains.variable}`} data-catalog="test">
+    <div className={`${oxanium.variable} ${jetBrains.variable}`} data-catalog="test">
       {children}
     </div>
   );

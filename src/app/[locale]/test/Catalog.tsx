@@ -383,25 +383,70 @@ export function Catalog() {
               }}
             >
             <HeroParticleNetwork />
-            <Box sx={{ position: "relative", zIndex: 1 }}>
+            <Box sx={{ position: "relative", zIndex: 1, fontFamily: hud.mono }}>
               <Box sx={{ mb: "12px", display: "flex", justifyContent: { xs: "center", sm: "flex-start" } }}>
                 <StatusBadge>{ui.active}</StatusBadge>
               </Box>
               <Glitch>
                 {tHero("name")}
               </Glitch>
-              <Typography sx={{ mt: "14px", mb: 0, color: hud.muted, fontSize: "1.04rem" }}>{tHero("title")}</Typography>
-              <Typography sx={{ mt: "10px", mb: 0, fontSize: "0.98rem" }}>{tHero("tagline")}</Typography>
+              <Typography
+                aria-label={tHero("title")}
+                sx={{
+                  mt: "14px",
+                  mb: 0,
+                  color: hud.text,
+                  font: `400 1.02rem/1.45 ${hud.mono}`,
+                  letterSpacing: "0.02em",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: { xs: "center", sm: "flex-start" },
+                  flexWrap: "wrap",
+                  columnGap: "12px",
+                  rowGap: "6px",
+                }}
+              >
+                {tHero("title")
+                  .split(" | ")
+                  .map((part, idx) => (
+                    <Box key={part} component="span" sx={{ display: "inline-flex", alignItems: "center", gap: "12px" }}>
+                      {idx > 0 && (
+                        <Box
+                          component="span"
+                          aria-hidden
+                          sx={{
+                            width: "2px",
+                            height: "0.9em",
+                            bgcolor: hud.cyan,
+                            boxShadow: `0 0 8px ${hud.cyan}`,
+                            flexShrink: 0,
+                          }}
+                        />
+                      )}
+                      {part}
+                    </Box>
+                  ))}
+              </Typography>
+              <Typography
+                sx={{
+                  mt: "10px",
+                  mb: 0,
+                  color: hud.muted,
+                  font: `400 0.95rem/1.45 ${hud.mono}`,
+                  letterSpacing: "0.01em",
+                }}
+              >
+                {tHero("tagline")}
+              </Typography>
               <Typography
                 sx={{
                   mt: 2,
                   mb: 0,
-                  maxWidth: "36em",
+                  maxWidth: "42em",
                   mx: { xs: "auto", sm: 0 },
                   color: hud.dim,
-                  fontSize: "0.9rem",
-                  fontStyle: "italic",
-                  lineHeight: 1.45,
+                  font: `400 0.88rem/1.5 ${hud.mono}`,
+                  letterSpacing: "0.01em",
                 }}
               >
                 {tHero("mottoLine1")} {tHero("mottoLine2")}
