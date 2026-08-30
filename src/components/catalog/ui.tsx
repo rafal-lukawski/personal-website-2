@@ -92,6 +92,7 @@ const focusRing = {
 } as const;
 
 export const Root = styled(Box)({
+  position: "relative",
   minHeight: "100vh",
   isolation: "isolate",
   color: hud.text,

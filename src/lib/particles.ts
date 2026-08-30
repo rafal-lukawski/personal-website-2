@@ -9,7 +9,9 @@ type Particle = {
 
 const MAX_DISTANCE = 120;
 const MAX_DISTANCE_SQ = MAX_DISTANCE * MAX_DISTANCE;
+/** Per viewport-sized area; the canvas spans the whole document, so it scales up with page height. */
 const PARTICLE_COUNT = 80;
+const PARTICLE_COUNT_MAX = 240;
 const SPEED = 0.28;
 const GRAVITY = 40;
 const GRAVITY_MIN_DISTANCE = 40;
@@ -42,12 +44,17 @@ export class ParticleSim {
     if (document.hidden) this.stopLoop();
     else this.startLoop();
   };
+  private resizeObserver = new ResizeObserver(this.onResize);
+  private docLeft = 0;
+  private docTop = 0;
+  private drawnTop = 0;
+  private drawnBottom = 0;
   private mx = 0;
   private my = 0;
   private hasPointer = false;
   private readonly onPointerMove = (e: PointerEvent) => {
-    this.mx = e.clientX;
-    this.my = e.clientY;
+    this.mx = e.pageX - this.docLeft;
+    this.my = e.pageY - this.docTop;
     this.hasPointer = true;
   };
   private readonly onPointerLeave = () => {
@@ -65,6 +72,7 @@ export class ParticleSim {
   start() {
     this.syncColor();
     this.resize(true);
+    this.resizeObserver.observe(this.canvas);
     window.addEventListener("resize", this.onResize, { passive: true });
     window.addEventListener("pointermove", this.onPointerMove, { passive: true });
     document.documentElement.addEventListener("mouseleave", this.onPointerLeave);
@@ -76,6 +84,7 @@ export class ParticleSim {
   destroy() {
     this.stopLoop();
     window.clearTimeout(this.resizeTimer);
+    this.resizeObserver.disconnect();
     window.removeEventListener("resize", this.onResize);
     window.removeEventListener("pointermove", this.onPointerMove);
     document.documentElement.removeEventListener("mouseleave", this.onPointerLeave);
@@ -89,15 +98,20 @@ export class ParticleSim {
   }
 
   private resize(seed = false) {
-    const nextW = window.innerWidth;
-    const nextH = window.innerHeight;
+    const rect = this.canvas.getBoundingClientRect();
+    const nextW = Math.max(1, Math.round(rect.width));
+    const nextH = Math.max(1, Math.round(rect.height));
+    this.docLeft = rect.left + window.scrollX;
+    this.docTop = rect.top + window.scrollY;
     const sx = this.w ? nextW / this.w : 1;
     const sy = this.h ? nextH / this.h : 1;
     this.w = nextW;
     this.h = nextH;
     this.canvas.width = nextW;
     this.canvas.height = nextH;
-    if (seed || this.particles.length === 0) {
+    this.drawnTop = 0;
+    this.drawnBottom = 0;
+    if (seed || this.particles.length !== this.targetCount()) {
       this.generate();
       return;
     }
@@ -107,9 +121,16 @@ export class ParticleSim {
     }
   }
 
+  private targetCount() {
+    const viewport = window.innerWidth * window.innerHeight;
+    const scaled = PARTICLE_COUNT * Math.max(1, (this.w * this.h) / Math.max(1, viewport));
+    return Math.min(Math.round(scaled), PARTICLE_COUNT_MAX);
+  }
+
   private generate() {
-    this.particles = new Array(PARTICLE_COUNT);
-    for (let i = 0; i < PARTICLE_COUNT; i++) {
+    const count = this.targetCount();
+    this.particles = new Array(count);
+    for (let i = 0; i < count; i++) {
       const speed = (Math.random() * 1 + 0.35) * SPEED;
       const direction = Math.PI * 2 * Math.random();
       const z = Math.random() * 8;
@@ -172,7 +193,16 @@ export class ParticleSim {
 
   private frame() {
     const { ctx, particles, w, h, rgb } = this;
-    ctx.clearRect(0, 0, w, h);
+
+    const scrolled = window.scrollY - this.docTop;
+    const top = Math.max(0, scrolled - MAX_DISTANCE);
+    const bottom = Math.min(h, scrolled + window.innerHeight + MAX_DISTANCE);
+    const clearTop = Math.min(top, this.drawnTop);
+    const clearBottom = Math.max(bottom, this.drawnBottom);
+    ctx.clearRect(0, clearTop, w, clearBottom - clearTop);
+    this.drawnTop = top;
+    this.drawnBottom = bottom;
+
     ctx.lineWidth = 1;
     ctx.strokeStyle = `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
     ctx.fillStyle = `rgb(${rgb[0]},${rgb[1]},${rgb[2]})`;
@@ -181,8 +211,9 @@ export class ParticleSim {
     const invMax = 1 / MAX_DISTANCE;
 
     for (let i = 0; i < particles.length; i++) {
-      this.nearestTwo(i, pair);
       const p = particles[i];
+      if (p.y < top || p.y > bottom) continue;
+      this.nearestTwo(i, pair);
       for (let k = 0; k < 2; k++) {
         const ni = pair[k * 2];
         const dSq = pair[k * 2 + 1];
@@ -198,6 +229,7 @@ export class ParticleSim {
 
     for (let i = 0; i < particles.length; i++) {
       const p = particles[i];
+      if (p.y < top || p.y > bottom) continue;
       ctx.globalAlpha = 0.28 + (1 - p.z / 8) * 0.5;
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);

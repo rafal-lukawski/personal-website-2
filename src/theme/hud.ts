@@ -62,7 +62,7 @@ export const hudLight: HudPalette = {
 };
 
 /** Backdrop blur is the same in both schemes, so it sits outside the palettes. */
-const blurSurface = "2px";
+const blurSurface = "3px";
 const blurChrome = "4px";
 
 function paletteVars(p: HudPalette): string {

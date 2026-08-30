@@ -24,7 +24,7 @@ export function ParticleField() {
       ref={ref}
       aria-hidden
       sx={{
-        position: "fixed",
+        position: "absolute",
         inset: 0,
         zIndex: 0,
         pointerEvents: "none",
