@@ -73,14 +73,14 @@ export const projectsData = [
     customer: { display: "EGZOTech.com", url: "https://egzotech.com" },
     screenshots: [
       {
-        id: "screen1",
+        id: "screen4",
         src: "/projects/egzoclinic-4.webp",
         sourceUrl: "egzotech.com",
         width: 1024,
         height: 556,
       },
       {
-        id: "screen5",
+        id: "screen1",
         src: "/projects/egzoclinic-5.webp",
         sourceUrl: "egzotech.com",
         width: 440,
