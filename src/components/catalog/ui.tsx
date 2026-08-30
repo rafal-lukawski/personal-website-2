@@ -226,14 +226,14 @@ export const Glitch = styled("h1")({
   lineHeight: 0.92,
   letterSpacing: "0.045em",
   textTransform: "uppercase",
-  backgroundImage: `repeating-linear-gradient(to bottom, ${cyan} 0px, ${cyan} 2px, var(--hud-cyan-deep) 2px, var(--hud-cyan-deep) 3px)`,
+  backgroundImage: `repeating-linear-gradient(to bottom, ${cyan} 0px, ${cyan} 2px, color-mix(in srgb, var(--hud-cyan-deep) 42%, ${cyan}) 2px, color-mix(in srgb, var(--hud-cyan-deep) 42%, ${cyan}) 3px)`,
   backgroundClip: "text",
   WebkitBackgroundClip: "text",
   color: "transparent",
   WebkitTextFillColor: "transparent",
-  filter: `drop-shadow(0 0 10px ${cyan})`,
+  filter: `drop-shadow(0 0 6px color-mix(in srgb, ${cyan} 55%, transparent))`,
   "&:hover": { animation: `${glitch} 0.2s linear` },
-  [reducedMotion]: { "&:hover": { animation: "none", filter: `drop-shadow(0 0 10px ${cyan})` } },
+  [reducedMotion]: { "&:hover": { animation: "none", filter: `drop-shadow(0 0 6px color-mix(in srgb, ${cyan} 55%, transparent))` } },
 });
 
 export const Panel = styled("section", {
