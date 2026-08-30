@@ -6,23 +6,33 @@ import IconButton from "@mui/material/IconButton";
 import Skeleton from "@mui/material/Skeleton";
 import { useColorScheme } from "@mui/material/styles";
 import { useTranslations } from "next-intl";
-import { LuMoon, LuSun } from "react-icons/lu";
-import { useIsDarkMode } from "@/hooks/useIsDarkMode";
+import { LuContrast, LuMoon, LuSun } from "react-icons/lu";
+import type { ColorModePreference } from "@/theme/colorMode";
 
 const TRACK = 24;
 const THUMB = 18;
 const PAD = 2;
 
+/** Left-to-right slot order; the thumb offset is the index in here. */
+const SLOTS = [
+  { mode: "system", label: "colorModeToSystem", Icon: LuContrast },
+  { mode: "light", label: "colorModeToLight", Icon: LuSun },
+  { mode: "dark", label: "colorModeToDark", Icon: LuMoon },
+] as const satisfies readonly {
+  mode: ColorModePreference;
+  label: string;
+  Icon: typeof LuSun;
+}[];
+
 export function ColorModeButton() {
   const { mode, setMode } = useColorScheme();
-  const isDark = useIsDarkMode();
   const tHud = useTranslations("hud");
 
   if (!mode) {
     return (
       <Skeleton
         variant="rounded"
-        width={TRACK * 2}
+        width={THUMB * SLOTS.length + PAD * 2}
         height={TRACK}
         sx={{
           flexShrink: 0,
@@ -60,7 +70,7 @@ export function ColorModeButton() {
         sx={{
           position: "absolute",
           top: `${PAD}px`,
-          left: isDark ? `calc(${PAD}px + ${THUMB}px)` : `${PAD}px`,
+          left: `${PAD + THUMB * Math.max(0, SLOTS.findIndex((s) => s.mode === mode))}px`,
           width: THUMB,
           height: THUMB,
           borderRadius: "50%",
@@ -70,20 +80,16 @@ export function ColorModeButton() {
           pointerEvents: "none",
         }}
       />
-      <ModeSlot
-        active={!isDark}
-        aria-label={tHud("colorModeToLight")}
-        onClick={() => setMode("light")}
-      >
-        <LuSun size={13} />
-      </ModeSlot>
-      <ModeSlot
-        active={isDark}
-        aria-label={tHud("colorModeToDark")}
-        onClick={() => setMode("dark")}
-      >
-        <LuMoon size={13} />
-      </ModeSlot>
+      {SLOTS.map(({ mode: slotMode, label, Icon }) => (
+        <ModeSlot
+          key={slotMode}
+          active={mode === slotMode}
+          aria-label={tHud(label)}
+          onClick={() => setMode(slotMode)}
+        >
+          <Icon size={13} />
+        </ModeSlot>
+      ))}
     </Box>
   );
 }

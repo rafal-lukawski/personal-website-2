@@ -197,6 +197,7 @@
     "previous": "poprzedni slajd",
     "next": "następny slajd",
     "colorMode": "Tryb koloru",
+    "colorModeToSystem": "Zgodnie z ustawieniem systemu",
     "colorModeToLight": "Przełącz na tryb jasny",
     "colorModeToDark": "Przełącz na tryb ciemny"
   }

@@ -196,6 +196,7 @@
     "previous": "previous slide",
     "next": "next slide",
     "colorMode": "Color mode",
+    "colorModeToSystem": "Follow system mode",
     "colorModeToLight": "Switch to light mode",
     "colorModeToDark": "Switch to dark mode"
   }
