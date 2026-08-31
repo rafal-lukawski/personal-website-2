@@ -31,8 +31,8 @@ export const projectsData = [
     customer: "DRC Dawid Ryżak",
     screenshots: [
       {
-        id: "screen1",
-        src: "/projects/glam4less-1.webp",
+        id: "screen2",
+        src: "/projects/glam4less-2.webp",
         sourceUrl: "glam4less.pl",
         width: 1013,
         height: 1024,
