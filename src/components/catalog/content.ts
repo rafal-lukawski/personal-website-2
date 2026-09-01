@@ -37,6 +37,20 @@ export const projectsData = [
         width: 1013,
         height: 1024,
       },
+      {
+        id: "screen3",
+        src: "/projects/glam4less-3.webp",
+        sourceUrl: "glam4less.pl",
+        width: 1013,
+        height: 1024,
+      },
+      {
+        id: "screen4",
+        src: "/projects/glam4less-4.webp",
+        sourceUrl: "glam4less.pl",
+        width: 1013,
+        height: 1024,
+      },
     ],
   },
   {

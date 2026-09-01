@@ -69,6 +69,12 @@
       "screenshots": {
         "screen1": {
           "alt": "glam4less.pl — homepage with outfit search and AI virtual fitting room"
+        },
+        "screen3": {
+          "alt": "glam4less.pl — listing wizard, photos step with AI virtual try-on guidance and image upload"
+        },
+        "screen4": {
+          "alt": "glam4less.pl — dispute view with a settlement proposal for splitting the deposit"
         }
       }
     },

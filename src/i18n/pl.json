@@ -70,6 +70,12 @@
       "screenshots": {
         "screen1": {
           "alt": "glam4less.pl — strona główna z wyszukiwarką kreacji i wirtualną przymierzalnią AI"
+        },
+        "screen3": {
+          "alt": "glam4less.pl — kreator ogłoszenia, krok zdjęć z wskazówkami do wirtualnego przymierzania AI i wgrywaniem plików"
+        },
+        "screen4": {
+          "alt": "glam4less.pl — widok sporu z propozycją ugody i podziałem kaucji"
         }
       }
     },
