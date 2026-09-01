@@ -32,7 +32,7 @@ export const projectsData = [
     screenshots: [
       {
         id: "screen1",
-        src: "/projects/glam4less-1.webp",
+        src: "/projects/glam4less-2.webp",
         sourceUrl: "glam4less.pl",
         width: 1013,
         height: 1024,
