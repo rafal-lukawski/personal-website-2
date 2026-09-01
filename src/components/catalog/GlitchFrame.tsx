@@ -23,7 +23,9 @@ type Slice = {
   skew: number;
 };
 
-type Trigger = "idle" | "hover";
+const IDLE_WAIT_MS = () => Math.random() * 5000;
+const HOVER_GAP_MS = () => 450 + Math.random() * 550;
+const FRAME_MS = () => 70 + Math.random() * 50;
 
 /** Thin horizontal tear at a random Y, anywhere from the top edge to the bottom. */
 function randomSlice(): Slice {
@@ -112,64 +114,94 @@ function useHoverHost(ref: RefObject<HTMLElement | null>) {
   return hovered;
 }
 
-function useRandomTears(active: boolean, hovered: boolean) {
+function useRandomTears(hovered: boolean, reducedMotion: boolean) {
   const [cyan, setCyan] = useState<Slice | null>(null);
   const [magenta, setMagenta] = useState<Slice | null>(null);
+  const idleConsumed = useRef(false);
 
   useEffect(() => {
-    if (!active) return;
+    if (reducedMotion) return;
 
     let cancelled = false;
     let timer = 0;
 
-    const gap = () => (hovered ? 450 + Math.random() * 550 : 5500 + Math.random() * 3500);
-
-    const flash = () => {
-      if (cancelled) return;
-      setCyan(randomSlice());
-      setMagenta(randomSlice());
-      timer = window.setTimeout(() => {
-        if (cancelled) return;
-        setCyan(randomSlice());
-        setMagenta(randomSlice());
-        timer = window.setTimeout(() => {
-          if (cancelled) return;
-          setCyan(null);
-          setMagenta(null);
-          timer = window.setTimeout(flash, gap());
-        }, 70 + Math.random() * 50);
-      }, 70 + Math.random() * 50);
+    const hide = () => {
+      setCyan(null);
+      setMagenta(null);
     };
 
-    timer = window.setTimeout(flash, hovered ? 40 : 1800 + Math.random() * 2200);
+    const show = () => {
+      setCyan(randomSlice());
+      setMagenta(randomSlice());
+    };
+
+    const burstThen = (next: () => void) => {
+      show();
+      timer = window.setTimeout(() => {
+        if (cancelled) return;
+        show();
+        timer = window.setTimeout(() => {
+          if (cancelled) return;
+          hide();
+          next();
+        }, FRAME_MS());
+      }, FRAME_MS());
+    };
+
+    const waitHover = () => {
+      timer = window.setTimeout(() => {
+        if (cancelled) return;
+        burstThen(waitHover);
+      }, HOVER_GAP_MS());
+    };
+
+    if (hovered) {
+      idleConsumed.current = true;
+      timer = window.setTimeout(() => {
+        if (cancelled) return;
+        burstThen(waitHover);
+      }, 40);
+    } else if (!idleConsumed.current) {
+      timer = window.setTimeout(() => {
+        if (cancelled) return;
+        idleConsumed.current = true;
+        burstThen(() => {});
+      }, IDLE_WAIT_MS());
+    } else {
+      timer = window.setTimeout(() => {
+        if (cancelled) return;
+        hide();
+      }, 0);
+    }
+
     return () => {
       cancelled = true;
       window.clearTimeout(timer);
     };
-  }, [active, hovered]);
+  }, [hovered, reducedMotion]);
 
-  return { cyan: active ? cyan : null, magenta: active ? magenta : null };
+  return {
+    cyan: reducedMotion ? null : cyan,
+    magenta: reducedMotion ? null : magenta,
+  };
 }
 
 /**
- * RGB tears over whatever it wraps. Slice Y is random across the full height
- * on every burst. Wrap the whole shot (background + foreground) so the tear
- * spans the component, not just the inset screenshot.
+ * RGB tears over whatever it wraps. Each instance fires one idle burst on a
+ * random timeout (within 5s). Hover cancels that timeout for good; further
+ * bursts come from hover only.
  */
 export function GlitchFrame({
   children,
-  trigger,
   sx,
 }: {
   children: ReactNode;
-  trigger: Trigger;
   sx?: SxProps<Theme>;
 }) {
   const reducedMotion = usePrefersReducedMotion();
   const rootRef = useRef<HTMLDivElement>(null);
   const hovered = useHoverHost(rootRef);
-  const active = !reducedMotion && (trigger === "idle" || hovered);
-  const { cyan, magenta } = useRandomTears(active, hovered);
+  const { cyan, magenta } = useRandomTears(hovered, reducedMotion);
 
   return (
     <Box
@@ -178,7 +210,7 @@ export function GlitchFrame({
       sx={{ position: "relative", display: "block", width: "100%", overflow: "hidden", ...sx }}
     >
       {children}
-      {active && (
+      {!reducedMotion && (
         <>
           <Layer content={children} slice={cyan} channel="cyan" />
           <Layer content={children} slice={magenta} channel="magenta" />

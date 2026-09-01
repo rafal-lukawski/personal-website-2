@@ -41,7 +41,7 @@ export function ProjectCard({
             stamp={project.buildStamp}
             index={project.slotLabel}
           />
-          <GlitchFrame trigger="hover">
+          <GlitchFrame>
             <ShotBg aria-hidden>
               <Image src={shot.src} alt="" width={shot.width} height={shot.height} />
             </ShotBg>

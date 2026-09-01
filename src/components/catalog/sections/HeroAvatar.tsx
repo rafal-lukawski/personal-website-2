@@ -65,7 +65,7 @@ export function HeroAvatar() {
               backgroundImage: scanlines(0.13),
             }}
           />
-          <GlitchFrame trigger="idle" sx={{ height: "100%" }}>
+          <GlitchFrame sx={{ height: "100%" }}>
             <Image src={AVATAR_SRC} alt={AVATAR_ALT} width={440} height={440} priority />
           </GlitchFrame>
           {!reducedMotion && (
