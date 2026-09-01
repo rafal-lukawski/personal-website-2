@@ -57,7 +57,7 @@ export const hudDark: HudPalette = {
 
 export const hudLight: HudPalette = {
   bg: `color-mix(in srgb, ${TEXT_LIGHT} 5%, transparent)`,
-  surface: "rgba(255, 255, 255, 0.90)",
+  surface: "rgba(255, 255, 255, 0.85)",
   sunken: "rgba(46, 62, 70, 0.06)",
   panel: "rgba(255, 255, 255, 0.82)",
   panelSolid: `color-mix(in srgb, ${TEXT_LIGHT} 10%, transparent)`,
