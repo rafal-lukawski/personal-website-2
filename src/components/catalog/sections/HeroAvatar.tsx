@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Box from "@mui/material/Box";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { hud } from "@/theme/hud";
+import { GlitchFrame } from "../GlitchFrame";
 import { CornerLabels, CornerTicks, glitchOnHover, glow, scanlines } from "../ui";
 
 const AVATAR_SRC = "/author.jpg";
@@ -35,7 +36,6 @@ export function HeroAvatar() {
           // edge outlines that inset as a dark (or, in the light theme, pale)
           // ring around the portrait.
           "&:hover [data-shot]": { boxShadow: glow(hud.cyan, 0.9) },
-          "&:hover img": { filter: "contrast(1.14) saturate(1.02)" },
           ...glitchOnHover,
         }}
       >
@@ -65,7 +65,9 @@ export function HeroAvatar() {
               backgroundImage: scanlines(0.13),
             }}
           />
-          <Image src={AVATAR_SRC} alt={AVATAR_ALT} width={440} height={440} priority />
+          <GlitchFrame trigger="idle" sx={{ height: "100%" }}>
+            <Image src={AVATAR_SRC} alt={AVATAR_ALT} width={440} height={440} priority />
+          </GlitchFrame>
           {!reducedMotion && (
             <Box
               component={motion.span}

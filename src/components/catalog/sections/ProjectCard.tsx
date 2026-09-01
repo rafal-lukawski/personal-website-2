@@ -8,6 +8,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { hud } from "@/theme/hud";
+import { GlitchFrame } from "../GlitchFrame";
 import type { CatalogProject } from "../useProjects";
 import {
   GalleryChip,
@@ -40,12 +41,14 @@ export function ProjectCard({
             stamp={project.buildStamp}
             index={project.slotLabel}
           />
-          <ShotBg aria-hidden>
-            <Image src={shot.src} alt="" width={shot.width} height={shot.height} />
-          </ShotBg>
-          <ShotFg>
-            <Image src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} />
-          </ShotFg>
+          <GlitchFrame trigger="hover">
+            <ShotBg aria-hidden>
+              <Image src={shot.src} alt="" width={shot.width} height={shot.height} />
+            </ShotBg>
+            <ShotFg>
+              <Image src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} />
+            </ShotFg>
+          </GlitchFrame>
         </ShotButton>
       </ShotFrame>
       <Stack
