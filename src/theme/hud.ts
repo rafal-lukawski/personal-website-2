@@ -25,6 +25,7 @@ export type HudPalette = {
 
 const CYAN_DARK = "#00f2ff";
 const CYAN_LIGHT = "#007a8a";
+const TEXT_LIGHT = "#1a2a32";
 
 function frameOf(cyan: string): string {
   return `color-mix(in srgb, ${cyan} 50%, transparent)`;
@@ -55,8 +56,8 @@ export const hudDark: HudPalette = {
 };
 
 export const hudLight: HudPalette = {
-  bg: "#eef3f5",
-  surface: "rgba(255, 255, 255, 0.45)",
+  bg: `color-mix(in srgb, ${TEXT_LIGHT} 5%, transparent)`,
+  surface: "rgba(255, 255, 255, 0.90)",
   sunken: "rgba(26, 42, 50, 0.06)",
   panel: "rgba(255, 255, 255, 0.82)",
   panelSolid: "#f7fbfc",
@@ -64,7 +65,7 @@ export const hudLight: HudPalette = {
   cyanDeep: "#005760",
   ok: "#128a3e",
   warn: "#b3760b",
-  text: "#1a2a32",
+  text: TEXT_LIGHT,
   muted: "#4a6570",
   dim: "#6a8490",
   danger: "#c43d5a",
@@ -74,7 +75,7 @@ export const hudLight: HudPalette = {
   selectionBg: "rgba(0, 122, 138, 0.22)",
   selectionFg: "#1a2a32",
   overlay: "rgba(174, 186, 192, 0.92)",
-  shotBgFilter: "grayscale(1) blur(3px) brightness(0.82)",
+  shotBgFilter: "grayscale(1) blur(3px) brightness(0.9)",
   frame: frameOf(CYAN_LIGHT),
 };
 
