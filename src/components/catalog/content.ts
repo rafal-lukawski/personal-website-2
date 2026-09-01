@@ -51,6 +51,13 @@ export const projectsData = [
         width: 1013,
         height: 1024,
       },
+      {
+        id: "screen5",
+        src: "/projects/glam4less-5.webp",
+        sourceUrl: "glam4less.pl",
+        width: 1013,
+        height: 1024,
+      },      
     ],
   },
   {

@@ -75,6 +75,9 @@
         },
         "screen4": {
           "alt": "glam4less.pl — dispute view with a settlement proposal for splitting the deposit"
+        },
+        "screen5": {
+          "alt": "glam4less.pl — admin panel, AI experiment result with a grid of generated outfit photos"
         }
       }
     },

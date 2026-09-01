@@ -76,6 +76,9 @@
         },
         "screen4": {
           "alt": "glam4less.pl — widok sporu z propozycją ugody i podziałem kaucji"
+        },
+        "screen5": {
+          "alt": "glam4less.pl — panel administratora, wynik eksperymentu AI z siatką wygenerowanych zdjęć kreacji"
         }
       }
     },
