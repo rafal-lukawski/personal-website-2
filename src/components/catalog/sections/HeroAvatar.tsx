@@ -39,7 +39,7 @@ export function HeroAvatar() {
           ...glitchOnHover,
         }}
       >
-        <CornerTicks hoverColor={hud.cyan} />
+        <CornerTicks color={hud.cyan} />
         <Box
           data-shot
           sx={{
