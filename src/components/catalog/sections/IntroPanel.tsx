@@ -11,7 +11,7 @@ import type { SectionProps } from "./types";
 
 const PARAGRAPHS = ["about.paragraph1", "about.paragraph2"] as const;
 
-export function AboutPanel({ order }: SectionProps) {
+export function IntroPanel({ order }: SectionProps) {
   const t = useTranslations();
   const reducedMotion = usePrefersReducedMotion();
 
