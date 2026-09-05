@@ -37,7 +37,7 @@ export function AboutPanel({ order }: SectionProps) {
             fontFamily: hud.display,
             fontWeight: 800,
             fontSize: "clamp(1.8rem, 3.2vw, 4.15rem)",
-            lineHeight: 0.85,
+            lineHeight: 0.9,
             letterSpacing: "-0.00em",
             textTransform: "uppercase",
           }}

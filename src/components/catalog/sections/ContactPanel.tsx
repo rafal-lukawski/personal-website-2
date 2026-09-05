@@ -30,15 +30,31 @@ export function ContactPanel({ order }: SectionProps) {
       >
         <Box>
           <Typography
+            component="p"
             sx={{
               mt: 0,
-              mb: "20px",
-              color: hud.muted,
-              font: `400 0.95rem/1.45 ${hud.mono}`,
-              letterSpacing: "0.01em",
+              mb: "24px",
+              fontFamily: hud.display,
+              fontWeight: 800,
+              fontSize: "clamp(1.8rem, 3.2vw, 4.15rem)",
+              lineHeight: 0.85,
+              letterSpacing: "-0.00em",
+              textTransform: "uppercase",
             }}
           >
-            {t("hero.tagline")}
+            <Box component="span" sx={{ display: "block", color: hud.cyanDeep }}>
+              {t("contact.ctaLine1")}
+            </Box>
+            <Box
+              component="span"
+              sx={{
+                display: "block",
+                color: hud.cyan,
+                filter: `drop-shadow(0 0 6px color-mix(in srgb, ${hud.cyan} 20%, transparent))`,
+              }}
+            >
+              {t("contact.ctaLine2")}
+            </Box>
           </Typography>
           <Stack spacing="20px">
             {socialLinks.map(({ name, url, icon: Icon }) => (

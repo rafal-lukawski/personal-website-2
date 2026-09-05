@@ -178,6 +178,8 @@
     "title": "Kontakt",
     "getInTouch": "Skontaktuj się",
     "sendMessage": "Wyślij wiadomość",
+    "ctaLine1": "Zbudujmy produkty,",
+    "ctaLine2": "które mają znaczenie!",
     "form": {
       "name": "Imię",
       "email": "Email",

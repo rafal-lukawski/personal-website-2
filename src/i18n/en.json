@@ -177,6 +177,8 @@
     "title": "Contact",
     "getInTouch": "Get in Touch",
     "sendMessage": "Send a Message",
+    "ctaLine1": "Let's build",
+    "ctaLine2": "products that matter!",
     "form": {
       "name": "Name",
       "email": "Email",
