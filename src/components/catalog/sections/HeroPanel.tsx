@@ -41,7 +41,7 @@ export function HeroPanel() {
               maxWidth: "42em",
               mx: { xs: "auto", sm: 0 },
               color: hud.dim,
-              font: `400 0.88rem/1.5 ${hud.mono}`,
+              font: `italic 400 0.88rem/1.5 ${hud.mono}`,
               letterSpacing: "0.01em",
             }}
           >

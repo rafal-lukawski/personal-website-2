@@ -185,6 +185,7 @@ export const TopBar = styled("header")({
     background: `linear-gradient(90deg, transparent, ${frame}, transparent)`,
     pointerEvents: "none",
   },
+  "@media (max-width: 760px)": { padding: "0 20px" },
 });
 
 export const LangLink = styled(LocaleLink)({
@@ -204,9 +205,6 @@ export const Page = styled("main")({
   maxWidth: hud.max,
   margin: "0 auto",
   padding: "20px 20px 60px",
-  // Below the `sm` breakpoint the gutters cost more than they give: the panels
-  // run edge to edge instead, so their chrome frames the viewport itself.
-  "@media (max-width: 599.95px)": { padding: "20px 0 60px" },
 });
 
 export const HudButton = styled(Button)({
@@ -512,7 +510,7 @@ export const PhosphorChar = styled("span")({
 /** Holds the corner ticks; its padding is the transparent gap around the shot. */
 export const ShotFrame = styled("div")({
   position: "relative",
-  padding: 4,
+  padding: 2,
   "&::after": {
     content: '""',
     position: "absolute",
@@ -522,7 +520,8 @@ export const ShotFrame = styled("div")({
     background: cornerFill(18),
   },
   "&:hover::after": { background: cornerFill(18, frameBright) },
-  ...glitchOnHover,
+  "&:hover": { animation: `${glitch} 0.22s linear` },
+  [reducedMotion]: { "&:hover": { animation: "none" } },
 });
 
 export const ShotButton = styled("button")({
@@ -611,7 +610,7 @@ export const ShotThumb = styled("button")({
   padding: 0,
   background: hud.panelSolid,
   cursor: "pointer",
-  opacity: 0.7,
+  opacity: 0.55,
   ...focusRing,
   "&::after": {
     content: '""',
@@ -655,34 +654,11 @@ export const LightboxDialog = styled(Dialog)({
   "& .MuiBackdrop-root": { background: hud.overlay, backdropFilter: hud.blurChrome },
   "& .MuiDialog-container": { alignItems: "center" },
   "& .MuiPaper-root": {
-    position: "relative",
-    // The lightbox wears the same chrome as every other surface on the site;
-    // without a panel under them the shot, its readouts and the thumbnails read
-    // as loose cut-outs floating on the backdrop. `panel` rather than `surface`
-    // because a modal has to read as solid.
-    background: hud.panel,
-    backdropFilter: hud.blurChrome,
+    background: "transparent",
     boxShadow: "none",
     overflow: "visible",
-    // Width is what makes a screenshot readable, so the panel claims all of it
-    // the viewport allows and lets the body scroll when a shot runs tall. The
-    // shot itself is never scaled down to fit the height.
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-    maxWidth: `min(${hud.max}px, calc(100% - 24px))`,
-    maxHeight: "calc(100% - 24px)",
-    margin: 12,
-    // Matches `Page`: below `sm` the panel runs to the edge of the viewport.
-    "@media (max-width: 599.95px)": { margin: "12px 0", maxWidth: "100%" },
-    "&::before": {
-      content: '""',
-      position: "absolute",
-      inset: 0,
-      zIndex: 2,
-      pointerEvents: "none",
-      background: cornerFill(18),
-    },
+    maxWidth: "min(1080px, calc(100% - 40px))",
+    margin: 20,
   },
 });
 
@@ -712,14 +688,11 @@ export function CornerTicks({
   color = frame,
   weight = 1,
   animated = false,
-  hoverColor,
 }: {
   size?: number;
   color?: string;
   weight?: number;
   animated?: boolean;
-  /** Colour the ticks take while the element holding them is hovered. */
-  hoverColor?: string;
 }) {
   return (
     <Box
@@ -730,9 +703,6 @@ export function CornerTicks({
         zIndex: 4,
         pointerEvents: "none",
         background: cornerFill(size, color, weight),
-        ...(hoverColor
-          ? { "*:hover > &": { background: cornerFill(size, hoverColor, weight) } }
-          : {}),
         ...(animated
           ? { animation: `${reticle} 2.6s ease-in-out infinite`, [reducedMotion]: { animation: "none" } }
           : {}),
@@ -937,12 +907,6 @@ const stampSx = {
   textShadow: `0 0 8px ${cyan}`,
   textTransform: "uppercase" as const,
   pointerEvents: "none" as const,
-  // A faint plate lifts the stamp off the screenshot underneath it, which is
-  // arbitrarily light or dark; `panelSolid` keeps it on-scheme in both themes.
-  padding: "3px 5px",
-  background: `color-mix(in srgb, ${hud.panelSolid} 72%, transparent)`,
-  backdropFilter: hud.blurChrome,
-  border: `1px solid color-mix(in srgb, ${hud.frame} 70%, transparent)`,
 };
 
 export function ShotMeta({
