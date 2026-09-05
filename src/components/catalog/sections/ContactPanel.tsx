@@ -36,7 +36,7 @@ export function ContactPanel({ order }: SectionProps) {
               mb: "24px",
               fontFamily: hud.display,
               fontWeight: 800,
-              fontSize: "clamp(1.8rem, 3.2vw, 4.15rem)",
+              fontSize: "clamp(1.8rem, 3.2vw, 3.6rem)",
               lineHeight: 0.9,
               letterSpacing: "-0.00em",
               textTransform: "uppercase",
