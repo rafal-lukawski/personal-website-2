@@ -48,10 +48,14 @@ export function HeroPanel() {
               mt: "10px",
               mb: 0,
               maxWidth: "42em",
+              width: "fit-content",
               mx: { xs: "auto", sm: 0 },
+              pl: "12px",
+              borderLeft: `1px solid color-mix(in srgb, ${hud.cyan} 28%, transparent)`,
               color: hud.dim,
               font: `italic 400 0.88rem/1.5 ${hud.mono}`,
               letterSpacing: "0.01em",
+              textAlign: "left",
             }}
           >
             <Box component="span" sx={{ display: "block" }}>

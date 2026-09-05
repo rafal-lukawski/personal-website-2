@@ -9,12 +9,7 @@ import { Typewriter, TYPEWRITER_LINE_HEIGHT } from "../Typewriter";
 import { Panel, PanelBody, PanelHeader, srOnly } from "../ui";
 import type { SectionProps } from "./types";
 
-const PARAGRAPHS = [
-  "about.paragraph1",
-  "about.paragraph2",
-  "about.paragraph3",
-  "about.paragraph4",
-] as const;
+const PARAGRAPHS = ["about.paragraph1", "about.paragraph2"] as const;
 
 export function AboutPanel({ order }: SectionProps) {
   const t = useTranslations();
@@ -41,9 +36,9 @@ export function AboutPanel({ order }: SectionProps) {
             mb: "16px",
             fontFamily: hud.display,
             fontWeight: 800,
-            fontSize: "clamp(1.8rem, 2.1vw, 3.15rem)",
-            lineHeight: 1,
-            letterSpacing: "0.01em",
+            fontSize: "clamp(1.8rem, 3.2vw, 4.15rem)",
+            lineHeight: 0.85,
+            letterSpacing: "-0.00em",
             textTransform: "uppercase",
           }}
         >
