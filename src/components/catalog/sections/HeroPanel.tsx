@@ -39,7 +39,7 @@ export function HeroPanel() {
           >
             <StatusBadge>{t("hud.active")}</StatusBadge>
           </Box>
-          <Stack direction="column" spacing={1}>
+          <Stack direction="column" spacing={0.25}>
             <Glitch>{t("hero.name")}</Glitch>
             <HeroRoles title={t("hero.title")} />
           </Stack>
