@@ -114,6 +114,6 @@ export const hud = {
   headerH: 40,
   max: 1240,
   grid: 20,
-  display: "var(--font-oxanium), sans-serif",
+  display: "var(--font-barlow-condensed), sans-serif",
   mono: "var(--font-jetbrains), monospace",
 } as const;

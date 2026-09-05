@@ -35,6 +35,33 @@ export function AboutPanel({ order }: SectionProps) {
       />
       <PanelBody>
         <Typography
+          component="p"
+          sx={{
+            m: 0,
+            mb: "16px",
+            fontFamily: hud.display,
+            fontWeight: 800,
+            fontSize: "clamp(1.8rem, 2.1vw, 3.15rem)",
+            lineHeight: 1,
+            letterSpacing: "0.01em",
+            textTransform: "uppercase",
+          }}
+        >
+          <Box component="span" sx={{ display: "block", color: hud.cyanDeep }}>
+            {t("about.ctaLine1")}
+          </Box>
+          <Box
+            component="span"
+            sx={{
+              display: "block",
+              color: hud.cyan,
+              filter: `drop-shadow(0 0 6px color-mix(in srgb, ${hud.cyan} 20%, transparent))`,
+            }}
+          >
+            {t("about.ctaLine2")}
+          </Box>
+        </Typography>
+        <Typography
           component="div"
           sx={{
             position: "relative",

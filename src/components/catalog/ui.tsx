@@ -244,7 +244,7 @@ export const Glitch = styled("h1")({
   margin: 0,
   fontFamily: hud.display,
   fontWeight: 800,
-  fontSize: "clamp(2.2rem, 6.2vw, 4.15rem)",
+  fontSize: "clamp(2.2rem, 6.2vw, 5.15rem)",
   lineHeight: 0.92,
   letterSpacing: "0.045em",
   textTransform: "uppercase",

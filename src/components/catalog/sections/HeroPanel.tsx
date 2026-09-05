@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import { hud } from "@/theme/hud";
 import { Glitch, HudButton, Panel, PanelHeader, StatusBadge } from "../ui";
 import { HeroAvatar } from "./HeroAvatar";
+import Stack from "@mui/material/Stack";
 
 export function HeroPanel() {
   const t = useTranslations();
@@ -29,11 +30,19 @@ export function HeroPanel() {
         }}
       >
         <Box sx={{ position: "relative", zIndex: 1, fontFamily: hud.mono }}>
-          <Box sx={{ mb: "12px", display: "flex", justifyContent: { xs: "center", sm: "flex-start" } }}>
+          <Box
+            sx={{
+              mb: "12px",
+              display: "flex",
+              justifyContent: { xs: "center", sm: "flex-start" },
+            }}
+          >
             <StatusBadge>{t("hud.active")}</StatusBadge>
           </Box>
-          <Glitch>{t("hero.name")}</Glitch>
-          <HeroRoles title={t("hero.title")} />
+          <Stack direction="column" spacing={1}>
+            <Glitch>{t("hero.name")}</Glitch>
+            <HeroRoles title={t("hero.title")} />
+          </Stack>
           <Typography
             sx={{
               mt: "10px",
@@ -52,7 +61,13 @@ export function HeroPanel() {
               {t("hero.mottoLine2")}
             </Box>
           </Typography>
-          <Box sx={{ mt: "20px", display: "flex", justifyContent: { xs: "center", sm: "flex-start" } }}>
+          <Box
+            sx={{
+              mt: "20px",
+              display: "flex",
+              justifyContent: { xs: "center", sm: "flex-start" },
+            }}
+          >
             <HudButton href="#contact">{t("hero.contactMe")}</HudButton>
           </Box>
         </Box>
@@ -63,43 +78,21 @@ export function HeroPanel() {
   );
 }
 
-/** Job titles separated by a glowing tick instead of the source `" | "`. */
 function HeroRoles({ title }: { title: string }) {
   return (
     <Typography
-      aria-label={title}
       sx={{
-        mt: "14px",
         mb: 0,
-        color: hud.text,
-        font: `400 1.02rem/1.45 ${hud.mono}`,
+        color: hud.cyanDeep,
+        fontFamily: hud.display,
+        fontWeight: 600,
+        fontSize: "clamp(1.05rem, 2.2vw, 1.4rem)",
+        lineHeight: 1.2,
         letterSpacing: "0.02em",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: { xs: "center", sm: "flex-start" },
-        flexWrap: "wrap",
-        columnGap: "12px",
-        rowGap: "6px",
+        textTransform: "uppercase",
       }}
     >
-      {title.split(" | ").map((part, idx) => (
-        <Box key={part} component="span" sx={{ display: "inline-flex", alignItems: "center", gap: "12px" }}>
-          {idx > 0 && (
-            <Box
-              component="span"
-              aria-hidden
-              sx={{
-                width: "2px",
-                height: "0.9em",
-                bgcolor: hud.cyan,
-                boxShadow: `0 0 8px ${hud.cyan}`,
-                flexShrink: 0,
-              }}
-            />
-          )}
-          {part}
-        </Box>
-      ))}
+      {title}
     </Typography>
   );
 }
