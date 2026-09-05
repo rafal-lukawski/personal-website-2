@@ -8,7 +8,7 @@ import { ParticleField } from "./ParticleField";
 import { emojiTints } from "./techIcons";
 import { useLightbox } from "./useLightbox";
 import { useProjects } from "./useProjects";
-import { AboutPanel } from "./sections/AboutPanel";
+import { IntroPanel } from "./sections/IntroPanel";
 import { CertificatesPanel } from "./sections/CertificatesPanel";
 import { ContactPanel } from "./sections/ContactPanel";
 import { HeroPanel } from "./sections/HeroPanel";
@@ -26,7 +26,7 @@ import { EmojiTintFilters, Page, Root, SkipLink } from "./ui";
  */
 const ORDER = {
   stats: 1,
-  about: 2,
+  intro: 2,
   projects: 3,
   stack: 4,
   certificates: 5,
@@ -58,7 +58,7 @@ export function Catalog() {
         >
           <Stack spacing="20px" useFlexGap sx={{ display: { xs: "contents", lg: "flex" } }}>
             {SHOW_STATS_PANEL && <StatsPanel order={ORDER.stats} />}
-            <AboutPanel order={ORDER.about} />
+            <IntroPanel order={ORDER.intro} />
             <StackPanel order={ORDER.stack} />
             <CertificatesPanel order={ORDER.certificates} />
             <ContactPanel order={ORDER.contact} />

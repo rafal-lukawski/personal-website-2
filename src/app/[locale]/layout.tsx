@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { JetBrains_Mono, Oxanium } from "next/font/google";
+import { Barlow_Condensed, JetBrains_Mono } from "next/font/google";
 import { cookies } from "next/headers";
 import "../globals.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
@@ -16,9 +16,9 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 
-const oxanium = Oxanium({
+const barlowCondensed = Barlow_Condensed({
   subsets: ["latin", "latin-ext"],
-  variable: "--font-oxanium",
+  variable: "--font-barlow-condensed",
   weight: ["600", "700", "800"],
 });
 
@@ -110,7 +110,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={[oxanium.variable, jetBrains.variable, htmlColorClass]
+      className={[barlowCondensed.variable, jetBrains.variable, htmlColorClass]
         .filter(Boolean)
         .join(" ")}
       suppressHydrationWarning

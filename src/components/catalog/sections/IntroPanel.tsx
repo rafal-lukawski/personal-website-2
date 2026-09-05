@@ -9,21 +9,16 @@ import { Typewriter, TYPEWRITER_LINE_HEIGHT } from "../Typewriter";
 import { Panel, PanelBody, PanelHeader, srOnly } from "../ui";
 import type { SectionProps } from "./types";
 
-const PARAGRAPHS = [
-  "about.paragraph1",
-  "about.paragraph2",
-  "about.paragraph3",
-  "about.paragraph4",
-] as const;
+const PARAGRAPHS = ["about.paragraph1", "about.paragraph2"] as const;
 
-export function AboutPanel({ order }: SectionProps) {
+export function IntroPanel({ order }: SectionProps) {
   const t = useTranslations();
   const reducedMotion = usePrefersReducedMotion();
 
   // Cheap enough to rebuild every render, and never stale after a locale swap.
   const command = t("about.contactCommand");
-  const body = PARAGRAPHS.map((key) => `> ${t(key)}`).join("\n\n");
-  const text = `${body}\n\n> ${command}`;
+  const body = PARAGRAPHS.map((key) => t(key)).join("\n\n");
+  const text = `${body}\n\n${command}`;
 
   return (
     <Panel id="about" sx={{ order }}>
@@ -34,6 +29,33 @@ export function AboutPanel({ order }: SectionProps) {
         stampRight="BUF: OK"
       />
       <PanelBody>
+        <Typography
+          component="p"
+          sx={{
+            m: 0,
+            mb: "16px",
+            fontFamily: hud.display,
+            fontWeight: 800,
+            fontSize: "clamp(1.8rem, 3.2vw, 4.15rem)",
+            lineHeight: 0.9,
+            letterSpacing: "-0.00em",
+            textTransform: "uppercase",
+          }}
+        >
+          <Box component="span" sx={{ display: "block", color: hud.cyanDeep }}>
+            {t("about.ctaLine1")}
+          </Box>
+          <Box
+            component="span"
+            sx={{
+              display: "block",
+              color: hud.cyan,
+              filter: `drop-shadow(0 0 6px color-mix(in srgb, ${hud.cyan} 20%, transparent))`,
+            }}
+          >
+            {t("about.ctaLine2")}
+          </Box>
+        </Typography>
         <Typography
           component="div"
           sx={{
