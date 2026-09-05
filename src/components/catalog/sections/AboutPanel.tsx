@@ -17,8 +17,8 @@ export function AboutPanel({ order }: SectionProps) {
 
   // Cheap enough to rebuild every render, and never stale after a locale swap.
   const command = t("about.contactCommand");
-  const body = PARAGRAPHS.map((key) => `> ${t(key)}`).join("\n\n");
-  const text = `${body}\n\n> ${command}`;
+  const body = PARAGRAPHS.map((key) => t(key)).join("\n\n");
+  const text = `${body}\n\n${command}`;
 
   return (
     <Panel id="about" sx={{ order }}>
