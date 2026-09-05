@@ -9,8 +9,11 @@ type Glyph = { ch: string; bold: boolean };
 
 /** Line height of the typed body; the paragraph gap is derived from it. */
 export const TYPEWRITER_LINE_HEIGHT = 1.54;
+export const SHOW_LINE_PROMPT = false;
+const LINE_PROMPT = "> ";
 const PARAGRAPH_GAP = `${TYPEWRITER_LINE_HEIGHT * 0.7}em`;
 const GLYPH_INTERVAL_MS = 11;
+const promptTint = { color: `color-mix(in srgb, ${hud.ok} 62%, ${hud.muted})` } as const;
 
 /** Turns `**bold**` markers into per-character emphasis flags. */
 function parseBold(raw: string): Glyph[] {
@@ -27,14 +30,18 @@ function parseBold(raw: string): Glyph[] {
   return glyphs;
 }
 
-/** The `"> "` that opens a line is chrome, not prose, so it gets the prompt tint. */
-function isPromptGlyph(glyphs: Glyph[], i: number) {
-  const ch = glyphs[i]?.ch;
-  if (ch === ">" && (i === 0 || glyphs[i - 1].ch === "\n")) return true;
-  if (ch === " " && glyphs[i - 1]?.ch === ">" && (i === 1 || glyphs[i - 2]?.ch === "\n")) {
-    return true;
-  }
-  return false;
+function isLineStart(glyphs: Glyph[], i: number) {
+  return i === 0 || glyphs[i - 1]?.ch === "\n";
+}
+
+function Prompt({ enabled }: { enabled: boolean }) {
+  return enabled ? (
+    <PhosphorChar sx={promptTint}>{LINE_PROMPT}</PhosphorChar>
+  ) : (
+    <Box component="span" sx={promptTint}>
+      {LINE_PROMPT}
+    </Box>
+  );
 }
 
 /**
@@ -81,15 +88,8 @@ export function Typewriter({
       if (glyph.ch === "\n" && glyphs[i - 1]?.ch === "\n") {
         return <Box key={i} component="span" sx={{ display: "block", height: PARAGRAPH_GAP }} />;
       }
-      const prompt = isPromptGlyph(glyphs, i);
-      const sx = {
-        ...(prompt
-          ? { color: `color-mix(in srgb, ${hud.ok} 62%, ${hud.muted})` }
-          : glyph.bold
-            ? { fontWeight: 700, color: hud.text }
-            : undefined),
-      };
-      return enabled ? (
+      const sx = glyph.bold ? { fontWeight: 700, color: hud.text } : undefined;
+      const ch = enabled ? (
         <PhosphorChar key={i} sx={sx}>
           {glyph.ch}
         </PhosphorChar>
@@ -98,6 +98,15 @@ export function Typewriter({
           {glyph.ch}
         </Box>
       );
+      if (SHOW_LINE_PROMPT && glyph.ch !== "\n" && isLineStart(glyphs, i)) {
+        return (
+          <Box key={`${i}-line`} component="span">
+            <Prompt enabled={enabled} />
+            {ch}
+          </Box>
+        );
+      }
+      return ch;
     });
 
   const bodyTo = Math.min(shownCount, commandStart);
