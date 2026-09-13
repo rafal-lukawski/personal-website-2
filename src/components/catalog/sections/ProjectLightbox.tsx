@@ -61,7 +61,7 @@ export function ProjectLightbox({
               <CornerTicks color={hud.cyan} />
               <Box
                 component="img"
-                src={shot.src}
+                src={shot.src.src}
                 alt={shot.alt}
                 // Width-driven on purpose: no height cap, so the shot stays as
                 // large as the panel allows and the body scrolls if it must.
@@ -106,7 +106,7 @@ export function ProjectLightbox({
               >
                 {project.screenshots.map((thumb, idx) => (
                   <ShotThumb
-                    key={thumb.id}
+                    key={thumb.src.src}
                     type="button"
                     data-active={idx === index}
                     aria-label={`${t("hud.gallery")} ${idx + 1} / ${count}`}

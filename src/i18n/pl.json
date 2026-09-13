@@ -66,98 +66,32 @@
     "glam4less": {
       "title": "Glam4Less",
       "customer": "DRC Dawid Ryżak",
-      "description": "Serwis Glam4Less dedykowany dla kobiet, umożliwia wypożyczanie i sprzedaż nowych i używanych ubrań. Dzięki wykorzystaniu AI udostępnia wirtualną przymierzalnię, gdzie łącząc zdjęcie ubrania i sylwetki generuje podgląd kreacji nałożony na sylwetkę.",
-      "screenshots": {
-        "screen1": {
-          "alt": "glam4less.pl — strona główna z wyszukiwarką kreacji i wirtualną przymierzalnią AI"
-        },
-        "screen3": {
-          "alt": "glam4less.pl — kreator ogłoszenia, krok zdjęć z wskazówkami do wirtualnego przymierzania AI i wgrywaniem plików"
-        },
-        "screen4": {
-          "alt": "glam4less.pl — widok sporu z propozycją ugody i podziałem kaucji"
-        },
-        "screen5": {
-          "alt": "glam4less.pl — panel administratora, wynik eksperymentu AI z siatką wygenerowanych zdjęć kreacji"
-        }
-      }
+      "description": "Serwis Glam4Less dedykowany dla kobiet, umożliwia wypożyczanie i sprzedaż nowych i używanych ubrań. Dzięki wykorzystaniu AI udostępnia wirtualną przymierzalnię, gdzie łącząc zdjęcie ubrania i sylwetki generuje podgląd kreacji nałożony na sylwetkę."
     },
     "mediaflip": {
       "title": "mediaflip.io",
       "customer": "Rafał Łukawski",
-      "description": "Zaawansowany generator multimediów, który pozwala użytkownikom na szybkie i proste tworzenie treści (zdjęcia, wideo i tekst) bez zbędnych kroków. Platforma została zbudowana z naciskiem na najwyższą wydajność, bezpieczeństwo oraz skalowalność, wykorzystując nowoczesny stos technologiczny.",
-      "screenshots": {
-        "screen1": {
-          "alt": "mediaflip.io Ekran 1"
-        },
-        "screen2": {
-          "alt": "mediaflip.io Ekran 2"
-        },
-        "screen4": {
-          "alt": "Widok tabelaryczny memów wygenerowanych przez użytkowników pozwala na zarządzanie z poziomu panelu admina. Z tego poziomu można szybko zablokować i odblokować poszczególne memy albo je po prostu bezpowrotnie usunąć."
-        },
-        "screen5": {
-          "alt": "mediaflip.io Generator"
-        }
-      }
+      "description": "Zaawansowany generator multimediów, który pozwala użytkownikom na szybkie i proste tworzenie treści (zdjęcia, wideo i tekst) bez zbędnych kroków. Platforma została zbudowana z naciskiem na najwyższą wydajność, bezpieczeństwo oraz skalowalność, wykorzystując nowoczesny stos technologiczny."
     },
     "egzoclinic": {
       "title": "EGZOClinic",
       "customer": "EGZOTech.com",
-      "description": "Kompleksowa platforma programowa dla fizjoterapii i neurorehabilitacji. Aplikacja działa na robotycznych urządzeniach medycznych, w tym Stella BIO, Sidra LEG i Meissa OT. Funkcje obejmują progresywną terapię CPM, ćwiczenia wspomagane komputerowo CAM, interfejs graficzny do konfiguracji parametrów EMS, kompleksowe raportowanie z analizą danych EMG, ochronę przed spastycznością, przewodnik rozmieszczenia elektrod, gry rehabilitacyjne i wsparcie wielojęzyczne.",
-      "screenshots": {
-        "screen1": {
-          "alt": "Ekran logowania zapamiętuje teraz ostatnio zalogowanych użytkowników, umożliwiając szybszy dostęp i skracając czas potrzebny do rozpoczęcia korzystania z urządzenia."
-        },
-        "screen2": {
-          "alt": "CPM Progressive to zaawansowany tryb terapii Ciągłym Ruchem Biernym (CPM), w którym urządzenie aplikuje zdefiniowany moment obrotowy, aby poruszać pacjenta w określonym zakresie ruchu z kontrolowaną prędkością. Program obsługuje zarówno ręczną, jak i automatyczną regulację zakresu ruchu podczas terapii."
-        },
-        "screen3": {
-          "alt": "Ćwiczenie EMG View zostało ulepszone poprzez podział pomiarów EMG na segmenty, z których każdy reprezentuje pojedynczy skurcz mięśnia, co pozwala na szczegółową analizę w raporcie. Użytkownicy mogą nazywać i przeglądać segmenty podczas ćwiczenia, podczas gdy pomiar relaksacji przed ćwiczeniem stanowi punkt odniesienia do obliczeń w raporcie."
-        },
-        "screen4": {
-          "alt": "Program EMS Użytkownika i EMS Pelvic Użytkownika zawierają teraz interfejs graficzny, który pozwala terapeutom na szybką i łatwą regulację obwiedni sygnału dla każdego kanału ćwiczenia. Zmiany mogą być testowane na pacjencie bezpośrednio z tego samego ekranu ustawień przed rozpoczęciem właściwego ćwiczenia."
-        }
-      }
+      "description": "Kompleksowa platforma programowa dla fizjoterapii i neurorehabilitacji. Aplikacja działa na robotycznych urządzeniach medycznych, w tym Stella BIO, Sidra LEG i Meissa OT. Funkcje obejmują progresywną terapię CPM, ćwiczenia wspomagane komputerowo CAM, interfejs graficzny do konfiguracji parametrów EMS, kompleksowe raportowanie z analizą danych EMG, ochronę przed spastycznością, przewodnik rozmieszczenia elektrod, gry rehabilitacyjne i wsparcie wielojęzyczne."
     },
     "generator": {
       "title": "Generator Pasków",
       "customer": "Rafał Łukawski",
-      "description": "Platforma internetowa do szybkiego tworzenia i udostępniania memów nawiązujących do popularnych polskich programów telewizyjnych. Stworzona od podstaw jako kompletny projekt (full-stack) przy użyciu Next.js i bazy danych PostgreSQL. Użytkownicy mogą wygodnie edytować grafiki, korzystać z gotowych szablonów oraz przeglądać treści na dowolnym urządzeniu. Całość została przygotowana i wdrożona z myślą o stabilnym działaniu produkcyjnym.",
-      "screenshots": {
-        "screen1": {
-          "alt": "Generator Pasków Ekran 1"
-        },
-        "screen2": {
-          "alt": "Generator Pasków Ekran 2"
-        }
-      }
+      "description": "Platforma internetowa do szybkiego tworzenia i udostępniania memów nawiązujących do popularnych polskich programów telewizyjnych. Stworzona od podstaw jako kompletny projekt (full-stack) przy użyciu Next.js i bazy danych PostgreSQL. Użytkownicy mogą wygodnie edytować grafiki, korzystać z gotowych szablonów oraz przeglądać treści na dowolnym urządzeniu. Całość została przygotowana i wdrożona z myślą o stabilnym działaniu produkcyjnym."
     },
     "stella": {
       "title": "Stella BIO App",
       "customer": "EGZOTech.com",
-      "description": "Aplikacja internetowa do konfiguracji i zarządzania przenośnym urządzeniem medycznym Stella BIO (EMG i FES). Umożliwia specjalistom oraz pacjentom zdalne ustawianie programów terapeutycznych, monitorowanie pomiarów i zarządzanie leczeniem. Wspiera rehabilitację kliniczną i domową, oferując m.in. uwierzytelnianie, konfigurację sesji oraz kompleksowe raportowanie.",
-      "screenshots": {
-        "screen1": {
-          "alt": "Stella BIO App Strona Logowania"
-        },
-        "screen2": {
-          "alt": "Stella BIO App Program EMG"
-        }
-      }
+      "description": "Aplikacja internetowa do konfiguracji i zarządzania przenośnym urządzeniem medycznym Stella BIO (EMG i FES). Umożliwia specjalistom oraz pacjentom zdalne ustawianie programów terapeutycznych, monitorowanie pomiarów i zarządzanie leczeniem. Wspiera rehabilitację kliniczną i domową, oferując m.in. uwierzytelnianie, konfigurację sesji oraz kompleksowe raportowanie."
     },
     "multibenefit": {
       "title": "Multibenefit",
       "customer": "Benefit Systems",
-      "description": "Platforma e-commerce umożliwiająca pracownikom wybór świadczeń pozapłacowych (m.in. karty MultiSport, vouchery, bilety). Zbudowana od podstaw, wspiera dobrostan zatrudnionych oraz ułatwia pracodawcom dystrybucję benefitów.",
-      "screenshots": {
-        "screen1": {
-          "alt": "Multibenefit.pl Ekran 1"
-        },
-        "screen2": {
-          "alt": "Multibenefit.pl Ekran 2"
-        }
-      }
+      "description": "Platforma e-commerce umożliwiająca pracownikom wybór świadczeń pozapłacowych (m.in. karty MultiSport, vouchery, bilety). Zbudowana od podstaw, wspiera dobrostan zatrudnionych oraz ułatwia pracodawcom dystrybucję benefitów."
     }
   },
   "certificates": {

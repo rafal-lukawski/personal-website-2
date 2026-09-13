@@ -43,10 +43,10 @@ export function ProjectCard({
           />
           <GlitchFrame>
             <ShotBg aria-hidden>
-              <Image src={shot.src} alt="" width={shot.width} height={shot.height} />
+              <Image src={shot.src} alt="" />
             </ShotBg>
             <ShotFg>
-              <Image src={shot.src} alt={shot.alt} width={shot.width} height={shot.height} />
+              <Image src={shot.src} alt={shot.alt} />
             </ShotFg>
           </GlitchFrame>
         </ShotButton>

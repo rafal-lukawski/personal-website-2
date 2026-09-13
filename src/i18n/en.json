@@ -65,98 +65,32 @@
     "glam4less": {
       "title": "Glam4Less",
       "customer": "DRC Dawid Ryżak",
-      "description": "Glam4Less is a service dedicated to women that enables the rental and sale of new and used clothing. Using AI, it provides a virtual fitting room that combines a photo of a garment with a silhouette to generate a preview of the outfit on the user's figure.",
-      "screenshots": {
-        "screen1": {
-          "alt": "glam4less.pl — homepage with outfit search and AI virtual fitting room"
-        },
-        "screen3": {
-          "alt": "glam4less.pl — listing wizard, photos step with AI virtual try-on guidance and image upload"
-        },
-        "screen4": {
-          "alt": "glam4less.pl — dispute view with a settlement proposal for splitting the deposit"
-        },
-        "screen5": {
-          "alt": "glam4less.pl — admin panel, AI experiment result with a grid of generated outfit photos"
-        }
-      }
+      "description": "Glam4Less is a service dedicated to women that enables the rental and sale of new and used clothing. Using AI, it provides a virtual fitting room that combines a photo of a garment with a silhouette to generate a preview of the outfit on the user's figure."
     },
     "mediaflip": {
       "title": "mediaflip.io",
       "customer": "Rafał Łukawski",
-      "description": "An advanced multimedia generator that allows users to quickly and easily create content (images, videos, and text) without unnecessary steps. The platform is built with a strong focus on high performance, security, and scalability, leveraging a modern technology stack.",
-      "screenshots": {
-        "screen1": {
-          "alt": "mediaflip.io Screen 1"
-        },
-        "screen2": {
-          "alt": "mediaflip.io Screen 2"
-        },
-        "screen4": {
-          "alt": "The tabular view of user-generated memes allows for management from the admin panel. From this level, you can quickly block and unblock individual memes or simply delete them permanently."
-        },
-        "screen5": {
-          "alt": "mediaflip.io Generator"
-        }
-      }
+      "description": "An advanced multimedia generator that allows users to quickly and easily create content (images, videos, and text) without unnecessary steps. The platform is built with a strong focus on high performance, security, and scalability, leveraging a modern technology stack."
     },
     "egzoclinic": {
       "title": "EGZOClinic",
       "customer": "EGZOTech.com",
-      "description": "Comprehensive software platform for physiotherapy and neurorehabilitation. The application runs on robotic medical devices including Stella BIO, Sidra LEG, and Meissa OT, facilitating rehabilitation for conditions like strokes and spinal cord injuries. Features include progressive continuous passive motion (CPM) therapy, computer-assisted movement (CAM) exercises including CAM Isokinetic and CAM Torque, graphical interface for EMS parameter configuration, comprehensive reporting with EMG data analysis, spasticity protection, electrode placement guidance, rehabilitation games, and multilingual support.",
-      "screenshots": {
-        "screen1": {
-          "alt": "The login screen now remembers recently signed-in users, allowing faster access and reducing the time needed to start using the device."
-        },
-        "screen2": {
-          "alt": "CPM Progressive is an advanced Continuous Passive Motion (CPM) therapy mode in which the device applies a predefined torque to move the patient through a specified range of motion at a controlled speed. The program supports both manual and automatic adjustment of the range of motion during therapy."
-        },
-        "screen3": {
-          "alt": "The EMG View exercise has been enhanced to divide EMG recordings into segments, each representing a single muscle contraction for detailed analysis in the report. Users can name and review segments during the exercise, while a pre-exercise relaxation measurement provides a baseline for subsequent report calculations."
-        },
-        "screen4": {
-          "alt": "The EMS User Program and EMS Pelvic User Program now feature a graphical interface that allows therapists to quickly and easily adjust the signal envelope for each exercise channel. Changes can be tested on the patient directly from the same settings screen before starting the actual exercise."
-        }
-      }
+      "description": "Comprehensive software platform for physiotherapy and neurorehabilitation. The application runs on robotic medical devices including Stella BIO, Sidra LEG, and Meissa OT, facilitating rehabilitation for conditions like strokes and spinal cord injuries. Features include progressive continuous passive motion (CPM) therapy, computer-assisted movement (CAM) exercises including CAM Isokinetic and CAM Torque, graphical interface for EMS parameter configuration, comprehensive reporting with EMG data analysis, spasticity protection, electrode placement guidance, rehabilitation games, and multilingual support."
     },
     "generator": {
       "title": "Generator Pasków",
       "customer": "Rafał Łukawski",
-      "description": "Web platform for quickly creating and sharing memes related to popular Polish TV shows. Built from scratch as a complete full-stack project using Next.js and a PostgreSQL database. Users can easily edit images, use ready-made templates, and browse content on any device. The entire system is built and deployed for reliable production performance.",
-      "screenshots": {
-        "screen1": {
-          "alt": "Generator Pasków Screen 1"
-        },
-        "screen2": {
-          "alt": "Generator Pasków Screen 2"
-        }
-      }
+      "description": "Web platform for quickly creating and sharing memes related to popular Polish TV shows. Built from scratch as a complete full-stack project using Next.js and a PostgreSQL database. Users can easily edit images, use ready-made templates, and browse content on any device. The entire system is built and deployed for reliable production performance."
     },
     "stella": {
       "title": "Stella BIO App",
       "customer": "EGZOTech.com",
-      "description": "Web application for configuring and managing the Stella BIO portable medical device (EMG and FES). It enables specialists and patients to remotely configure therapy programs, monitor measurements, and manage treatment. It supports both clinical and home rehabilitation, offering features like user authentication, session configuration, and comprehensive reporting.",
-      "screenshots": {
-        "screen1": {
-          "alt": "Stella BIO App Login Page"
-        },
-        "screen2": {
-          "alt": "Stella BIO App EMG Program"
-        }
-      }
+      "description": "Web application for configuring and managing the Stella BIO portable medical device (EMG and FES). It enables specialists and patients to remotely configure therapy programs, monitor measurements, and manage treatment. It supports both clinical and home rehabilitation, offering features like user authentication, session configuration, and comprehensive reporting."
     },
     "multibenefit": {
       "title": "Multibenefit",
       "customer": "Benefit Systems",
-      "description": "E-commerce platform enabling employees to choose non-wage benefits (including MultiSport cards, vouchers, and tickets). Built from scratch, it supports employee well-being and facilitates the distribution of benefits for employers.",
-      "screenshots": {
-        "screen1": {
-          "alt": "Multibenefit.pl Screen 1"
-        },
-        "screen2": {
-          "alt": "Multibenefit.pl Screen 2"
-        }
-      }
+      "description": "E-commerce platform enabling employees to choose non-wage benefits (including MultiSport cards, vouchers, and tickets). Built from scratch, it supports employee well-being and facilitates the distribution of benefits for employers."
     }
   },
   "certificates": {

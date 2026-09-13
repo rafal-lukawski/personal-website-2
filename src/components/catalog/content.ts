@@ -1,3 +1,23 @@
+import type { StaticImageData } from "next/image";
+import egzoclinic2 from "../../../public/projects/egzoclinic-2.webp";
+import egzoclinic3 from "../../../public/projects/egzoclinic-3.webp";
+import egzoclinic4 from "../../../public/projects/egzoclinic-4.webp";
+import egzoclinic5 from "../../../public/projects/egzoclinic-5.webp";
+import generator1 from "../../../public/projects/generator-1.webp";
+import generator2 from "../../../public/projects/generator-2.webp";
+import glam4less3 from "../../../public/projects/glam4less-3.webp";
+import glam4less4 from "../../../public/projects/glam4less-4.webp";
+import glam4less5 from "../../../public/projects/glam4less-5.webp";
+import glam4less6 from "../../../public/projects/glam4less-6.webp";
+import mediaflip1 from "../../../public/projects/mediaflip-1.webp";
+import mediaflip2 from "../../../public/projects/mediaflip-2.webp";
+import mediaflip4 from "../../../public/projects/mediaflip-4.webp";
+import mediaflip5 from "../../../public/projects/mediaflip-5.webp";
+import multi1 from "../../../public/projects/multi-1.webp";
+import multi2 from "../../../public/projects/multi-2.webp";
+import stellaEmg from "../../../public/projects/stella-app_emg-program.webp";
+import stellaLogin from "../../../public/projects/stella-app_login-page.webp";
+
 export type ProjectStatus = "development" | "deployed" | "maintained";
 
 /** Month precision is all the feed ever renders, so the day is left out. */
@@ -13,11 +33,8 @@ type Project = {
   url: string | undefined;
   customer: string | { display: string; url: string };
   screenshots: readonly {
-    id: string;
-    src: string;
+    src: StaticImageData;
     sourceUrl: string;
-    width: number;
-    height: number;
   }[];
 };
 
@@ -30,34 +47,10 @@ export const projectsData = [
     url: "https://glam4less.pl",
     customer: "DRC Dawid Ryżak",
     screenshots: [
-      {
-        id: "screen1",
-        src: "/projects/glam4less-2.webp",
-        sourceUrl: "glam4less.pl",
-        width: 1013,
-        height: 1024,
-      },
-      {
-        id: "screen3",
-        src: "/projects/glam4less-3.webp",
-        sourceUrl: "glam4less.pl",
-        width: 1013,
-        height: 1024,
-      },
-      {
-        id: "screen4",
-        src: "/projects/glam4less-4.webp",
-        sourceUrl: "glam4less.pl",
-        width: 1013,
-        height: 1024,
-      },
-      {
-        id: "screen5",
-        src: "/projects/glam4less-5.webp",
-        sourceUrl: "glam4less.pl",
-        width: 1013,
-        height: 1024,
-      },      
+      { src: glam4less6, sourceUrl: "glam4less.pl" },
+      { src: glam4less3, sourceUrl: "glam4less.pl" },
+      { src: glam4less4, sourceUrl: "glam4less.pl" },
+      { src: glam4less5, sourceUrl: "glam4less.pl" },
     ],
   },
   {
@@ -68,34 +61,10 @@ export const projectsData = [
     url: "https://mediaflip.io",
     customer: "Rafał Łukawski",
     screenshots: [
-      {
-        id: "screen1",
-        src: "/projects/mediaflip-1.webp",
-        sourceUrl: "mediaflip.io",
-        width: 1280,
-        height: 800,
-      },
-      {
-        id: "screen2",
-        src: "/projects/mediaflip-2.webp",
-        sourceUrl: "mediaflip.io/pl/stos-technologiczny",
-        width: 1280,
-        height: 800,
-      },
-      {
-        id: "screen4",
-        src: "/projects/mediaflip-4.webp",
-        sourceUrl: "mediaflip.io/pl/admin/memes",
-        width: 1577,
-        height: 816,
-      },
-      {
-        id: "screen5",
-        src: "/projects/mediaflip-5.webp",
-        sourceUrl: "mediaflip.io/pl/generator",
-        width: 1280,
-        height: 800,
-      },
+      { src: mediaflip1, sourceUrl: "mediaflip.io" },
+      { src: mediaflip2, sourceUrl: "mediaflip.io/pl/stos-technologiczny" },
+      { src: mediaflip4, sourceUrl: "mediaflip.io/pl/admin/memes" },
+      { src: mediaflip5, sourceUrl: "mediaflip.io/pl/generator" },
     ],
   },
   {
@@ -106,35 +75,10 @@ export const projectsData = [
     url: undefined as string | undefined,
     customer: { display: "EGZOTech.com", url: "https://egzotech.com" },
     screenshots: [
-      {
-        id: "screen4",
-        src: "/projects/egzoclinic-4.webp",
-        sourceUrl: "egzotech.com",
-        width: 1024,
-        height: 556,
-      },
-      {
-        id: "screen1",
-        src: "/projects/egzoclinic-5.webp",
-        sourceUrl: "egzotech.com",
-        width: 440,
-        height: 441,
-      },
-      {
-        id: "screen2",
-        src: "/projects/egzoclinic-2.webp",
-        sourceUrl: "egzotech.com",
-        width: 932,
-        height: 561,
-      },
-      {
-        id: "screen3",
-        src: "/projects/egzoclinic-3.webp",
-        sourceUrl: "egzotech.com",
-        width: 1024,
-        height: 538,
-      },
-
+      { src: egzoclinic4, sourceUrl: "egzotech.com" },
+      { src: egzoclinic5, sourceUrl: "egzotech.com" },
+      { src: egzoclinic2, sourceUrl: "egzotech.com" },
+      { src: egzoclinic3, sourceUrl: "egzotech.com" },
     ],
   },
   {
@@ -145,20 +89,8 @@ export const projectsData = [
     url: "https://generator-paskow.pl",
     customer: "Rafał Łukawski",
     screenshots: [
-      {
-        id: "screen1",
-        src: "/projects/generator-1.webp",
-        sourceUrl: "generator-paskow.pl",
-        width: 1440,
-        height: 900,
-      },
-      {
-        id: "screen2",
-        src: "/projects/generator-2.webp",
-        sourceUrl: "generator-paskow.pl",
-        width: 1440,
-        height: 900,
-      },
+      { src: generator1, sourceUrl: "generator-paskow.pl" },
+      { src: generator2, sourceUrl: "generator-paskow.pl" },
     ],
   },
   {
@@ -169,20 +101,8 @@ export const projectsData = [
     url: "https://app.egzotech.com",
     customer: { display: "EGZOTech.com", url: "https://egzotech.com" },
     screenshots: [
-      {
-        id: "screen1",
-        src: "/projects/stella-app_emg-program.webp",
-        sourceUrl: "egzotech.com",
-        width: 1444,
-        height: 896,
-      },
-      {
-        id: "screen2",
-        src: "/projects/stella-app_login-page.webp",
-        sourceUrl: "egzotech.com",
-        width: 1440,
-        height: 900,
-      },
+      { src: stellaEmg, sourceUrl: "egzotech.com" },
+      { src: stellaLogin, sourceUrl: "egzotech.com" },
     ],
   },
   {
@@ -196,20 +116,8 @@ export const projectsData = [
       url: "https://www.benefitsystems.pl/",
     },
     screenshots: [
-      {
-        id: "screen1",
-        src: "/projects/multi-1.webp",
-        sourceUrl: "web.archive.org",
-        width: 1120,
-        height: 1020,
-      },
-      {
-        id: "screen2",
-        src: "/projects/multi-2.webp",
-        sourceUrl: "web.archive.org",
-        width: 1195,
-        height: 1106,
-      },
+      { src: multi1, sourceUrl: "web.archive.org" },
+      { src: multi2, sourceUrl: "web.archive.org" },
     ],
   },
 ] as const satisfies readonly Project[];

@@ -42,13 +42,15 @@ export function useProjects() {
         const start = monthLabel(format, project.startDate);
         const end = project.endDate ? monthLabel(format, project.endDate) : t("projects.present");
 
+        const title = t(`projects.${project.id}.title`);
+
         return {
           ...project,
-          title: t(`projects.${project.id}.title`),
+          title,
           dateRange: `${start} - ${end}`,
-          screenshots: project.screenshots.map((screen) => ({
+          screenshots: project.screenshots.map((screen, shotIndex) => ({
             ...screen,
-            alt: t(`projects.${project.id}.screenshots.${screen.id}.alt`),
+            alt: `${title} ${shotIndex + 1}`,
           })),
           statusLabel: t(`hud.projectStatus.${project.status}`),
           slotLabel: slot,
