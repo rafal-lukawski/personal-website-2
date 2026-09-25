@@ -604,6 +604,23 @@ export const HudLink = styled(Link)({
   "&:hover::after": { background: cornerFill(10, frameBright) },
 });
 
+export const HudLinkGroup = styled("div")({
+  position: "relative",
+  display: "flex",
+  flexDirection: "column",
+  gap: 8,
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    inset: 0,
+    pointerEvents: "none",
+    background: cornerFill(10),
+  },
+  "&:hover::after": { background: cornerFill(10, frameBright) },
+  "& > a": { padding: "6px 12px" },
+  "& > a::after, & > a:hover::after": { background: "none" },
+});
+
 export const ShotThumb = styled("button")({
   position: "relative",
   border: 0,
