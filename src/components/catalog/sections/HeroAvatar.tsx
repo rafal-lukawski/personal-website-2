@@ -66,7 +66,7 @@ export function HeroAvatar() {
             }}
           />
           <GlitchFrame sx={{ height: "100%" }}>
-            <Image src={AVATAR_SRC} alt={AVATAR_ALT} width={440} height={440} priority />
+            <Image src={AVATAR_SRC} alt={AVATAR_ALT} width={440} height={440} sizes="auto" priority />
           </GlitchFrame>
           {!reducedMotion && (
             <Box

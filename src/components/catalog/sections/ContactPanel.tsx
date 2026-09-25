@@ -2,11 +2,10 @@
 
 import { useTranslations } from "next-intl";
 import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { socialLinks } from "@/config/socials";
 import { hud } from "@/theme/hud";
-import { HudLink, Panel, PanelBody, PanelHeader, SectionLabel } from "../ui";
+import { HudLink, HudLinkGroup, Panel, PanelBody, PanelHeader, SectionLabel } from "../ui";
 import type { SectionProps } from "./types";
 import { ContactForm } from "./ContactForm";
 
@@ -56,14 +55,14 @@ export function ContactPanel({ order }: SectionProps) {
               {t("contact.ctaLine2")}
             </Box>
           </Typography>
-          <Stack spacing="20px">
+          <HudLinkGroup>
             {socialLinks.map(({ name, url, icon: Icon }) => (
               <HudLink key={name} href={url} target="_blank" rel="noopener noreferrer">
                 <Icon />
                 {name}
               </HudLink>
             ))}
-          </Stack>
+          </HudLinkGroup>
         </Box>
 
         <Box>

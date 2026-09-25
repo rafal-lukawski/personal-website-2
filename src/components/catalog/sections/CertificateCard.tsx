@@ -34,7 +34,7 @@ export function CertificateCard({
     >
       <Box sx={{ position: "relative", width: 94, height: 94, mb: "20px", display: "grid", placeItems: "center" }}>
         <CornerTicks size={12} />
-        <Image src={certificate.customIcon} alt="" width={64} height={64} />
+        <Image src={certificate.customIcon} alt="" width={64} height={64} sizes="auto" />
       </Box>
       <Typography component="strong" sx={{ fontSize: "0.87rem", lineHeight: 1.24, fontWeight: 700 }}>
         {name}

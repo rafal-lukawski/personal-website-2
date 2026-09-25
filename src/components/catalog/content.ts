@@ -9,6 +9,7 @@ import glam4less3 from "../../../public/projects/glam4less-3.webp";
 import glam4less4 from "../../../public/projects/glam4less-4.webp";
 import glam4less5 from "../../../public/projects/glam4less-5.webp";
 import glam4less6 from "../../../public/projects/glam4less-6.webp";
+import glam4less7 from "../../../public/projects/glam4less-7.png";
 import mediaflip1 from "../../../public/projects/mediaflip-1.webp";
 import mediaflip2 from "../../../public/projects/mediaflip-2.webp";
 import mediaflip4 from "../../../public/projects/mediaflip-4.webp";
@@ -47,7 +48,7 @@ export const projectsData = [
     url: "https://glam4less.pl",
     customer: "DRC Dawid Ryżak",
     screenshots: [
-      { src: glam4less6, sourceUrl: "glam4less.pl" },
+      { src: glam4less7, sourceUrl: "glam4less.pl" },
       { src: glam4less3, sourceUrl: "glam4less.pl" },
       { src: glam4less4, sourceUrl: "glam4less.pl" },
       { src: glam4less5, sourceUrl: "glam4less.pl" },

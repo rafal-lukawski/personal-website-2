@@ -59,15 +59,20 @@ export function ProjectLightbox({
           >
             <Box sx={{ position: "relative" }} {...swipeHandlers}>
               <CornerTicks color={hud.cyan} />
-              <Box
-                component="img"
-                src={shot.src.src}
+              <Image
+                src={shot.src}
                 alt={shot.alt}
+                sizes="auto"
                 // Width-driven on purpose: no height cap, so the shot stays as
                 // large as the panel allows and the body scrolls if it must.
                 // `maxWidth` rather than `width` keeps a small shot at its own
                 // size instead of upscaling it into mush.
-                sx={{ display: "block", maxWidth: "100%", height: "auto", mx: "auto", my: "2px" }}
+                style={{
+                  display: "block",
+                  maxWidth: "100%",
+                  height: "auto",
+                  margin: "2px auto",
+                }}
               />
               {count > 1 && (
                 <>
@@ -112,7 +117,7 @@ export function ProjectLightbox({
                     aria-label={`${t("hud.gallery")} ${idx + 1} / ${count}`}
                     onClick={() => select(idx)}
                   >
-                    <Image src={thumb.src} alt={thumb.alt} width={120} height={75} />
+                    <Image src={thumb.src} alt={thumb.alt} width={120} height={75} sizes="auto" />
                   </ShotThumb>
                 ))}
               </Stack>
