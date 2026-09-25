@@ -12,7 +12,7 @@ import {
 } from "@/theme/colorMode";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 
@@ -34,6 +34,8 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }): Promise<Metadata> {
   const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "meta" });
+  const description = t("description");
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
@@ -46,8 +48,7 @@ export async function generateMetadata({
 
   return {
     title: "Rafał Łukawski - IT Project Manager | Software Developer",
-    description:
-      "Full-stack developer with 5+ years of modern frontend/backend experience and 20+ years of experience in IT. Google Cloud Professional Architect | Professional Scrum Master",
+    description,
     authors: [{ name: "Rafał Łukawski" }],
 
     alternates: {
@@ -61,8 +62,7 @@ export async function generateMetadata({
 
     openGraph: {
       title: "Rafał Łukawski - IT Project Manager | Software Developer",
-      description:
-        "Full-stack developer with 5+ years of modern frontend/backend experience. Google Cloud Professional Architect | Professional Scrum Master",
+      description,
       locale: locale === "pl" ? "pl_PL" : "en_US",
       alternateLocale: locale === "pl" ? ["en_US"] : ["pl_PL"],
       url: `${baseUrl}/${locale}`,
@@ -81,8 +81,7 @@ export async function generateMetadata({
     twitter: {
       card: "summary_large_image",
       title: "Rafał Łukawski - IT Project Manager | Software Developer",
-      description:
-        "Full-stack developer with 5+ years of modern frontend/backend experience. Google Cloud Professional Architect | Professional Scrum Master",
+      description,
       images: [`${baseUrl}/preview_${locale}.webp`],
     },
   };
