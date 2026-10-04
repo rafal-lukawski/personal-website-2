@@ -34,20 +34,20 @@
     "experience": {
       "code": "PARAM: EXP_YEARS",
       "value": "{count}+ years",
-      "label": "in the IT industry",
+      "label": "in IT, from programming to architecting projects for millions of users.",
       "readout": "Status: senior level"
     },
     "leadership": {
       "code": "PARAM: PM_LEADERSHIP",
       "value": "{count}+ years",
-      "label": "as an IT project manager",
+      "label": "leading IT projects, from requirements to deployment.",
       "readout": "Agile / Scrum / Waterfall"
     },
-    "deployed": {
-      "code": "PARAM: DEPLOYED_SYS",
-      "value": "{count}+ projects",
-      "label": "deployed to cloud & web",
-      "readout": "Prod: live stack deployed"
+    "aiSpeedup": {
+      "code": "PARAM: AI_SPEEDUP",
+      "value": "{min}–{max}× faster",
+      "label": "software delivery with AI, while I take responsibility for the code and architecture.",
+      "readout": "Claude / Cursor / Copilot"
     }
   },
   "stats": {

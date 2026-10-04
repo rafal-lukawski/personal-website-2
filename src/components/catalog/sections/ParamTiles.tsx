@@ -37,7 +37,7 @@ export function ParamTiles({ order }: SectionProps) {
         <ParamTile
           key={tile.key}
           code={t(`${tile.key}.code`)}
-          value={t(`${tile.key}.value`, { count: tile.count })}
+          value={t(`${tile.key}.value`, tile.values)}
           label={t(`${tile.key}.label`)}
           readout={t(`${tile.key}.readout`)}
         />
@@ -103,10 +103,10 @@ function ParamTile({ code, value, label, readout }: ParamTileProps) {
         component="p"
         sx={{
           m: "10px 0 18px",
-          font: `500 10.5px/1.3 ${hud.mono}`,
-          letterSpacing: "0.1em",
+          font: `600 0.95rem/1.3 ${hud.display}`,
+          letterSpacing: "0.04em",
           textTransform: "uppercase",
-          color: hud.text,
+          color: hud.muted,
         }}
       >
         {label}

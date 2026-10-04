@@ -35,20 +35,20 @@
     "experience": {
       "code": "PARAM: STAŻ_IT",
       "value": "{count}+ lat",
-      "label": "w branży IT",
+      "label": "w branży IT, od programowania po architekturę projektów dla milionów użytkowników.",
       "readout": "Status: poziom senior"
     },
     "leadership": {
       "code": "PARAM: ZARZĄDZANIE_PM",
       "value": "{count}+ lat",
-      "label": "jako IT Project Manager",
+      "label": "w prowadzeniu projektów IT, od wymagań po wdrożenie.",
       "readout": "Agile / Scrum / Waterfall"
     },
-    "deployed": {
-      "code": "PARAM: WDROŻONE_SYS",
-      "value": "{count}+ projektów",
-      "label": "wdrożonych w chmurze & web",
-      "readout": "Prod: stos działa na żywo"
+    "aiSpeedup": {
+      "code": "PARAM: TEMPO_AI",
+      "value": "{min}–{max}× szybciej",
+      "label": "dostarczam oprogramowanie, pracując z AI, gdzie ja odpowiadam za kod i architekturę.",
+      "readout": "Claude / Cursor / Copilot"
     }
   },
   "stats": {
