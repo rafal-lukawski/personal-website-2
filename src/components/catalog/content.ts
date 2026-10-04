@@ -154,6 +154,16 @@ export const career = {
 /** Industries the portfolio covers; the labels themselves live in the messages. */
 export const industries = ["medtech", "ecommerce", "aiMedia", "fashionTech"] as const;
 
+/**
+ * The headline parameters above the intro, beside the project feed. All copy
+ * lives in the `params.<key>` messages; `count` fills their `{count}` placeholder.
+ */
+export const paramTiles = [
+  { key: "experience", count: 20 },
+  { key: "leadership", count: 10 },
+  { key: "deployed", count: 15 },
+] as const;
+
 export const stackCategories = [
   {
     titleKey: "frontend",

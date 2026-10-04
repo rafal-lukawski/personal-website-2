@@ -30,6 +30,27 @@
     "paragraph2": "Jeżeli, tak jak ja, podzielasz fascynację tym, co się dzieje, masz pomysły biznesowe, **zapraszam do współpracy w zakresie budowy aplikacji mobilnych i webowych.**",
     "contactCommand": "ZAINICJUJ_KONTAKT"
   },
+  "params": {
+    "title": "Parametry",
+    "experience": {
+      "code": "PARAM: STAŻ_IT",
+      "value": "{count}+ lat",
+      "label": "w branży IT",
+      "readout": "Status: poziom senior"
+    },
+    "leadership": {
+      "code": "PARAM: ZARZĄDZANIE_PM",
+      "value": "{count}+ lat",
+      "label": "jako IT Project Manager",
+      "readout": "Agile / Scrum / Waterfall"
+    },
+    "deployed": {
+      "code": "PARAM: WDROŻONE_SYS",
+      "value": "{count}+ projektów",
+      "label": "wdrożonych w chmurze & web",
+      "readout": "Prod: stos działa na żywo"
+    }
+  },
   "stats": {
     "title": "W liczbach",
     "yearsInIt": "lat w IT",
