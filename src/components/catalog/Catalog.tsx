@@ -12,6 +12,7 @@ import { IntroPanel } from "./sections/IntroPanel";
 import { CertificatesPanel } from "./sections/CertificatesPanel";
 import { ContactPanel } from "./sections/ContactPanel";
 import { HeroPanel } from "./sections/HeroPanel";
+import { ParamTiles } from "./sections/ParamTiles";
 import { ProjectLightbox } from "./sections/ProjectLightbox";
 import { ProjectsPanel } from "./sections/ProjectsPanel";
 import { SiteFooter } from "./sections/SiteFooter";
@@ -22,15 +23,16 @@ import { EmojiTintFilters, Page, Root, SkipLink } from "./ui";
 
 /**
  * Below `lg` the two columns collapse into one flow (`display: contents`), so
- * the sections interleave by `order`: stats, about, projects, stack, certs, contact.
+ * the sections interleave by `order`: params, stats, about, projects, stack, certs, contact.
  */
 const ORDER = {
-  stats: 1,
-  intro: 2,
-  projects: 3,
-  stack: 4,
-  certificates: 5,
-  contact: 6,
+  params: 1,
+  stats: 2,
+  intro: 3,
+  projects: 4,
+  stack: 5,
+  certificates: 6,
+  contact: 7,
 } as const;
 
 export function Catalog() {
@@ -57,6 +59,7 @@ export function Catalog() {
           }}
         >
           <Stack spacing="20px" useFlexGap sx={{ display: { xs: "contents", lg: "flex" } }}>
+            <ParamTiles order={ORDER.params} />
             {SHOW_STATS_PANEL && <StatsPanel order={ORDER.stats} />}
             <IntroPanel order={ORDER.intro} />
             <StackPanel order={ORDER.stack} />

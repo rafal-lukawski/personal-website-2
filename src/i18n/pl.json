@@ -30,6 +30,27 @@
     "paragraph2": "Jeżeli, tak jak ja, podzielasz fascynację tym, co się dzieje, masz pomysły biznesowe, **zapraszam do współpracy w zakresie budowy aplikacji mobilnych i webowych.**",
     "contactCommand": "ZAINICJUJ_KONTAKT"
   },
+  "params": {
+    "title": "Parametry",
+    "experience": {
+      "code": "PARAM: STAŻ_IT",
+      "value": "{count}+ lat",
+      "label": "w branży IT, od programowania po architekturę projektów dla milionów użytkowników.",
+      "readout": "Status: poziom senior"
+    },
+    "leadership": {
+      "code": "PARAM: ZARZĄDZANIE_PM",
+      "value": "{count}+ lat",
+      "label": "w prowadzeniu projektów IT, od wymagań po wdrożenie.",
+      "readout": "Agile / Scrum / Waterfall"
+    },
+    "aiSpeedup": {
+      "code": "PARAM: TEMPO_AI",
+      "value": "{min}–{max}× szybciej",
+      "label": "dostarczam oprogramowanie, pracując z AI, gdzie ja odpowiadam za kod i architekturę.",
+      "readout": "Claude / Cursor / Copilot"
+    }
+  },
   "stats": {
     "title": "W liczbach",
     "yearsInIt": "lat w IT",
