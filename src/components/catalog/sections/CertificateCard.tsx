@@ -36,7 +36,7 @@ export function CertificateCard({
         <CornerTicks size={12} />
         <Image src={certificate.customIcon} alt="" width={64} height={64} sizes="auto" />
       </Box>
-      <Typography component="strong" sx={{ fontSize: "0.87rem", lineHeight: 1.24, fontWeight: 700 }}>
+      <Typography variant="title" component="strong">
         {name}
       </Typography>
       <MonoMeta sx={{ mt: "4px" }}>

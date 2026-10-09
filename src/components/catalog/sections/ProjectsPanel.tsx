@@ -45,8 +45,8 @@ export function ProjectsPanel({
             justifyContent="space-between"
             sx={{ mb: "10px" }}
           >
-            <SectionLabel sx={{ m: 0, fontSize: "0.86rem" }}>{t("projects.title")}</SectionLabel>
-            <Typography sx={{ color: hud.dim, font: `500 11px/1 ${hud.mono}` }}>
+            <SectionLabel sx={{ m: 0 }}>{t("projects.title")}</SectionLabel>
+            <Typography variant="meta" sx={{ color: hud.dim }}>
               {String(projects.length).padStart(2, "0")}
             </Typography>
           </Stack>

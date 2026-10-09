@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import { hud } from "@/theme/hud";
 import { paramTiles } from "../content";
 import { glitchOnHover, glow, Panel } from "../ui";
@@ -65,13 +66,10 @@ function ParamTile({ code, value, label, readout }: ParamTileProps) {
           justifyContent: "space-between",
           gap: "12px",
           mb: "18px",
-          font: `500 9px/1 ${hud.mono}`,
-          letterSpacing: "0.15em",
-          textTransform: "uppercase",
           color: hud.dim,
         }}
       >
-        <span>{code}</span>
+        <Typography variant="micro">{code}</Typography>
         <Box
           component="span"
           sx={{
@@ -84,34 +82,27 @@ function ParamTile({ code, value, label, readout }: ParamTileProps) {
           }}
         />
       </Box>
-      <Box
-        component="p"
+      <Typography
+        variant="stat"
         sx={{
           m: 0,
-          fontFamily: hud.display,
-          fontWeight: 800,
-          fontSize: "clamp(2rem, 2.6vw, 2.5rem)",
-          lineHeight: 0.95,
-          textTransform: "uppercase",
           color: hud.cyan,
           filter: `drop-shadow(0 0 6px color-mix(in srgb, ${hud.cyan} 35%, transparent))`,
         }}
       >
         {value}
-      </Box>
-      <Box
-        component="p"
+      </Typography>
+      <Typography
+        variant="statLabel"
         sx={{
           m: "10px 0 18px",
-          font: `600 0.95rem/1.3 ${hud.display}`,
-          letterSpacing: "0.04em",
-          textTransform: "uppercase",
           color: hud.muted,
         }}
       >
         {label}
-      </Box>
-      <Box
+      </Typography>
+      <Typography
+        variant="micro"
         component="p"
         sx={{
           // Pinned to the bottom so readouts line up across a row whose values wrap differently.
@@ -119,14 +110,11 @@ function ParamTile({ code, value, label, readout }: ParamTileProps) {
           mb: 0,
           pt: "10px",
           borderTop: `1px solid color-mix(in srgb, ${hud.cyan} 14%, transparent)`,
-          font: `500 9px/1.3 ${hud.mono}`,
-          letterSpacing: "0.1em",
-          textTransform: "uppercase",
           color: hud.dim,
         }}
       >
         {readout}
-      </Box>
+      </Typography>
     </Panel>
   );
 }

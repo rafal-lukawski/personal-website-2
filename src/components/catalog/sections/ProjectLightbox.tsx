@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import { hud } from "@/theme/hud";
 import type { LightboxController } from "../useLightbox";
 import { CornerTicks, LightboxDialog, MonoMeta, NavFab, PanelBar, ShotThumb } from "../ui";
@@ -39,10 +40,10 @@ export function ProjectLightbox({
       {project && shot && (
         <>
           <PanelBar sx={{ minHeight: 40, flexShrink: 0, py: 0, pr: "48px" }}>
-            <Box component="span" id={TITLE_ID} sx={{ minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+            <Typography variant="label" id={TITLE_ID} sx={{ minWidth: 0, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
               {t("hud.gallery")} / {project.title}
-            </Box>
-            <MonoMeta aria-live="polite" sx={{ color: hud.dim, letterSpacing: "0.1em", lineHeight: 1, flexShrink: 0 }}>
+            </Typography>
+            <MonoMeta aria-live="polite" sx={{ color: hud.dim, flexShrink: 0 }}>
               {pad(index + 1)} / {pad(count)}
             </MonoMeta>
           </PanelBar>
@@ -96,7 +97,7 @@ export function ProjectLightbox({
               )}
             </Box>
             {shot.sourceUrl && (
-              <MonoMeta id={CAPTION_ID} sx={{ mt: "8px", textAlign: "right", lineHeight: 1.2 }}>
+              <MonoMeta id={CAPTION_ID} sx={{ mt: "8px", textAlign: "right" }}>
                 {t("projects.source")}: {shot.sourceUrl}
               </MonoMeta>
             )}

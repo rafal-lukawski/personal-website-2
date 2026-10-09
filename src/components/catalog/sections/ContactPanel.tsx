@@ -28,19 +28,7 @@ export function ContactPanel({ order }: SectionProps) {
         }}
       >
         <Box>
-          <Typography
-            component="p"
-            sx={{
-              mt: 0,
-              mb: "24px",
-              fontFamily: hud.display,
-              fontWeight: 800,
-              fontSize: "clamp(1.8rem, 3.2vw, 3.6rem)",
-              lineHeight: 0.9,
-              letterSpacing: "-0.00em",
-              textTransform: "uppercase",
-            }}
-          >
+          <Typography variant="headline" sx={{ mt: 0, mb: "24px" }}>
             <Box component="span" sx={{ display: "block", color: hud.cyanDeep }}>
               {t("contact.ctaLine1")}
             </Box>

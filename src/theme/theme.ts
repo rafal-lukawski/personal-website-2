@@ -1,5 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 import { hud, hudDark, hudLight, type HudPalette } from "./hud";
+import { fontFamily, typographyVariants, variantMapping } from "./typography";
 
 declare module "@mui/material/styles" {
   interface Palette {
@@ -49,12 +50,13 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: hud.mono,
-    button: { textTransform: "uppercase", letterSpacing: "0.1em", fontWeight: 500 },
+    fontFamily: fontFamily.mono,
+    ...typographyVariants,
   },
   shape: { borderRadius: 0 },
   components: {
     MuiButtonBase: { defaultProps: { disableRipple: true } },
+    MuiTypography: { defaultProps: { variantMapping } },
     MuiButton: {
       styleOverrides: {
         root: {
@@ -66,7 +68,7 @@ const theme = createTheme({
       },
     },
     MuiInputBase: {
-      styleOverrides: { root: { fontFamily: hud.mono, borderRadius: 0 } },
+      styleOverrides: { root: { borderRadius: 0 } },
     },
     MuiPaper: {
       styleOverrides: {

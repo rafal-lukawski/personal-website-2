@@ -2,16 +2,16 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import { hud } from "@/theme/hud";
+import { LEAD_LINE_HEIGHT } from "@/theme/typography";
 import { Cursor, PhosphorChar, focusRing } from "./ui";
 
 type Glyph = { ch: string; bold: boolean };
 
-/** Line height of the typed body; the paragraph gap is derived from it. */
-export const TYPEWRITER_LINE_HEIGHT = 1.54;
 export const SHOW_LINE_PROMPT = false;
 const LINE_PROMPT = "> ";
-const PARAGRAPH_GAP = `${TYPEWRITER_LINE_HEIGHT * 0.7}em`;
+const PARAGRAPH_GAP = `${LEAD_LINE_HEIGHT * 0.7}em`;
 const GLYPH_INTERVAL_MS = 11;
 const promptTint = { color: `color-mix(in srgb, ${hud.ok} 62%, ${hud.muted})` } as const;
 
@@ -88,7 +88,7 @@ export function Typewriter({
       if (glyph.ch === "\n" && glyphs[i - 1]?.ch === "\n") {
         return <Box key={i} component="span" sx={{ display: "block", height: PARAGRAPH_GAP }} />;
       }
-      const sx = glyph.bold ? { fontWeight: 700, color: hud.text } : undefined;
+      const sx = glyph.bold ? { fontWeight: "fontWeightBold", color: hud.muted } : undefined;
       const ch = enabled ? (
         <PhosphorChar key={i} sx={sx}>
           {glyph.ch}
@@ -118,7 +118,8 @@ export function Typewriter({
         {renderChars(0, bodyTo)}
       </Box>
       {shownCount > commandStart && (
-        <Box
+        <Typography
+          variant="lead"
           component="a"
           href={commandHref}
           aria-label={commandLabel}
@@ -126,8 +127,6 @@ export function Typewriter({
             color: hud.cyan,
             textDecoration: "none",
             cursor: "pointer",
-            font: "inherit",
-            letterSpacing: "0.06em",
             "&:hover": {
               textShadow: `0 0 8px ${hud.cyan}`,
               textDecoration: "underline",
@@ -137,7 +136,7 @@ export function Typewriter({
           }}
         >
           {renderChars(commandStart, commandTo)}
-        </Box>
+        </Typography>
       )}
       <Cursor aria-hidden data-blink={done && enabled ? "true" : undefined} />
     </>

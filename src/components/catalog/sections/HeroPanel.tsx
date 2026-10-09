@@ -29,7 +29,7 @@ export function HeroPanel() {
           textAlign: { xs: "center", sm: "left" },
         }}
       >
-        <Box sx={{ position: "relative", zIndex: 1, fontFamily: hud.mono }}>
+        <Box sx={{ position: "relative", zIndex: 1 }}>
           <Box
             sx={{
               mb: "12px",
@@ -44,6 +44,7 @@ export function HeroPanel() {
             <HeroRoles title={t("hero.title")} />
           </Stack>
           <Typography
+            variant="quote"
             sx={{
               mt: "10px",
               mb: 0,
@@ -53,8 +54,6 @@ export function HeroPanel() {
               pl: "12px",
               borderLeft: `1px solid color-mix(in srgb, ${hud.cyan} 28%, transparent)`,
               color: hud.dim,
-              font: `italic 400 0.88rem/1.5 ${hud.mono}`,
-              letterSpacing: "0.01em",
               textAlign: "left",
             }}
           >
@@ -84,18 +83,7 @@ export function HeroPanel() {
 
 function HeroRoles({ title }: { title: string }) {
   return (
-    <Typography
-      sx={{
-        mb: 0,
-        color: hud.cyanDeep,
-        fontFamily: hud.display,
-        fontWeight: 600,
-        fontSize: "clamp(1.05rem, 2.2vw, 1.4rem)",
-        lineHeight: 1.2,
-        letterSpacing: "0.02em",
-        textTransform: "uppercase",
-      }}
-    >
+    <Typography variant="subtitle" sx={{ mb: 0, color: hud.cyanDeep }}>
       {title}
     </Typography>
   );

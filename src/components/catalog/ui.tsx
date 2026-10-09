@@ -5,9 +5,10 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import IconButton from "@mui/material/IconButton";
-import Link from "@mui/material/Link";
+import Link, { type LinkProps } from "@mui/material/Link";
 import Stack from "@mui/material/Stack";
 import TextField, { type TextFieldProps } from "@mui/material/TextField";
+import Typography, { type TypographyProps } from "@mui/material/Typography";
 import { keyframes, styled, type CSSObject } from "@mui/material/styles";
 import { Link as LocaleLink } from "@/i18n/routing";
 import { hud } from "@/theme/hud";
@@ -58,7 +59,7 @@ const phosphor = keyframes`
   100% {
     background: transparent;
     box-shadow: none;
-    text-shadow: 0 0 8px color-mix(in srgb, ${hud.ok} 35%, transparent);
+    text-shadow: 0 0 4px color-mix(in srgb, ${hud.ok} 18%, transparent);
   }
 `;
 
@@ -140,7 +141,7 @@ export const Root = styled(Box)({
   "& ::selection": { background: hud.selectionBg, color: hud.selectionFg },
 });
 
-export const SkipLink = styled(Link)({
+const SkipLinkRoot = styled(Link)({
   position: "absolute",
   left: -999,
   top: 8,
@@ -152,11 +153,12 @@ export const SkipLink = styled(Link)({
     background: hud.panel,
     backdropFilter: hud.blurChrome,
     padding: "8px 12px",
-    font: `500 12px/1 ${hud.mono}`,
-    textTransform: "uppercase",
-    letterSpacing: "0.1em",
   },
 });
+
+export function SkipLink(props: LinkProps) {
+  return <SkipLinkRoot variant="button" {...props} />;
+}
 
 export const TopBar = styled("header")({
   position: "sticky",
@@ -171,9 +173,6 @@ export const TopBar = styled("header")({
   padding: "0 20px",
   background: hud.panel,
   backdropFilter: hud.blurChrome,
-  font: `500 11px/1 ${hud.mono}`,
-  letterSpacing: "0.1em",
-  textTransform: "uppercase",
   color: hud.muted,
   "&::after": {
     content: '""',
@@ -216,8 +215,6 @@ export const HudButton = styled(Button)({
   background: hud.panel,
   backdropFilter: hud.blurChrome,
   color: cyan,
-  font: `500 12px/1 ${hud.mono}`,
-  letterSpacing: "0.1em",
   ...focusRing,
   "&::after": {
     content: '""',
@@ -240,14 +237,8 @@ export const HudButton = styled(Button)({
   '&[data-state="error"]': { color: hud.danger },
 });
 
-export const Glitch = styled("h1")({
+const GlitchRoot = styled(Typography)({
   margin: 0,
-  fontFamily: hud.display,
-  fontWeight: 800,
-  fontSize: "clamp(2.2rem, 6.2vw, 5.15rem)",
-  lineHeight: 0.92,
-  letterSpacing: "0.045em",
-  textTransform: "uppercase",
   backgroundImage: `repeating-linear-gradient(to bottom, ${cyan} 0px, ${cyan} 2px, color-mix(in srgb, ${hud.cyanDeep} 42%, ${cyan}) 2px, color-mix(in srgb, ${hud.cyanDeep} 42%, ${cyan}) 3px)`,
   backgroundClip: "text",
   WebkitBackgroundClip: "text",
@@ -257,6 +248,10 @@ export const Glitch = styled("h1")({
   "&:hover": { animation: `${glitch} 0.2s linear` },
   [reducedMotion]: { "&:hover": { animation: "none", filter: `drop-shadow(0 0 6px color-mix(in srgb, ${cyan} 55%, transparent))` } },
 });
+
+export function Glitch(props: TypographyProps) {
+  return <GlitchRoot variant="display" {...props} />;
+}
 
 /**
  * Emotion stops filtering invalid DOM props as soon as `shouldForwardProp` is
@@ -307,9 +302,6 @@ export const PanelBar = styled(Stack)({
   justifyContent: "space-between",
   gap: 12,
   padding: "10px 20px",
-  font: `500 11px/1 ${hud.mono}`,
-  letterSpacing: "0.15em",
-  textTransform: "uppercase",
   color: cyan,
   background: `linear-gradient(90deg, color-mix(in srgb, ${hud.cyan} 8%, transparent), transparent 55%)`,
   "&::after": {
@@ -328,15 +320,16 @@ export const PanelBody = styled(Box)({
   padding: "20px 20px 26px",
 });
 
-export const SectionLabel = styled("h2")({
+const SectionLabelRoot = styled(Typography)({
   margin: "0 0 20px",
-  fontFamily: hud.mono,
-  fontSize: "0.76rem",
-  letterSpacing: "0.15em",
-  textTransform: "uppercase",
   color: cyan,
   textShadow: `0 0 8px color-mix(in srgb, ${cyan} 25%, transparent)`,
 });
+
+/** Defaults to the `overline` variant; pass another variant (and `component`) to restyle it. */
+export function SectionLabel(props: TypographyProps) {
+  return <SectionLabelRoot variant="overline" {...props} />;
+}
 
 /** Sunken card chrome: corner ticks that brighten and glitch on hover. */
 const hudCardStyles: CSSObject = {
@@ -367,13 +360,11 @@ export const HudCardLink = styled("a")({
   ...focusRing,
 });
 
-export const HudField = styled(TextField)({
+export const HudField = styled(TextField)(({ theme }) => ({
   "& .MuiFormLabel-asterisk": { display: "none" },
   "& .MuiInputLabel-root": {
     color: hud.muted,
-    font: `500 10.5px/1 ${hud.mono}`,
-    letterSpacing: "0.1em",
-    textTransform: "uppercase",
+    ...theme.typography.caption,
     transform: "none",
     position: "static",
     marginBottom: 8,
@@ -381,7 +372,7 @@ export const HudField = styled(TextField)({
   "& .MuiOutlinedInput-root": {
     borderRadius: 0,
     background: hud.panelSolid,
-    font: `400 0.94rem/1.4 ${hud.mono}`,
+    ...theme.typography.body,
     color: hud.text,
     "& fieldset": { border: "none" },
     "&:hover fieldset": { border: "none" },
@@ -406,7 +397,7 @@ export const HudField = styled(TextField)({
   },
   "& .MuiOutlinedInput-input": { padding: "10px 12px" },
   "& .MuiInputBase-multiline": { padding: 0 },
-});
+}));
 
 export function HudFieldError({ id, children }: { id: string; children: ReactNode }) {
   return (
@@ -422,9 +413,6 @@ export function HudFieldError({ id, children }: { id: string; children: ReactNod
         px: "10px",
         py: "7px",
         color: hud.danger,
-        font: `500 10px/1 ${hud.mono}`,
-        letterSpacing: "0.12em",
-        textTransform: "uppercase",
         textShadow: `0 0 8px color-mix(in srgb, ${hud.danger} 50%, transparent)`,
         background: hud.panel,
         "&::after": {
@@ -447,7 +435,7 @@ export function HudFieldError({ id, children }: { id: string; children: ReactNod
           boxShadow: glow(hud.danger, 0.5),
         }}
       />
-      {children}
+      <Typography variant="caption">{children}</Typography>
     </Box>
   );
 }
@@ -641,7 +629,7 @@ export const ShotThumb = styled("button")({
   "& img": { display: "block", width: 96, height: 60, objectFit: "cover" },
 });
 
-export const GalleryChip = styled("button")({
+const GalleryChipRoot = styled(Typography)({
   display: "inline-flex",
   alignItems: "center",
   gap: 6,
@@ -649,9 +637,6 @@ export const GalleryChip = styled("button")({
   background: hud.panel,
   backdropFilter: hud.blurChrome,
   color: cyan,
-  textTransform: "uppercase",
-  letterSpacing: "0.1em",
-  font: `600 9.5px/1 ${hud.mono}`,
   padding: "6px 8px",
   cursor: "pointer",
   position: "relative",
@@ -666,6 +651,10 @@ export const GalleryChip = styled("button")({
   "&:hover::after": { background: cornerFill(8, frameBright) },
   "& span": { color: cyan, padding: "0 0 0 4px" },
 });
+
+export function GalleryChip(props: TypographyProps<"button">) {
+  return <GalleryChipRoot variant="micro" component="button" {...props} />;
+}
 
 export const LightboxDialog = styled(Dialog)({
   "& .MuiBackdrop-root": { background: hud.overlay, backdropFilter: hud.blurChrome },
@@ -733,19 +722,17 @@ const microStamp = {
   position: "absolute" as const,
   m: 0,
   zIndex: 4,
-  font: `500 8px/1 ${hud.mono}`,
-  textTransform: "uppercase" as const,
   color: hud.dim,
   pointerEvents: "none" as const,
   whiteSpace: "nowrap" as const,
 };
 
 export function PanelStamps({ left, right }: { left?: string; right?: string }) {
-  const base = { ...microStamp, bottom: 6, letterSpacing: "0.15em" };
+  const base = { ...microStamp, bottom: 6 };
   return (
     <Box aria-hidden>
-      {left && <Box component="span" sx={{ ...base, left: 26 }}>{left}</Box>}
-      {right && <Box component="span" sx={{ ...base, right: 26 }}>{right}</Box>}
+      {left && <Typography variant="micro" sx={{ ...base, left: 26 }}>{left}</Typography>}
+      {right && <Typography variant="micro" sx={{ ...base, right: 26 }}>{right}</Typography>}
     </Box>
   );
 }
@@ -763,13 +750,9 @@ export function CornerLabels(labels: Partial<Record<keyof typeof CORNERS, string
     <Box aria-hidden>
       {(Object.keys(CORNERS) as (keyof typeof CORNERS)[]).map((corner) =>
         labels[corner] ? (
-          <Box
-            key={corner}
-            component="span"
-            sx={{ ...microStamp, letterSpacing: "0.1em", ...CORNERS[corner] }}
-          >
+          <Typography key={corner} variant="micro" sx={{ ...microStamp, ...CORNERS[corner] }}>
             {labels[corner]}
-          </Box>
+          </Typography>
         ) : null,
       )}
     </Box>
@@ -791,7 +774,7 @@ export function PanelHeader({
   return (
     <>
       <PanelBar>
-        <span>{title}</span>
+        <Typography variant="label">{title}</Typography>
         <Stack direction="row" alignItems="center" spacing="10px">
           {meta && <BarMeta>{meta}</BarMeta>}
           <ProcessDots />
@@ -803,13 +786,15 @@ export function PanelHeader({
 }
 
 /** Small mono caption used for dates, counters and credentials. */
-export const MonoMeta = styled("span")({
+const MonoMetaRoot = styled(Typography)({
   display: "block",
   margin: 0,
-  font: `500 10px/1.3 ${hud.mono}`,
-  letterSpacing: "0.06em",
   color: hud.muted,
 });
+
+export function MonoMeta(props: TypographyProps) {
+  return <MonoMetaRoot variant="meta" {...props} />;
+}
 
 export function EmojiTintFilters({ colors }: { colors: string[] }) {
   const gain = 1.55;
@@ -834,14 +819,15 @@ export function EmojiTintFilters({ colors }: { colors: string[] }) {
   );
 }
 
-export const BarMeta = styled("span")({
-  font: `500 9px/1 ${hud.mono}`,
-  letterSpacing: "0.15em",
-  textTransform: "uppercase",
+const BarMetaRoot = styled(Typography)({
   color: hud.dim,
   whiteSpace: "nowrap",
   "@media (max-width: 640px)": { display: "none" },
 });
+
+export function BarMeta(props: TypographyProps) {
+  return <BarMetaRoot variant="micro" {...props} />;
+}
 
 export function ProcessDots() {
   const dots = [hud.danger, hud.warn, hud.ok];
@@ -877,10 +863,6 @@ export function StatusBadge({ children }: { children: ReactNode }) {
         background: hud.panel,
         backdropFilter: hud.blurChrome,
         color: hud.ok,
-        textTransform: "uppercase",
-        letterSpacing: "0.1em",
-        fontSize: 10,
-        fontFamily: hud.mono,
         minHeight: 22,
         position: "relative",
         "&::after": {
@@ -908,9 +890,9 @@ export function StatusBadge({ children }: { children: ReactNode }) {
           [reducedMotion]: { animation: "none" },
         }}
       />
-      <Box component="span" sx={{ display: "block", textBox: "trim-both cap alphabetic" }}>
+      <Typography variant="caption" sx={{ display: "block", textBox: "trim-both cap alphabetic" }}>
         {children}
-      </Box>
+      </Typography>
     </Box>
   );
 }
@@ -918,11 +900,8 @@ export function StatusBadge({ children }: { children: ReactNode }) {
 const stampSx = {
   position: "absolute" as const,
   zIndex: 4,
-  font: `600 9.5px/1 ${hud.mono}`,
-  letterSpacing: "0.1em",
   color: cyan,
   textShadow: `0 0 8px ${cyan}`,
-  textTransform: "uppercase" as const,
   pointerEvents: "none" as const,
 };
 
@@ -937,15 +916,15 @@ export function ShotMeta({
 }) {
   return (
     <>
-      <Box component="span" sx={{ ...stampSx, top: 8, left: 8 }}>
+      <Typography variant="micro" sx={{ ...stampSx, top: 8, left: 8 }}>
         STATUS: {status}
-      </Box>
-      <Box component="span" sx={{ ...stampSx, left: 8, bottom: 8 }}>
+      </Typography>
+      <Typography variant="micro" sx={{ ...stampSx, left: 8, bottom: 8 }}>
         {stamp}
-      </Box>
-      <Box component="span" sx={{ ...stampSx, right: 8, bottom: 8 }}>
+      </Typography>
+      <Typography variant="micro" sx={{ ...stampSx, right: 8, bottom: 8 }}>
         {index}
-      </Box>
+      </Typography>
     </>
   );
 }

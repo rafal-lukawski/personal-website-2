@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl";
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import { hud } from "@/theme/hud";
 import { career, industries, projectsData, stackCategories } from "../content";
 import { HudCard, MonoMeta, Panel, PanelBody, PanelHeader, SectionLabel } from "../ui";
@@ -73,33 +74,28 @@ export function StatsPanel({ order }: SectionProps) {
               key={tile.key}
               sx={{ display: "flex", flexDirection: "column", height: "100%" }}
             >
-              <Box
-                component="p"
+              <Typography
+                variant="stat"
                 sx={{
                   m: 0,
-                  font: `700 2.1rem/1 ${hud.mono}`,
-                  letterSpacing: "-0.02em",
                   color: hud.cyan,
                   textShadow: `0 0 14px color-mix(in srgb, ${hud.cyan} 30%, transparent)`,
                 }}
               >
                 {tile.value}
-              </Box>
-              <Box
-                component="p"
+              </Typography>
+              <Typography
+                variant="statLabel"
                 sx={{
                   m: "8px 0 0",
                   // Two lines' worth, so a wrapping label keeps every detail
                   // line starting at the same height across the row.
                   minHeight: "2.6em",
-                  font: `500 11px/1.3 ${hud.mono}`,
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
                   color: hud.text,
                 }}
               >
                 {tile.label}
-              </Box>
+              </Typography>
               <MonoMeta sx={{ mt: "2px", color: hud.dim, hyphens: "none" }}>
                 {tile.detail}
               </MonoMeta>

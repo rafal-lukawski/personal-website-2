@@ -59,7 +59,7 @@ export function ProjectCard({
         sx={{ mt: "7px" }}
       >
         <Stack direction="row" alignItems="center" spacing="8px" sx={{ minWidth: 0 }}>
-          <Typography component="h3" sx={{ m: 0, fontSize: "0.92rem" }}>
+          <Typography variant="title" sx={{ m: 0 }}>
             {project.title}
           </Typography>
           {project.url && (
@@ -86,7 +86,7 @@ export function ProjectCard({
           <span>{project.screenshots.length}</span>
         </GalleryChip>
       </Stack>
-      <MonoMeta sx={{ mt: "2px", color: hud.dim, letterSpacing: "0.04em" }}>
+      <MonoMeta sx={{ mt: "2px", color: hud.dim }}>
         {project.dateRange}
       </MonoMeta>
     </Box>
