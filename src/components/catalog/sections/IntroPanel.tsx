@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { hud } from "@/theme/hud";
-import { Typewriter, TYPEWRITER_LINE_HEIGHT } from "../Typewriter";
+import { Typewriter } from "../Typewriter";
 import { Panel, PanelBody, PanelHeader, srOnly } from "../ui";
 import type { SectionProps } from "./types";
 
@@ -29,19 +29,7 @@ export function IntroPanel({ order }: SectionProps) {
         stampRight="BUF: OK"
       />
       <PanelBody>
-        <Typography
-          component="p"
-          sx={{
-            m: 0,
-            mb: "16px",
-            fontFamily: hud.display,
-            fontWeight: 800,
-            fontSize: "clamp(1.8rem, 3.2vw, 3.6rem)",
-            lineHeight: 0.9,
-            letterSpacing: "-0.00em",
-            textTransform: "uppercase",
-          }}
-        >
+        <Typography variant="headline" sx={{ m: 0, mb: "16px" }}>
           <Box component="span" sx={{ display: "block", color: hud.cyanDeep }}>
             {t("about.ctaLine1")}
           </Box>
@@ -57,17 +45,9 @@ export function IntroPanel({ order }: SectionProps) {
           </Box>
         </Typography>
         <Typography
+          variant="lead"
           component="div"
-          sx={{
-            position: "relative",
-            m: 0,
-            color: hud.muted,
-            fontFamily: hud.mono,
-            letterSpacing: "0.01em",
-            lineHeight: TYPEWRITER_LINE_HEIGHT,
-            fontSize: "0.95rem",
-            whiteSpace: "pre-line",
-          }}
+          sx={{ position: "relative", m: 0, color: hud.muted, whiteSpace: "pre-line" }}
         >
           {/* The typed run is aria-hidden, so screen readers get the prose here. */}
           <Box component="p" sx={srOnly}>

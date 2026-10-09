@@ -1,6 +1,7 @@
 "use client";
 
 import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import { hud } from "@/theme/hud";
 import { hudTintColor, techIcons, tintFilterId } from "../techIcons";
 import { HudCard, SectionLabel } from "../ui";
@@ -9,15 +10,7 @@ import { HudCard, SectionLabel } from "../ui";
 export function StackCard({ title, items }: { title: string; items: readonly string[] }) {
   return (
     <HudCard>
-      <SectionLabel
-        as="h3"
-        sx={{
-          m: "0 0 9px",
-          font: `500 11px/1.2 ${hud.mono}`,
-          letterSpacing: "0.1em",
-          textShadow: "none",
-        }}
-      >
+      <SectionLabel variant="label" component="h3" sx={{ m: "0 0 9px", textShadow: "none" }}>
         {title}
       </SectionLabel>
       <Box
@@ -25,14 +18,15 @@ export function StackCard({ title, items }: { title: string; items: readonly str
         sx={{ m: 0, p: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: "4px" }}
       >
         {items.map((item) => (
-          <Box
-            component="li"
+          <Typography
             key={item}
-            sx={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "0.89rem" }}
+            variant="body"
+            component="li"
+            sx={{ display: "flex", alignItems: "center", gap: "8px" }}
           >
             <TechMark name={item} />
             {item}
-          </Box>
+          </Typography>
         ))}
       </Box>
     </HudCard>
@@ -52,8 +46,6 @@ function TechMark({ name }: { name: string }) {
         alignItems: "center",
         justifyContent: "center",
         width: 16,
-        fontSize: "0.94rem",
-        fontWeight: 700,
         color: meta ? hudTintColor(meta.color) : hud.dim,
         filter: meta?.desaturate ? `url(#${tintFilterId(meta.color)})` : "none",
       }}

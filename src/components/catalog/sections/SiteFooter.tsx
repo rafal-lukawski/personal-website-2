@@ -1,6 +1,7 @@
 "use client";
 
 import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 import { useTranslations } from "next-intl";
 import { hud } from "@/theme/hud";
 
@@ -17,9 +18,6 @@ export function SiteFooter() {
         mt: "40px",
         pt: "20px",
         color: hud.dim,
-        font: `500 10.5px/1.4 ${hud.mono}`,
-        letterSpacing: "0.1em",
-        textTransform: "uppercase",
         "&::before": {
           content: '""',
           position: "absolute",
@@ -31,7 +29,9 @@ export function SiteFooter() {
         },
       }}
     >
-      <span>{t("footer.copyright", { year: new Date().getFullYear() })}</span>
+      <Typography variant="caption">
+        {t("footer.copyright", { year: new Date().getFullYear() })}
+      </Typography>
     </Stack>
   );
 }

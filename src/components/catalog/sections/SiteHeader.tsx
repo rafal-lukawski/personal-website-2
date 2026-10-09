@@ -1,6 +1,6 @@
 "use client";
 
-import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import { useLocale } from "next-intl";
 import { usePathname } from "@/i18n/routing";
@@ -18,9 +18,9 @@ export function SiteHeader() {
   return (
     <TopBar>
       <Stack direction="row" alignItems="center" spacing="14px">
-        <Box component="span" sx={{ color: hud.cyan }}>
+        <Typography variant="label" sx={{ color: hud.cyan }}>
           RL
-        </Box>
+        </Typography>
       </Stack>
       <Stack direction="row" alignItems="center" spacing="10px">
         <ColorModeButton />
@@ -32,7 +32,7 @@ export function SiteHeader() {
               locale={code}
               aria-current={locale === code ? "page" : undefined}
             >
-              {code}
+              <Typography variant="label">{code}</Typography>
             </LangLink>
           ))}
         </Stack>

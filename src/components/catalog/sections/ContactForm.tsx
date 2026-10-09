@@ -114,9 +114,9 @@ export function ContactForm() {
       <Box aria-live="polite" aria-atomic="true" sx={{ minHeight: "1.2em" }}>
         {(status === "success" || status === "error") && (
           <Typography
+            variant="body"
             sx={{
               m: 0,
-              font: `500 0.81rem/1.3 ${hud.mono}`,
               color: status === "success" ? hud.ok : hud.danger,
             }}
           >
