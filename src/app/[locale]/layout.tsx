@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Barlow_Condensed, JetBrains_Mono } from "next/font/google";
+import { Barlow_Condensed, Barlow_Semi_Condensed, JetBrains_Mono } from "next/font/google";
 import { cookies } from "next/headers";
 import "../globals.css";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v16-appRouter";
@@ -20,6 +20,13 @@ const barlowCondensed = Barlow_Condensed({
   subsets: ["latin", "latin-ext"],
   variable: "--font-barlow-condensed",
   weight: ["600", "700", "800"],
+});
+
+const barlowSemiCondensed = Barlow_Semi_Condensed({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-barlow-semi-condensed",
+  weight: "500",
+  style: "italic",
 });
 
 const jetBrains = JetBrains_Mono({
@@ -109,7 +116,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={[barlowCondensed.variable, jetBrains.variable, htmlColorClass]
+      className={[barlowCondensed.variable, barlowSemiCondensed.variable, jetBrains.variable, htmlColorClass]
         .filter(Boolean)
         .join(" ")}
       suppressHydrationWarning

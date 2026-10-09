@@ -44,10 +44,8 @@ export function HeroPanel() {
             <HeroRoles title={t("hero.title")} />
           </Stack>
           <Typography
-            variant="lead"
-            component="em"
+            variant="quote"
             sx={{
-              display: "block",
               mt: "10px",
               mb: 0,
               maxWidth: "42em",

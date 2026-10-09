@@ -59,7 +59,7 @@ const phosphor = keyframes`
   100% {
     background: transparent;
     box-shadow: none;
-    text-shadow: 0 0 8px color-mix(in srgb, ${hud.ok} 35%, transparent);
+    text-shadow: 0 0 4px color-mix(in srgb, ${hud.ok} 18%, transparent);
   }
 `;
 

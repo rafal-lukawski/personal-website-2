@@ -88,7 +88,7 @@ export function Typewriter({
       if (glyph.ch === "\n" && glyphs[i - 1]?.ch === "\n") {
         return <Box key={i} component="span" sx={{ display: "block", height: PARAGRAPH_GAP }} />;
       }
-      const sx = glyph.bold ? { fontWeight: "fontWeightBold", color: hud.text } : undefined;
+      const sx = glyph.bold ? { fontWeight: "fontWeightBold", color: hud.muted } : undefined;
       const ch = enabled ? (
         <PhosphorChar key={i} sx={sx}>
           {glyph.ch}

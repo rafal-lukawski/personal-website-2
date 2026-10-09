@@ -47,7 +47,7 @@ export function IntroPanel({ order }: SectionProps) {
         <Typography
           variant="lead"
           component="div"
-          sx={{ position: "relative", m: 0, color: hud.muted, whiteSpace: "pre-line" }}
+          sx={{ position: "relative", m: 0, color: hud.dim, whiteSpace: "pre-line" }}
         >
           {/* The typed run is aria-hidden, so screen readers get the prose here. */}
           <Box component="p" sx={srOnly}>

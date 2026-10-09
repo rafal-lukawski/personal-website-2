@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 /** next/font exposes the faces as `--font-*` variables on `<html>`. */
 export const fontFamily = {
   display: "var(--font-barlow-condensed), sans-serif",
+  text: "var(--font-barlow-semi-condensed), sans-serif",
   mono: "var(--font-jetbrains), monospace",
 } as const;
 
@@ -41,12 +42,21 @@ export const typographyVariants = {
   stat: display(800, "clamp(2rem, 2.6vw, 2.5rem)", 0.95, "0em"),
   /** Line under the hero name. */
   subtitle: display(600, "clamp(1.05rem, 2.2vw, 1.4rem)", 1.2, "0.02em"),
+  /** Hero motto: the display family, semi-condensed and lighter, italic. */
+  quote: {
+    fontFamily: fontFamily.text,
+    fontWeight: 500,
+    fontStyle: "italic",
+    fontSize: "1.05rem",
+    lineHeight: 1.35,
+    letterSpacing: "0.05em",
+  },
   /** Description under a `stat` figure. */
   statLabel: display(600, "0.95rem", 1.3, "0.04em"),
 
   // Text (JetBrains Mono)
-  /** Intro copy and the hero motto. */
-  lead: mono(400, "0.95rem", LEAD_LINE_HEIGHT, "0.01em"),
+  /** Intro copy and the terminal command. */
+  lead: mono(400, "0.85rem", LEAD_LINE_HEIGHT, "0.01em"),
   /** Running text: list items, form input and status. */
   body: mono(400, "0.9rem", 1.5),
   /** Card titles: projects, certificates. */
@@ -89,6 +99,7 @@ export const variantMapping: Record<string, string> = {
   stat: "p",
   subtitle: "p",
   statLabel: "p",
+  quote: "p",
   lead: "p",
   body: "p",
   title: "h3",
