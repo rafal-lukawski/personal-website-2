@@ -60,9 +60,6 @@ export function ColorModeButton() {
         height: TRACK,
         p: `${PAD}px`,
         borderRadius: 999,
-        letterSpacing: 0,
-        textTransform: "none",
-        lineHeight: 1,
         bgcolor: "transparent",
       }}
     >
@@ -121,8 +118,6 @@ function ModeSlot({
         minWidth: THUMB,
         p: 0,
         borderRadius: "50%",
-        lineHeight: 1,
-        fontSize: 13,
         color: active ? hud.cyan : hud.dim,
         "& svg": { display: "block" },
         "&:hover": {
