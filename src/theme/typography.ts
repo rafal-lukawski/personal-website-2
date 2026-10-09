@@ -8,7 +8,7 @@ export const fontFamily = {
 } as const;
 
 /** Line height of `lead`; the Typewriter derives its paragraph gap from it. */
-export const LEAD_LINE_HEIGHT = 1.54;
+export const LEAD_LINE_HEIGHT = 1.45;
 
 const caps = { textTransform: "uppercase" } as const;
 
@@ -56,7 +56,7 @@ export const typographyVariants = {
 
   // Text (JetBrains Mono)
   /** Intro copy and the terminal command. */
-  lead: mono(400, "0.85rem", LEAD_LINE_HEIGHT, "0.01em"),
+  lead: mono(400, "0.9rem", LEAD_LINE_HEIGHT, "0.01em"),
   /** Running text: list items, form input and status. */
   body: mono(400, "0.9rem", 1.5),
   /** Card titles: projects, certificates. */
