@@ -63,7 +63,7 @@ const phosphor = keyframes`
   }
 `;
 
-const glitch = keyframes`
+export const glitch = keyframes`
   0%, 100% { transform: none; filter: none; }
   20% {
     transform: translate(1px, -1px);
@@ -82,6 +82,78 @@ const glitch = keyframes`
 const reticle = keyframes`
   0%, 100% { opacity: 0.62; transform: scale(0.98); }
   50% { opacity: 1; transform: scale(1); }
+`;
+
+/** One-shot lock: the shot scales in and its corner ticks settle onto the frame. */
+export const shotLock = keyframes`
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+`;
+
+export const cornerLock = keyframes`
+  from { opacity: 0; transform: scale(1.08); }
+  to { opacity: 1; transform: scale(1); }
+`;
+
+/** Chrome that follows the shot: a short rise into place. */
+export const chromeIn = keyframes`
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+`;
+
+/** Same rise, keeping the vertical centering nav buttons already use. */
+export const chromeInNav = keyframes`
+  from { opacity: 0; transform: translateY(calc(-50% + 8px)); }
+  to { opacity: 1; transform: translateY(-50%); }
+`;
+
+export const shotLeaveNext = keyframes`
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(-24px); }
+`;
+
+export const shotEnterNext = keyframes`
+  from { opacity: 0; transform: translateX(24px); }
+  to { opacity: 1; transform: translateX(0); }
+`;
+
+export const shotLeavePrev = keyframes`
+  from { opacity: 1; transform: translateX(0); }
+  to { opacity: 0; transform: translateX(24px); }
+`;
+
+export const shotEnterPrev = keyframes`
+  from { opacity: 0; transform: translateX(-24px); }
+  to { opacity: 1; transform: translateX(0); }
+`;
+
+export const scanRight = keyframes`
+  from { left: 0; opacity: 0.15; }
+  18% { opacity: 1; }
+  to { left: calc(100% - 2px); opacity: 0; }
+`;
+
+export const scanLeft = keyframes`
+  from { left: calc(100% - 2px); opacity: 0.15; }
+  18% { opacity: 1; }
+  to { left: 0; opacity: 0; }
+`;
+
+export const captionSwap = keyframes`
+  0% {
+    opacity: 0;
+    background-color: color-mix(in srgb, ${hud.ok} 22%, transparent);
+    box-shadow: 0 0 5px color-mix(in srgb, ${hud.ok} 28%, transparent);
+  }
+  42% {
+    opacity: 1;
+    background-color: color-mix(in srgb, ${hud.ok} 12%, transparent);
+  }
+  100% {
+    opacity: 1;
+    background-color: transparent;
+    box-shadow: none;
+  }
 `;
 
 const reducedMotion = "@media (prefers-reduced-motion: reduce)";
@@ -609,24 +681,36 @@ export const HudLinkGroup = styled("div")({
   "& > a::after, & > a:hover::after": { background: "none" },
 });
 
+/** Filmstrip tile: corner ticks that turn cyan on the shot being shown. */
 export const ShotThumb = styled("button")({
   position: "relative",
+  flexShrink: 0,
   border: 0,
   padding: 0,
   background: hud.panelSolid,
   cursor: "pointer",
   opacity: 0.55,
+  transition: "opacity 160ms ease-out",
   ...focusRing,
   "&::after": {
     content: '""',
     position: "absolute",
     inset: 0,
+    zIndex: 3,
     pointerEvents: "none",
-    background: cornerFill(8),
+    background: cornerFill(10),
   },
+  "&:hover": { opacity: 0.85 },
   '&[data-active="true"]': { opacity: 1 },
-  '&[data-active="true"]::after': { background: cornerFill(8, frameBright) },
-  "& img": { display: "block", width: 96, height: 60, objectFit: "cover" },
+  '&[data-active="true"]::after': { background: cornerFill(10, frameBright) },
+  "& img": {
+    display: "block",
+    width: 112,
+    height: 63,
+    objectFit: "cover",
+    objectPosition: "top",
+  },
+  [reducedMotion]: { transition: "none" },
 });
 
 const GalleryChipRoot = styled(Typography)({
@@ -662,8 +746,17 @@ export const LightboxDialog = styled(Dialog)({
   "& .MuiPaper-root": {
     background: "transparent",
     boxShadow: "none",
-    overflow: "visible",
+    overflow: "hidden",
+    position: "relative",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    containerType: "size",
+    width: "min(1080px, calc(100% - 40px))",
     maxWidth: "min(1080px, calc(100% - 40px))",
+    height: "calc(100dvh - 40px)",
+    maxHeight: "calc(100dvh - 40px)",
     margin: 20,
   },
 });
@@ -694,12 +787,23 @@ export function CornerTicks({
   color = frame,
   weight = 1,
   animated = false,
+  draw = false,
+  delay,
 }: {
   size?: number;
   color?: string;
   weight?: number;
   animated?: boolean;
+  /** Plays the lock-on once. Used when a framed block enters. */
+  draw?: boolean;
+  /** Holds the lock-on until the block it frames is due on screen. */
+  delay?: string;
 }) {
+  const motion = draw
+    ? `${cornerLock} 320ms ease-out both`
+    : animated
+      ? `${reticle} 2.6s ease-in-out infinite`
+      : undefined;
   return (
     <Box
       aria-hidden
@@ -709,8 +813,12 @@ export function CornerTicks({
         zIndex: 4,
         pointerEvents: "none",
         background: cornerFill(size, color, weight),
-        ...(animated
-          ? { animation: `${reticle} 2.6s ease-in-out infinite`, [reducedMotion]: { animation: "none" } }
+        ...(motion
+          ? {
+              animation: motion,
+              animationDelay: delay,
+              [reducedMotion]: { animation: "none" },
+            }
           : {}),
       }}
     />

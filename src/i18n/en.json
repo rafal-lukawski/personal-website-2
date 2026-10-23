@@ -89,32 +89,62 @@
     "glam4less": {
       "title": "Glam4Less",
       "customer": "DRC Dawid Ryżak",
-      "description": "Glam4Less is a service dedicated to women that enables the rental and sale of new and used clothing. Using AI, it provides a virtual fitting room that combines a photo of a garment with a silhouette to generate a preview of the outfit on the user's figure."
+      "description": "Glam4Less is a service dedicated to women that enables the rental and sale of new and used clothing. Using AI, it provides a virtual fitting room that combines a photo of a garment with a silhouette to generate a preview of the outfit on the user's figure.",
+      "shots": {
+        "home": "Home page: search for an outfit nearby, with a preview of the listing and its price.",
+        "photos": "Uploading garment photos the AI model uses for the virtual fitting room.",
+        "dispute": "A reservation dispute: a settlement offer and how the deposit is split.",
+        "fitting": "Admin panel with the result of a virtual fitting-room experiment."
+      }
     },
     "mediaflip": {
       "title": "mediaflip.io",
       "customer": "Rafał Łukawski",
-      "description": "An advanced multimedia generator that allows users to quickly and easily create content (images, videos, and text) without unnecessary steps. The platform is built with a strong focus on high performance, security, and scalability, leveraging a modern technology stack."
+      "description": "An advanced multimedia generator that allows users to quickly and easily create content (images, videos, and text) without unnecessary steps. The platform is built with a strong focus on high performance, security, and scalability, leveraging a modern technology stack.",
+      "shots": {
+        "home": "Generator home: pick a format, add text, and publish a meme in seconds.",
+        "stack": "The platform stack, from Next.js and Postgres to the recommendation engine.",
+        "moderation": "Meme moderation: preview, approve, and remove posts.",
+        "editor": "Meme editor: a template, a frame for an image or video, and a text layer."
+      }
     },
     "egzoclinic": {
       "title": "EGZOClinic",
       "customer": "EGZOTech.com",
-      "description": "Comprehensive software platform for physiotherapy and neurorehabilitation. The application runs on robotic medical devices including Stella BIO, Sidra LEG, and Meissa OT, facilitating rehabilitation for conditions like strokes and spinal cord injuries. Features include progressive continuous passive motion (CPM) therapy, computer-assisted movement (CAM) exercises including CAM Isokinetic and CAM Torque, graphical interface for EMS parameter configuration, comprehensive reporting with EMG data analysis, spasticity protection, electrode placement guidance, rehabilitation games, and multilingual support."
+      "description": "Comprehensive software platform for physiotherapy and neurorehabilitation. The application runs on robotic medical devices including Stella BIO, Sidra LEG, and Meissa OT, facilitating rehabilitation for conditions like strokes and spinal cord injuries. Features include progressive continuous passive motion (CPM) therapy, computer-assisted movement (CAM) exercises including CAM Isokinetic and CAM Torque, graphical interface for EMS parameter configuration, comprehensive reporting with EMG data analysis, spasticity protection, electrode placement guidance, rehabilitation games, and multilingual support.",
+      "shots": {
+        "ems": "EMS stimulation parameters: rise, plateau, and fall across three channels.",
+        "login": "Device sign-in: pick an existing user or create a new account.",
+        "cpm": "A CPM exercise for the knee and ankle, with the ranges of motion in sync.",
+        "emg": "EMG view: the segment guide — relax, start, pause, and comment."
+      }
     },
     "generator": {
       "title": "Generator Pasków",
       "customer": "Rafał Łukawski",
-      "description": "Web platform for quickly creating and sharing memes related to popular Polish TV shows. Built from scratch as a complete full-stack project using Next.js and a PostgreSQL database. Users can easily edit images, use ready-made templates, and browse content on any device. The entire system is built and deployed for reliable production performance."
+      "description": "Web platform for quickly creating and sharing memes related to popular Polish TV shows. Built from scratch as a complete full-stack project using Next.js and a PostgreSQL database. Users can easily edit images, use ready-made templates, and browse content on any device. The entire system is built and deployed for reliable production performance.",
+      "shots": {
+        "editor": "Editor for a satirical lower-third on a news-broadcast template.",
+        "feed": "A finished meme in the feed: the banner, an inset photo, and reactions."
+      }
     },
     "stella": {
       "title": "Stella BIO App",
       "customer": "EGZOTech.com",
-      "description": "Web application for configuring and managing the Stella BIO portable medical device (EMG and FES). It enables specialists and patients to remotely configure therapy programs, monitor measurements, and manage treatment. It supports both clinical and home rehabilitation, offering features like user authentication, session configuration, and comprehensive reporting."
+      "description": "Web application for configuring and managing the Stella BIO portable medical device (EMG and FES). It enables specialists and patients to remotely configure therapy programs, monitor measurements, and manage treatment. It supports both clinical and home rehabilitation, offering features like user authentication, session configuration, and comprehensive reporting.",
+      "shots": {
+        "emg": "An EMG session: 5 seconds of work and 5 of rest, with the MVC threshold and contraction phases.",
+        "login": "Stella BIO sign-in: email, password, and language."
+      }
     },
     "multibenefit": {
       "title": "Multibenefit",
       "customer": "Benefit Systems",
-      "description": "E-commerce platform enabling employees to choose non-wage benefits (including MultiSport cards, vouchers, and tickets). Built from scratch, it supports employee well-being and facilitates the distribution of benefits for employers."
+      "description": "E-commerce platform enabling employees to choose non-wage benefits (including MultiSport cards, vouchers, and tickets). Built from scratch, it supports employee well-being and facilitates the distribution of benefits for employers.",
+      "shots": {
+        "home": "Home page of the incentive programme, with an offer search.",
+        "catalog": "Benefits catalogue in Home and garden — vouchers and services."
+      }
     }
   },
   "certificates": {

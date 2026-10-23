@@ -50,7 +50,7 @@ export const hudDark: HudPalette = {
   scanInk: "#ffffff",
   selectionBg: "rgba(0, 242, 255, 0.28)",
   selectionFg: "#edffff",
-  overlay: "rgba(46, 50, 56, 0.92)",
+  overlay: "rgba(4, 6, 8, 0.9)",
   shotBgFilter: "grayscale(1) blur(3px) brightness(0.22)",
   frame: frameOf(CYAN_DARK),
 };
