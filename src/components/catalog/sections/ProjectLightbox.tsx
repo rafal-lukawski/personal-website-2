@@ -433,7 +433,11 @@ export function ProjectLightbox({
                       aria-label={`${t("hud.gallery")} ${idx + 1} / ${count}`}
                       onClick={() => select(idx)}
                     >
-                      <Image src={thumb.src} alt="" width={224} height={126} sizes="112px" />
+                      <Image
+                        src={thumb.src}
+                        alt=""
+                        sizes={`${Math.ceil((63 * thumb.src.width) / thumb.src.height)}px`}
+                      />
                       <Box
                         component="span"
                         aria-hidden

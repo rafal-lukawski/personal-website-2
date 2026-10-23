@@ -703,13 +703,8 @@ export const ShotThumb = styled("button")({
   "&:hover": { opacity: 0.85 },
   '&[data-active="true"]': { opacity: 1 },
   '&[data-active="true"]::after': { background: cornerFill(10, frameBright) },
-  "& img": {
-    display: "block",
-    width: 112,
-    height: 63,
-    objectFit: "cover",
-    objectPosition: "top",
-  },
+  // Fixed height, width from the shot's own proportions, so nothing is cropped.
+  "& img": { display: "block", width: "auto", height: 63 },
   [reducedMotion]: { transition: "none" },
 });
 
