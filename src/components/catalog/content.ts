@@ -34,6 +34,7 @@ type Project = {
   url: string | undefined;
   customer: string | { display: string; url: string };
   screenshots: readonly {
+    id: string;
     src: StaticImageData;
     sourceUrl: string;
   }[];
@@ -48,10 +49,10 @@ export const projectsData = [
     url: "https://glam4less.pl",
     customer: "DRC Dawid Ryżak",
     screenshots: [
-      { src: glam4less7, sourceUrl: "glam4less.pl" },
-      { src: glam4less3, sourceUrl: "glam4less.pl" },
-      { src: glam4less4, sourceUrl: "glam4less.pl" },
-      { src: glam4less5, sourceUrl: "glam4less.pl" },
+      { id: "home", src: glam4less7, sourceUrl: "glam4less.pl" },
+      { id: "photos", src: glam4less3, sourceUrl: "glam4less.pl" },
+      { id: "dispute", src: glam4less4, sourceUrl: "glam4less.pl" },
+      { id: "fitting", src: glam4less5, sourceUrl: "glam4less.pl" },
     ],
   },
   {
@@ -62,10 +63,10 @@ export const projectsData = [
     url: "https://mediaflip.io",
     customer: "Rafał Łukawski",
     screenshots: [
-      { src: mediaflip1, sourceUrl: "mediaflip.io" },
-      { src: mediaflip2, sourceUrl: "mediaflip.io/pl/stos-technologiczny" },
-      { src: mediaflip4, sourceUrl: "mediaflip.io/pl/admin/memes" },
-      { src: mediaflip5, sourceUrl: "mediaflip.io/pl/generator" },
+      { id: "home", src: mediaflip1, sourceUrl: "mediaflip.io" },
+      { id: "stack", src: mediaflip2, sourceUrl: "mediaflip.io/pl/stos-technologiczny" },
+      { id: "moderation", src: mediaflip4, sourceUrl: "mediaflip.io/pl/admin/memes" },
+      { id: "editor", src: mediaflip5, sourceUrl: "mediaflip.io/pl/generator" },
     ],
   },
   {
@@ -76,10 +77,10 @@ export const projectsData = [
     url: undefined as string | undefined,
     customer: { display: "EGZOTech.com", url: "https://egzotech.com" },
     screenshots: [
-      { src: egzoclinic4, sourceUrl: "egzotech.com" },
-      { src: egzoclinic5, sourceUrl: "egzotech.com" },
-      { src: egzoclinic2, sourceUrl: "egzotech.com" },
-      { src: egzoclinic3, sourceUrl: "egzotech.com" },
+      { id: "ems", src: egzoclinic4, sourceUrl: "egzotech.com" },
+      { id: "login", src: egzoclinic5, sourceUrl: "egzotech.com" },
+      { id: "cpm", src: egzoclinic2, sourceUrl: "egzotech.com" },
+      { id: "emg", src: egzoclinic3, sourceUrl: "egzotech.com" },
     ],
   },
   {
@@ -90,8 +91,8 @@ export const projectsData = [
     url: "https://generator-paskow.pl",
     customer: "Rafał Łukawski",
     screenshots: [
-      { src: generator1, sourceUrl: "generator-paskow.pl" },
-      { src: generator2, sourceUrl: "generator-paskow.pl" },
+      { id: "editor", src: generator1, sourceUrl: "generator-paskow.pl" },
+      { id: "feed", src: generator2, sourceUrl: "generator-paskow.pl" },
     ],
   },
   {
@@ -102,8 +103,8 @@ export const projectsData = [
     url: "https://app.egzotech.com",
     customer: { display: "EGZOTech.com", url: "https://egzotech.com" },
     screenshots: [
-      { src: stellaEmg, sourceUrl: "egzotech.com" },
-      { src: stellaLogin, sourceUrl: "egzotech.com" },
+      { id: "emg", src: stellaEmg, sourceUrl: "egzotech.com" },
+      { id: "login", src: stellaLogin, sourceUrl: "egzotech.com" },
     ],
   },
   {
@@ -117,8 +118,8 @@ export const projectsData = [
       url: "https://www.benefitsystems.pl/",
     },
     screenshots: [
-      { src: multi1, sourceUrl: "web.archive.org" },
-      { src: multi2, sourceUrl: "web.archive.org" },
+      { id: "home", src: multi1, sourceUrl: "web.archive.org" },
+      { id: "catalog", src: multi2, sourceUrl: "web.archive.org" },
     ],
   },
 ] as const satisfies readonly Project[];

@@ -90,32 +90,62 @@
     "glam4less": {
       "title": "Glam4Less",
       "customer": "DRC Dawid Ryżak",
-      "description": "Serwis Glam4Less dedykowany dla kobiet, umożliwia wypożyczanie i sprzedaż nowych i używanych ubrań. Dzięki wykorzystaniu AI udostępnia wirtualną przymierzalnię, gdzie łącząc zdjęcie ubrania i sylwetki generuje podgląd kreacji nałożony na sylwetkę."
+      "description": "Serwis Glam4Less dedykowany dla kobiet, umożliwia wypożyczanie i sprzedaż nowych i używanych ubrań. Dzięki wykorzystaniu AI udostępnia wirtualną przymierzalnię, gdzie łącząc zdjęcie ubrania i sylwetki generuje podgląd kreacji nałożony na sylwetkę.",
+      "shots": {
+        "home": "Strona główna: wyszukiwanie kreacji w okolicy, z podglądem oferty i ceną.",
+        "photos": "Dodawanie zdjęć ubrania, z których model AI składa wirtualną przymierzalnię.",
+        "dispute": "Spór o rezerwację: propozycja ugody i podział kaucji między stronami.",
+        "fitting": "Panel administratora z wynikiem eksperymentu wirtualnej przymierzalni."
+      }
     },
     "mediaflip": {
       "title": "mediaflip.io",
       "customer": "Rafał Łukawski",
-      "description": "Zaawansowany generator multimediów, który pozwala użytkownikom na szybkie i proste tworzenie treści (zdjęcia, wideo i tekst) bez zbędnych kroków. Platforma została zbudowana z naciskiem na najwyższą wydajność, bezpieczeństwo oraz skalowalność, wykorzystując nowoczesny stos technologiczny."
+      "description": "Zaawansowany generator multimediów, który pozwala użytkownikom na szybkie i proste tworzenie treści (zdjęcia, wideo i tekst) bez zbędnych kroków. Platforma została zbudowana z naciskiem na najwyższą wydajność, bezpieczeństwo oraz skalowalność, wykorzystując nowoczesny stos technologiczny.",
+      "shots": {
+        "home": "Strona główna generatora: format, tekst i publikacja mema w kilka sekund.",
+        "stack": "Stos technologiczny platformy — od Next.js i Postgresa po silnik rekomendacji.",
+        "moderation": "Moderacja memów: podgląd, akceptacja i usuwanie treści.",
+        "editor": "Edytor mema: wybór szablonu, ramka na obraz lub wideo i warstwa tekstu."
+      }
     },
     "egzoclinic": {
       "title": "EGZOClinic",
       "customer": "EGZOTech.com",
-      "description": "Kompleksowa platforma programowa dla fizjoterapii i neurorehabilitacji. Aplikacja działa na robotycznych urządzeniach medycznych, w tym Stella BIO, Sidra LEG i Meissa OT. Funkcje obejmują progresywną terapię CPM, ćwiczenia wspomagane komputerowo CAM, interfejs graficzny do konfiguracji parametrów EMS, kompleksowe raportowanie z analizą danych EMG, ochronę przed spastycznością, przewodnik rozmieszczenia elektrod, gry rehabilitacyjne i wsparcie wielojęzyczne."
+      "description": "Kompleksowa platforma programowa dla fizjoterapii i neurorehabilitacji. Aplikacja działa na robotycznych urządzeniach medycznych, w tym Stella BIO, Sidra LEG i Meissa OT. Funkcje obejmują progresywną terapię CPM, ćwiczenia wspomagane komputerowo CAM, interfejs graficzny do konfiguracji parametrów EMS, kompleksowe raportowanie z analizą danych EMG, ochronę przed spastycznością, przewodnik rozmieszczenia elektrod, gry rehabilitacyjne i wsparcie wielojęzyczne.",
+      "shots": {
+        "ems": "Parametry stymulacji EMS: czas narastania, plateau i opadania na trzech kanałach.",
+        "login": "Logowanie do urządzenia — wybór istniejącego użytkownika albo nowego konta.",
+        "cpm": "Ćwiczenie CPM kolana i stawu skokowego ze zsynchronizowanym zakresem ruchu.",
+        "emg": "Widok EMG: instrukcja segmentu — relaks, start, pauza i komentarz."
+      }
     },
     "generator": {
       "title": "Generator Pasków",
       "customer": "Rafał Łukawski",
-      "description": "Platforma internetowa do szybkiego tworzenia i udostępniania memów nawiązujących do popularnych polskich programów telewizyjnych. Stworzona od podstaw jako kompletny projekt (full-stack) przy użyciu Next.js i bazy danych PostgreSQL. Użytkownicy mogą wygodnie edytować grafiki, korzystać z gotowych szablonów oraz przeglądać treści na dowolnym urządzeniu. Całość została przygotowana i wdrożona z myślą o stabilnym działaniu produkcyjnym."
+      "description": "Platforma internetowa do szybkiego tworzenia i udostępniania memów nawiązujących do popularnych polskich programów telewizyjnych. Stworzona od podstaw jako kompletny projekt (full-stack) przy użyciu Next.js i bazy danych PostgreSQL. Użytkownicy mogą wygodnie edytować grafiki, korzystać z gotowych szablonów oraz przeglądać treści na dowolnym urządzeniu. Całość została przygotowana i wdrożona z myślą o stabilnym działaniu produkcyjnym.",
+      "shots": {
+        "editor": "Edytor paska satyrycznego na szablonie serwisu informacyjnego.",
+        "feed": "Gotowy mem w feedzie: pasek, wstawka zdjęcia i reakcje."
+      }
     },
     "stella": {
       "title": "Stella BIO App",
       "customer": "EGZOTech.com",
-      "description": "Aplikacja internetowa do konfiguracji i zarządzania przenośnym urządzeniem medycznym Stella BIO (EMG i FES). Umożliwia specjalistom oraz pacjentom zdalne ustawianie programów terapeutycznych, monitorowanie pomiarów i zarządzanie leczeniem. Wspiera rehabilitację kliniczną i domową, oferując m.in. uwierzytelnianie, konfigurację sesji oraz kompleksowe raportowanie."
+      "description": "Aplikacja internetowa do konfiguracji i zarządzania przenośnym urządzeniem medycznym Stella BIO (EMG i FES). Umożliwia specjalistom oraz pacjentom zdalne ustawianie programów terapeutycznych, monitorowanie pomiarów i zarządzanie leczeniem. Wspiera rehabilitację kliniczną i domową, oferując m.in. uwierzytelnianie, konfigurację sesji oraz kompleksowe raportowanie.",
+      "shots": {
+        "emg": "Sesja EMG: 5 sekund pracy i 5 sekund przerwy, z progiem MVC i fazami skurczu.",
+        "login": "Logowanie do Stella BIO: e-mail, hasło i wybór języka."
+      }
     },
     "multibenefit": {
       "title": "Multibenefit",
       "customer": "Benefit Systems",
-      "description": "Platforma e-commerce umożliwiająca pracownikom wybór świadczeń pozapłacowych (m.in. karty MultiSport, vouchery, bilety). Zbudowana od podstaw, wspiera dobrostan zatrudnionych oraz ułatwia pracodawcom dystrybucję benefitów."
+      "description": "Platforma e-commerce umożliwiająca pracownikom wybór świadczeń pozapłacowych (m.in. karty MultiSport, vouchery, bilety). Zbudowana od podstaw, wspiera dobrostan zatrudnionych oraz ułatwia pracodawcom dystrybucję benefitów.",
+      "shots": {
+        "home": "Strona główna programu motywacyjnego z wyszukiwarką ofert.",
+        "catalog": "Katalog benefitów w kategorii Dom i ogród — vouchery i usługi."
+      }
     }
   },
   "certificates": {

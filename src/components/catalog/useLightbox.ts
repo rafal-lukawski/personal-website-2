@@ -16,25 +16,52 @@ const SWIPE_MIN = 48;
  */
 export function useLightbox(projects: readonly CatalogProject[]) {
   const [target, setTarget] = useState<{ projectId: string; index: number } | null>(null);
+  const [direction, setDirection] = useState<-1 | 1>(1);
+  const [moveId, setMoveId] = useState(0);
+  const targetRef = useRef(target);
 
-  const open = useCallback((projectId: string, index = 0) => setTarget({ projectId, index }), []);
-  const close = useCallback(() => setTarget(null), []);
+  const open = useCallback((projectId: string, index = 0) => {
+    const next = { projectId, index };
+    targetRef.current = next;
+    setDirection(1);
+    setMoveId(0);
+    setTarget(next);
+  }, []);
+  const close = useCallback(() => {
+    targetRef.current = null;
+    setTarget(null);
+  }, []);
+
+  const go = useCallback((index: number, dir: -1 | 1) => {
+    const current = targetRef.current;
+    if (!current || current.index === index) return;
+    const next = { projectId: current.projectId, index };
+    targetRef.current = next;
+    setDirection(dir);
+    setMoveId((id) => id + 1);
+    setTarget(next);
+  }, []);
+
   const select = useCallback(
-    (index: number) => setTarget((current) => (current ? { ...current, index } : current)),
-    [],
+    (index: number) => {
+      const current = targetRef.current;
+      if (!current || current.index === index) return;
+      go(index, index > current.index ? 1 : -1);
+    },
+    [go],
   );
 
   const step = useCallback(
     (dir: -1 | 1) => {
-      setTarget((current) => {
-        if (!current) return current;
-        const project = projects.find((item) => item.id === current.projectId);
-        if (!project) return current;
-        const length = project.screenshots.length;
-        return { projectId: current.projectId, index: (current.index + dir + length) % length };
-      });
+      const current = targetRef.current;
+      if (!current) return;
+      const project = projects.find((item) => item.id === current.projectId);
+      if (!project) return;
+      const length = project.screenshots.length;
+      if (length < 2) return;
+      go((current.index + dir + length) % length, dir);
     },
-    [projects],
+    [go, projects],
   );
 
   const swipeFrom = useRef<{ x: number; y: number } | null>(null);
@@ -88,6 +115,8 @@ export function useLightbox(projects: readonly CatalogProject[]) {
     close,
     select,
     step,
+    direction,
+    moveId,
     swipeHandlers,
   };
 }

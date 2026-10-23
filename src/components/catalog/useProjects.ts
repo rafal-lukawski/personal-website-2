@@ -51,6 +51,7 @@ export function useProjects() {
           screenshots: project.screenshots.map((screen, shotIndex) => ({
             ...screen,
             alt: `${title} ${shotIndex + 1}`,
+            caption: t(`projects.${project.id}.shots.${screen.id}`),
           })),
           statusLabel: t(`hud.projectStatus.${project.status}`),
           slotLabel: slot,
