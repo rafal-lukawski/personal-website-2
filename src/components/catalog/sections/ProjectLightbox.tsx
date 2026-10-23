@@ -94,16 +94,13 @@ function shotSize(ratio: number) {
 const resize = (property: string, reduced: boolean) =>
   reduced ? "none" : `${property} ${SWAP_MS}ms ease-out`;
 
+/** Colours, hover and corner ticks come from `NavFab`, so both schemes apply. */
 const navSx = {
   top: "50%",
   width: 44,
   height: 60,
   zIndex: 6,
-  color: "#e6f1f5",
   fontSize: 22,
-  background: "rgba(18, 30, 36, 0.78)",
-  "&::after": { background: "none" },
-  "&:hover": { color: "#fff", background: "rgba(18, 30, 36, 0.92)" },
 };
 
 /**
