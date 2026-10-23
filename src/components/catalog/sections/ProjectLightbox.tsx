@@ -76,10 +76,23 @@ const PAD = "var(--tc-lightbox-pad)";
 
 const hairline = `color-mix(in srgb, ${hud.frame} 45%, transparent)`;
 
-function stackWidth(ratio: number) {
-  const imageCap = `calc(max(120px, 100cqh - ${CHROME_H}px) * ${ratio} + 2 * ${PAD} + 4px)`;
-  return `min(100cqw, ${imageCap})`;
+/** Gutters on both sides plus the gap between the corner ticks and the shot. */
+const SIDES = `2 * ${PAD} + 4px`;
+
+/**
+ * Both dimensions are spelled out, not left to the image, so the frame can
+ * ease between shots of different proportions instead of jumping.
+ */
+function shotSize(ratio: number) {
+  const width = `min(100cqw - ${SIDES}, max(120px, 100cqh - ${CHROME_H}px) * ${ratio})`;
+  return {
+    frameWidth: `calc(${width} + ${SIDES})`,
+    height: `calc(${width} / ${ratio})`,
+  };
 }
+
+const resize = (property: string, reduced: boolean) =>
+  reduced ? "none" : `${property} ${SWAP_MS}ms ease-out`;
 
 const navSx = {
   top: "50%",
@@ -93,25 +106,31 @@ const navSx = {
   "&:hover": { color: "#fff", background: "rgba(18, 30, 36, 0.92)" },
 };
 
+/**
+ * Fills the shot box. Mid-resize the box has neither shot's proportions, so
+ * the incoming one is cropped from the top and the outgoing one letterboxed.
+ */
 function ShotPicture({
   shot,
   decorative = false,
-  cover = false,
+  fit = "cover",
 }: {
   shot: CatalogShot;
   decorative?: boolean;
-  cover?: boolean;
+  fit?: "cover" | "contain";
 }) {
   return (
     <Image
       src={shot.src}
       alt={decorative ? "" : shot.alt}
       sizes="(max-width: 1120px) calc(100vw - 80px), 960px"
-      style={
-        cover
-          ? { display: "block", width: "100%", height: "100%", objectFit: "contain" }
-          : { display: "block", width: "100%", height: "auto" }
-      }
+      style={{
+        display: "block",
+        width: "100%",
+        height: "100%",
+        objectFit: fit,
+        objectPosition: fit === "cover" ? "top" : "center",
+      }}
     />
   );
 }
@@ -142,7 +161,7 @@ export function ProjectLightbox({
   const swapping = moveId > 0 && !reduced;
   const leave = direction > 0 ? shotLeaveNext : shotLeavePrev;
   const enter = direction > 0 ? shotEnterNext : shotEnterPrev;
-  const ratio = shot ? shot.src.width / shot.src.height : 1;
+  const size = shotSize(shot ? shot.src.width / shot.src.height : 1);
 
   return (
     <LightboxDialog
@@ -157,8 +176,9 @@ export function ProjectLightbox({
             position: "relative",
             display: "flex",
             flexDirection: "column",
-            width: stackWidth(ratio),
+            width: size.frameWidth,
             maxWidth: "100%",
+            transition: resize("width", reduced),
             maxHeight: "100%",
             m: "auto",
             flexShrink: 0,
@@ -251,6 +271,8 @@ export function ProjectLightbox({
                 sx={{
                   position: "relative",
                   overflow: "hidden",
+                  height: size.height,
+                  transition: resize("height", reduced),
                   ...(reduced
                     ? {}
                     : { animation: `${shotLock} ${SHOT_LEAD}ms ease-out both`, ...still }),
@@ -269,15 +291,23 @@ export function ProjectLightbox({
                     }}
                   >
                     <Box sx={{ width: "100%", height: "100%", animation: `${glitch} 180ms linear` }}>
-                      <ShotPicture shot={outgoing} decorative cover />
+                      <ShotPicture shot={outgoing} decorative fit="contain" />
                     </Box>
                   </Box>
                 )}
                 <Box
                   key={shot.src.src}
-                  sx={swapping ? { animation: `${enter} ${SWAP_MS}ms ease-out`, ...still } : undefined}
+                  sx={{
+                    height: "100%",
+                    ...(swapping ? { animation: `${enter} ${SWAP_MS}ms ease-out`, ...still } : {}),
+                  }}
                 >
-                  <Box sx={swapping ? { animation: `${glitch} 180ms linear`, ...still } : undefined}>
+                  <Box
+                    sx={{
+                      height: "100%",
+                      ...(swapping ? { animation: `${glitch} 180ms linear`, ...still } : {}),
+                    }}
+                  >
                     <ShotPicture shot={shot} />
                   </Box>
                 </Box>
